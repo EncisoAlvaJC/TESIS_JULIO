@@ -1,0 +1,478 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Matemáticas}
+
+Existe una larga tradición para entender --y modelar-- las señales electrofisiológicas en términos 
+de ondas y frecuencias, ya que fundamentalmente son fenómenos eléctricos \cite{Kaiser00}.
+En el presente trabajo se aborda el enfoque usual de asociar la \textit{energía} de una señal con 
+su varianza, y usar la transformada de Fourier para estudiar como se \textit{reparte} dicha energía
+entre los \textit{componentes de frecuencia}. 
+%
+Para modelar los registros de PSG como procesos estocásticos conviene mencionar que
+\begin{itemize}
+\item Usar un modelo estocástico para las señales no implica suponer que son aleatorias, sino que 
+en principio no se rechaza el no-determinismo
+\item Las señales ocurren efectivamente \textit{a tiempo continuo} aunque sólo son 
+registrables \textit{a tiempo discreto}, lo cual es importante dentro del modelo
+\end{itemize}
+
+El objetivo principal de este trabajo es estudiar si el modelo descrito admite --en el sentido 
+estadístico-- algunas propiedades, entre las cuales destaca la estacionariedad débil, y cómo la 
+información recabada durante la comparación puede relacionarse con las fases de sueño y el PDC.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Frecuencia y energía}
+
+%Para estudiar formalmente a la transformada de Fourier y sus propiedades, cuando menos las 
+%relevantes como modelo, han de presentarse los espacios de funciones para las cuales \textit{tiene 
+%sentido}; tarea que es ejecutada en el anexo A.
+
+La \textbf{transformada de Fourier \textit{clásica}} ($\mathscr{F} $) se entiende formalmente como 
+un operador\footnote{Un operador es efectivamente una función, cuyo dominio es un conjunto de 
+funciones; toma un nombre distinto para evitar confusiones} que asocia una función $S=S(t)$,
+periódica con periodo $2T$, con una serie $A = A(n),  {n\in \Z}$ tal que
+\begin{equation}
+A(n) = \frac{1}{2T} \int_{-T}^{T} S(t) e^{ -i t \frac{n}{2T}} dt
+\label{txt_s_fourier}
+\end{equation}
+%
+donde el factor $\frac{n}{2T}$ es referido como \textit{frecuencia}; y se dice que 
+$\mathscr{F}[S] = A$. Los detalles formales sobre $\mathscr{F}$ se exponen en el anexo A.
+%
+Con respecto a la \textbf{energía}, de manera operativa ésta se define 
+como\footnote{Potencia = Energía / Tiempo, ver anexo A}
+\begin{equation}
+\text{potencia}[S]_{[a,b]} = \frac{1}{b-a} \int_a^{b} \abso{S(t)}^{2} dt
+\label{txt_potencia}
+\end{equation}
+
+La relación de Parseval permite caracterizar la potencia de una señal si ésta admite una tr. de
+Fourier bien definida
+%
+\begin{equation}
+\int_{-T}^{T} \abso{S(t)}^{2} dt = \sum_{n=-\infty}^{\infty} \abso{A(n)}^{2}
+\label{txt_parseval}
+\end{equation}
+
+Reemplazando la expresión \ref{txt_parseval} sobre la definición de potencia, el módulo de la tr. 
+de Fourier puede verse como indicador de como se \textit{distribuye} la energía de la señal $S$,
+motivo por el cual es referido como \textbf{espectro de potencia}.
+En las diferentes genralizaciones que se presentan, se busca conservar tal interpretación.
+%
+%Por ejemplo, si $S$ no es periódica pero cumple que $\intR \abso{S(t)} dt < \infty$, entonces
+%puede definirse
+%
+%\begin{equation*}
+%A(\omega) = \intR S(t) e^{- i \omega t} dt
+%\end{equation*}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Estacionariedad débil}
+
+En el sentido formal un \textbf{proceso estocástico}\footnote{Durante el texto será referido 
+simplemente como \textbf{proceso}, por comodidad} \xt es una colección de \textit{variables 
+aleatorias} (VA) indexadas.
+El significado preciso y formal de los conceptos mencionados en la presente sección se discuten en
+el anexo B.
+
+El conjunto $T \in \R$ que indexa a un proceso, referido como \textit{tiempo}, se considerará como 
+un intervalo cerrado (\textbf{tiempo continuo}) o bien un suconjunto de 
+$\left\{ t \in \R | {t} \cdot {\Delta_t} \in \Z \right\} $  para algún $\Delta_t$ 
+(\textbf{tiempo discreto}).
+Estos procesos suelen ser referidos como \textit{univariados} o \textit{series de tiempo}.
+%
+Las diferentes partes de un proceso estocástico serán denotadas como:\\
+
+\begin{tabular}{cl}
+\xt & Todo el proceso \\
+$X(t)$ & Una VA que compone al proceso, en el tiempo $t$ \\
+$x(t)$ & Una realización de $X(t)$ \\
+$F_{X(t)}$ & Función de propbabilidad acumulada para $X(t)$ \\
+$ {\Delta_t}$ & Frecuencia de muestreo (sólo en tiempo discreto)
+\end{tabular}\\
+
+La estacionariedad es un indicativo de la \textit{homogeneidad} de un proceso, un proceso 
+fuertemente estacionario se compone de VA que tienen la misma distribución y distribuciones
+conjuntas que no dependen del tiempo (definición ??); tal característica usualmente se considera
+\textit{innecesariamente} fuerte y se reemplaza por la siguiente
+
+\begin{definicion}%[Estacionariedad débil]
+Un proceso \xt es \textbf{débilmente estacionario} si y sólo si para cualesquiera tiempos 
+admisibles\footnote{\textbf{Tiempos admisibles} significa que la definición es la misma para tiempo
+y discreto, bajo las restricciones pertinente} $t$, $s$ se tiene que
+\begin{itemize}
+\item $\E{X(t)} = \mu_X$
+\item $\Var{X(t)} = \sigma^{2}_X$
+\item $\Cov{X(t),X(s)} = R_X (s-t)$
+\end{itemize}
+Donde $\mu_X$, $\sigma^{2}_X$ son constantes, $\rho_X(\tau)$ es una función que únicamente 
+depende de $\tau$
+%\label{est_orden_primera}
+\end{definicion}
+
+Por simplicidad de notación, a lo largo del texto los procesos débilmente estacionarios serán 
+referidos simplemente como \textit{estacionarios}. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Función de densidad espectral}
+
+La forma más natural de definir un espectro de potencias para un proceso estacionario 
+es a través de la tr. de Fourier de sus realizaciones. Sin embargo, en general no se puede 
+garantizar que quede \textit{bien definida}\footnote{Dos problemas presentes al definir una cantidad 
+como el resultado de un procedimiento, es garantizar que (1) el procedimiento efectivamente arroje 
+algún resultado y (2) que bajo diferentes 
+el mismo resultado 
+independientemente de lconstante} de esa manera: la señal puede no ser periódica, 
+cuadrado-integrable, uniformemente continua, etc.
+%
+Este problema se aborda restringiendo el tiempo a un conjunto \textit{sin problemas}, para luego
+considerar el límite cuando tal conjunto tiende a su \textit{forma original}.
+
+\begin{definicion}%[Función de densidad espectral]
+Sea \xt un proceso estacionario a tiempo continuo. Se define su \textbf{función de densidad 
+espectral} como
+\begin{equation}
+h(\omega) = \frac{1}{2 \pi} \lim_{T\rightarrow \infty} \E{ \frac{1}{2T} 
+\abso{ \int_{-T}^{T} X(t) e^{-i \omega t} dt}^{2} }
+\label{txt_FDE_cont}
+\end{equation}
+\end{definicion}
+
+\begin{definicion}%[Función de densidad espectral]
+Sea $\{X(t)\}_{\nicefrac{t}{\Delta_t}\in \Z}$ un proceso estacionario a tiempo discreto. Se 
+define su \textbf{función de densidad espectral} como
+\begin{equation}
+h(\omega) = \frac{1}{2 \pi} \lim_{N\rightarrow \infty} \E{ \frac{1}{2N} 
+\abso{ \sum_{n=-N}^{N} X(n \Delta_t) e^{-i \omega n \Delta_t}}^{2} }
+\label{txt_FDE_disc}
+\end{equation}
+\end{definicion}
+
+Los detalles formales sobre la definición de la función de densidad espectral (FDE) se discuten en 
+el anexo B; algunas de sus propiedades que conviene resaltar son 
+\begin{itemize}
+\item La FDE de un proceso en tiempo continuo está definida para $\omega \in \R$, y en tiempo
+discreto para $\omega \in [-\pi,\pi]$
+\item Es una función par ($h(-\omega) = h(\omega)$) y no-negativa
+\item $h(0) = \mu_X$, el promedio del proceso
+\item $\int h(\omega) d\omega = \sigma^{2}_X$, la varianza del proceso %_{\boldsymbol{T}}
+\item Como consecuencia de los teorema de Wiener-Khinchin (\ref{t_wienerkhinchin}) y de Wold
+(\ref{t_wold}), y suponiendo que el espectro es continuo, se puede escribir
+\begin{equation}
+R(\tau) = \int_{\boldsymbol{T}} h(\omega) e^{i \omega \tau} d\omega
+\label{txt_r_ft_h}
+\end{equation}
+con $R$ la función de autocovarianza del proceso
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Estimadores}
+
+Cuando se supone la existencia de la FDE es inmediato el querer calcularla; sin embargo, manejar 
+procesos estocásticos implica la imposibilidad de \textit{acceder} a las VA's a partir de 
+observaciones, de modo que el cálculo se basa en realizaciones y no da lugar a un resultado 
+\textit{exacto} (como con la tr. de Foruier) sino una VA.
+
+Sea \xt un proceso estacionario y \xtd una muestra de tamaño $N$ para una realización del proceso.
+%
+Un estimador \textit{natural}\footnote{Comparar las expresiones en \ref{txt_periodograma} y en 
+\ref{txt_FDE_disc}} para la FDE es el \textbf{periodograma}, definido como
+\begin{equation}
+I_N(\omega) = \frac{2}{N} \abso{\sum_{t = 0}^{N} e^{i \omega t} x(t)}^{2}
+\label{txt_periodograma}
+\end{equation}
+
+Como se demuestra en el anexo B, el periodograma es un estimador 
+insesgado\footnote{$\E{I_N(\omega)}=h(\omega)$} pero 
+inconsistente\footnote{$\lim_{N\rightarrow\infty} \Var{I_N(\omega)} = h^{2}(\omega) \neq 0$} para
+la FDE, lo cual lo descalifica para usarse en la práctica.
+
+Para entender --y evitar-- la inconsistencia del periodograma conviene escribirlo de una forma
+equivalente (teorema ??)
+\begin{equation}
+I_N(\omega) = 2 \sum_{\tau = -(N-1)}^{N-1} \widehat{R}^{\star}(\tau) \COS{\omega \tau}
+\label{txt_periodograma2}
+\end{equation}
+%
+donde $\widehat{R}^{\star}$ es un estimador para $R$, la función de autocovarianza, 
+definido como
+\begin{equation}
+\widehat{R}^{\star} (\tau) = \frac{1}{N} \sum_{t = 1}^{N-\abso{\tau}} x_t x_{t+\abso{\tau}}
+\end{equation}
+
+Como se demuestra en el anexo B, el estimador $\widehat{R}^{\star}$ es consistente y sesgado, aunque
+es \textit{asintóticamente insesgado}\footnote{$\lim_{N\rightarrow \infty} 
+\widehat{R}^{\star}(\tau) = R(\tau)$}.
+%
+La expresión \ref{txt_periodograma2} bien puede verse como una versión discreta e invertida de la 
+expresión en \ref{txt_r_ft_h}, tomando en cuenta que la FDE y la función de autocovarianza son 
+simétricas. 
+
+Una ventaja de la segunda forma del periodograma es que puede verse como una suma ponderada de 
+$\widehat{R}^{\star}$ para diferentes valores de $\tau$. 
+Mientras más grande es $\tau$, es menor la cantidad de parejas de puntos cuya distancia en el 
+tiempo es $\tau$, de modo que el estimador $\widehat{R}^{\star}$ tiene más varianza. 
+
+Así entonces, la inconsistencia del periodograma se debe en gran parte a que está construido,
+indirectamente, usando estimadores con varianza muy elevada.
+La solución más natural sería evitar los componentes con mucha varianza, considerando estimadores de 
+la forma
+%
+\begin{equation}
+\widehat{h}(\omega) = \frac{1}{2 \pi} \sum_{\tau = -(N-1)}^{N-1} g(\tau) \widehat{R}^{\star}(\tau) 
+e^{i \omega \tau} 
+\label{txt_estimador}
+\end{equation}
+%
+donde $g$, referida como \textbf{ventana de retrasos}, es una función de que decae 
+\textit{rápidamente} lejos de cero, con el propósito que $\widehat{h}$ sea un estimador
+consistente y aunque se vuelva asintóticamente insesgado.
+%
+En el anexo B se exponen más detalladamente las propiedades de este tipo de estimadores.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Espectro evolutivo, generalidades}
+
+La definición de espectro presentada en la sección anterior, para tiempo continuo y discreto, se
+limita expresamente a procesos estacionarios.
+
+La tarea de definir un espectro de potencias para procesos no-estacionarios\footnote{En el 
+presente trabajo se limita al caso de procesos no-estacionarios \xt tales que $\E{X(t)}<\infty$, 
+$\Cov{X(t),X(s)}$ para cualesquiera tiempos admisibles $s$, $t$} 
+
+
+----------------------------------------------
+
+
+
+En el presente trabajo se ha elegido usar el espectro evolutivo, propuesto por Priesltley en
+1965 \cite{Priestley65} debido a que fue diseñado específicamente para (1) conservar linealidad 
+(2) ser siempre positivo, (3) conservar la interpretación física como distribución de energía
+\cite{Loynes68}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Prueba de Priestley-Subba Rao}
+
+Una propiedad interesante de poder estimar el espectro evolutivo de un proceso, a partir de una 
+realización del mismo, es la capacidad para identificar si éste pudiera reducirse al espectro 
+usual, definido para procesos débilmente estacionarios --bastaría con revisar si el espectro 
+estimado es constante en el tiempo.
+
+La prueba de estacionariedad propuesta por Priestley y Subba Rao en 1969 \cite{Priestley69} tiene 
+como \textit{ingrediente principal} un estimador muy particular para una cantidad que depende del 
+espectro, con propiedades estadísticas adecuadas para detectar la posible estacionariedad.
+
+Sea \xt que se tiene un proceso semi-estacionario y sea \xtd un conjunto de observaciones del 
+proceso, espaciadas uniformemente en el tiempo.
+Se construye a $\widehat{f}$, el estimador de doble ventana definido como en la sección anterior,
+usando las funciones ventana $g_h$ y $w_\tau$, y sus respectivas transformadas de Fourier 
+$\Gamma_h$ y $W_\tau$. Bajo las condiciones descritas, se cumple que aproximadamente
+%
+\begin{itemize}
+\item $\E{\widehat{f}(t,\omega)} \approx f(t,\omega)$
+\item $\Var{\widehat{f}(t,\omega)} \approx 
+\frac{C}{T} f^{2}(t,\omega) \intR \abso{\Gamma^{4}(\theta)} d\theta$
+\end{itemize}
+%
+donde $C = \lim_{T\rightarrow \infty} T \intR \abso{W_T(\lambda)} d\lambda$.
+Se define el estimador $Y(t,\omega) = \log\left(\widehat{f}(t,\omega)\right)$, que tiene 
+las siguientes propiedades
+%
+\begin{itemize}
+\item $\E{Y(t,\omega)} \approx \log\left(f(t,\omega)\right)$
+\item $\Var{Y(t,\omega)} \approx 
+\frac{C}{T} \intR \abso{\Gamma_h(\theta)}^{4} d\theta =: \sigma^{2}$
+\end{itemize}
+%
+
+Cabe destacar que la varianza $Y$ no es formalmente independiente de $f$ sino que es 
+\textit{aproximadamente independiente}, es decir, la varianza de $Y$ depende \textit{más} 
+del propio estimador que del verdadero valor de $\log\circ f$.
+Esto no es tan sorprendente tomando en cuenta el diseño del estimador de doble ventana, que otorga 
+mayor importancia a la información local usando repetidamente la proposición \ref{pseudo_d}. Esta 
+independencia asintótica sugiere que $Y$ puede verse como
+%
+%\begin{equation}
+$Y(t,\omega) = \log\left(f(t,\omega) \right) + \varepsilon(t,\omega)$,
+%\end{equation}
+%
+con $\E{\varepsilon(t,\omega)} \approx 0$ y $\Var{\varepsilon(t,\omega)} \approx \sigma^{2}$.
+
+Más aún, es demostrado en \cite{Priestley66} que si $\abso{\omega-\omega_0}$ es suficientemente 
+grande como para que 
+$\intR \abso{\Gamma_h(\theta+\omega)}^{2}\abso{\Gamma_h(\theta+\omega_0)}^{2} d\theta \approx 0$,
+entonces 
+%
+%\begin{itemize}
+%\item 
+$\Cov{Y(t,\omega),Y(t,\omega_0)} \approx 0$.
+%\end{itemize}
+%
+Similarmente, si $\abso{t-t_0} >> \intR \abso{t} \abso{w_\tau (t)} dt $, entonces
+%
+%\begin{itemize}
+%\item 
+$\Cov{Y(t,\omega),Y(t_0,\omega)} \approx 0$.
+%\end{itemize}
+
+Bajo estas nuevas condiciones, es posible construir una versión discretizada de $Y$ tal que los 
+componentes $\varepsilon$ sean estadísticamente independientes. Para ello se define una malla de 
+puntos $(t_i,\omega_j)$, con $i = 1,\dots,I$ y  $j=1,\dots,J$, y posteriormente a la matriz $Y$ 
+como $Y_{i,j} = Y(t_i,\omega_j)$, que satisface
+%
+\begin{itemize}
+\item $Y_{i,j} = \log\left(f(t_i,\omega_j)\right) + \varepsilon_{i,j}$
+\item $\E{\varepsilon_{i,j}} \approx 0$
+\item $\Var{\varepsilon_{i,j}} \approx \sigma^{2} = 
+\frac{C}{T} \intR \abso{\Gamma_h(\theta)}^{4} d\theta$
+\item $\Cov{\varepsilon_{i,j},\varepsilon_{i_0,j_0}} \approx 0$ siempre que $(i,j)\neq (i_0,j_0)$
+\end{itemize}
+
+Si el número de puntos es \textit{suficientemente grande}, entonces
+las componentes de $Y$ siguen distribuciones aproximadamente normales, de modo que
+$\varepsilon_{i,j} \sim N(0,\sigma^{2})$.
+
+Habiendo definido al estimador $Y$ según de esta forma en su versión discretizada (proceso resumido
+en el gráfico \ref{algoritmo_stationarity}), es posible definir criterios estadísticos para determinar la 
+estacionariedad débil usando a $Y$. El primer caso es definir, como hipótesis nula, un modelo 
+general
+%
+\begin{equation*}
+H_0 : \hspace{1em} Y_{i,j} = \mu + \alpha_i + \beta_j + \gamma_{i,j} + \varepsilon_{i,j}
+\end{equation*}
+%
+donde $\varepsilon$ son como se definieron anteriormente. Respecto a los otros parámetros, $\mu$ 
+representa el promedio de $Y$ (así $\alpha$, $\beta$, $\gamma$ tienen media cero), $\alpha$ y 
+$\beta$ son las \textit{variaciones} de $Y$ en el tiempo y las frecuencias, respectivamente, y 
+$\gamma$ abarca las \textit{variaciones} no-lineales; $\gamma$ y $\varepsilon$ se diferencian en 
+que por diseño se sabe que $\varepsilon_{i,j} \sim N(0,\sigma^{2})$, mientras que no se ha supuesto 
+nada sobre $\gamma$.
+
+Para determinar la estacionariedad se define, como hipótesis alterna, un modelo el $Y$ es 
+efectivamente constante en el tiempo
+%
+\begin{equation*}
+H_A : \hspace{1em} Y_{i,j} = \mu + \alpha_i + \varepsilon_{i,j}
+\end{equation*}
+%
+posteriormente se prueba si se puede rechazar $H_0$ a favor de $H_A$; para ello se evalúan los 
+estadísticos de el cuadro \ref{cantidades_psr} y se verifican las hipótesis 
+$\nicefrac{S_{I+R}}{\sigma^{2}} = 0$ (para $\gamma=0$)  y $\nicefrac{S_T}{\sigma^{2}} = 0$ (para 
+$\beta=0$).
+Por cómo se construyeron, estos estadísticos tienen distribuciones $\chi^{2}$, con los grados de 
+libertad indicados indicados en el cuadro.
+
+\begin{table}
+\centering
+\bordes{1.1}
+\begin{tabular}{llc}
+\toprule
+\multicolumn{2}{l}{{Estadístico}} & {Gr. de libertad} \\
+\midrule
+$S_T$ & $=J \sum_{i=1}^{I} \left( Y_{i,\bullet} - Y_{\bullet,\bullet} \right)^{2}$ 
+& $I-1$ \\
+$S_F$ & $= I \sum_{j=1}^{J} \left( Y_{\bullet,j} - Y_{\bullet,\bullet} \right)^{2}$ 
+& $J-1$ \\
+$S_{I+R}$ & $= \sum_{i=1}^{I} \sum_{j=1}^{J} 
+\left( Y_{i,j} - Y_{i,\bullet} - Y_{\bullet,j} + Y_{\bullet,\bullet} \right)^{2}$ 
+& $(I-1)(J-1)$ \\
+%\midrule
+\rowcolor{gris}
+$S_{0}$ & $= \sum_{i=1}^{I} \sum_{j=1}^{J} 
+\left( Y_{i,j} - Y_{\bullet,\bullet} \right)^{2}$ 
+& $IJ -1$ \\
+\midrulec
+$Y_{i,\bullet}$ & $= \frac{1}{J} \sum_{j=1}^{J} Y_{i,j}$ & \\
+$Y_{\bullet,j}$ & $= \frac{1}{I} \sum_{i=1}^{I} Y_{i,j}$ & \\
+$Y_{\bullet,\bullet}$ & $= \frac{1}{I J} \sum_{i=1}^{I} \sum_{j=1}^{J} Y_{i,j}$ & \\
+\bottomrule
+\end{tabular}
+\caption{Estadísticos involucrados en la prueba PSR}
+\label{cantidades_psr}
+\end{table}
+
+Cabe mencionar que en la formulación original de la prueba de PSR se exploran algunas otros modelos 
+que pueden ser verificadas usando el estimador $Y$, descritos en el cuadro \ref{modelos}.
+Los procesos \textbf{uniformemente modulados} (UM) necesariamente pueden expresarse como 
+$X(t) = S(t) X_0(t)$, donde $\{X_0(t)\}_{t\in T}$ es un proceso débilmente estacionario.
+
+Para un proceso UM, si se hace a $S$ constante ($\beta = 0$) se obtiene un proceso débilmente 
+estacionario. En otro modelo, si se hace a $f_0$ constante\footnote{Lo cual 
+sólo es físicamente relevante si el proceso es a tiempo discreto} ($\alpha = 0$) entonces el 
+proceso puede interpretarse como un proceso ruido blanco (definición ??) multiplicado en el tiempo 
+por una función arbitraria.
+
+\begin{table}
+\centering
+\begin{tabular}{lcc}
+\toprule
+{Modelo} & {Estacionario} & {UM} \\
+\midrule
+$H_0 : \hspace{.5em} Y_{i,j} = \mu + \alpha_i + \beta_j + \gamma_{i,j} + \varepsilon_{i,j}$
+& \ding{55} & \ding{55} \\
+$H_1 : \hspace{.5em} Y_{i,j} = \mu + \alpha_i + \beta_j + \varepsilon_{i,j}$ 
+& \ding{55} & \ding{51} \\
+$H_2 : \hspace{.5em} Y_{i,j} = \mu + \alpha_i + \varepsilon_{i,j}$ 
+& \ding{51} & \ding{51} \\
+$H_3 : \hspace{.5em} Y_{i,j} = \mu + \beta_j + \varepsilon_{i,j}$ 
+& \ding{55} & \ding{51} \\
+\bottomrule
+\end{tabular}
+\caption{Modelos que pueden ser contrastados usando la prueba PSR}
+\label{modelos}
+\end{table}
+
+\begin{algorithm}
+%\SetAlgoLined
+\DontPrintSemicolon
+\KwData{$X = \left(x_1, x_2, \cdots, x_N \right)$}
+\KwResult{p-valores para $S_{I+R} = 0$, $S_T = 0$, $S_F = 0$}
+%initialization\;
+
+$ X \leftarrow \left(x_1, x_2, \cdots, x_N \right)$\;
+\For{$i = 1, \cdots$; $j=1, \cdots $}{
+    $ U[i,j] \leftarrow \sum_{u = t-T}^{T} g(u) X[t-u] \exp\left(-\boldsymbol{i} \omega_j i\right)$ \;
+}
+\For{$i = 1, \cdots$; $j=1, \cdots $}{
+    $ \widehat{f}[i,j] \leftarrow \sum_{u = t-T}^{T} w_\tau (u) \abso{U[i-u,j]}^{2}$ \;
+}
+$Y \leftarrow \log{\widehat{f}}$\;
+\For{$i=1,\cdots, I$}{
+    $Y_{i,\bullet} = \frac{1}{J} \sum_{j=1}^{J} Y_{i,j}$\;
+}
+\For{$j=1,\cdots, J$}{
+    $Y_{\bullet,j} = \frac{1}{I} \sum_{i=1}^{I} Y_{i,j}$\;
+}
+$Y_{\bullet,\bullet} = \frac{1}{I J} \sum_{i=1}^{I} \sum_{j=1}^{J} Y_{i,j}$ \;
+%\displaystyle
+
+\caption{Prueba de Priestley-Subba Rao}
+\label{algoritmo_stationarity}
+\end{algorithm}
+
+
+%\subsubsection{Implementación}
+%
+%%Para poder usar efectivamente la prueba de PSR en el análisis de señales electrofisiológicas, ésta 
+%%debe ser ejecutada por una computadora. 
+%Conviene destacar que la prueba de PSR se encuentra implementada para el software estadístico R 
+%\cite{R_citar}, dentro del paquete \texttt{fractal} \cite{R_fractal}; esta implementeación en 
+%particular fue usada para los analizar las series de tiempo.
+%
+%La prueba se encuentra normalizada para 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

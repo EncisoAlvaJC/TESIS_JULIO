@@ -1,0 +1,209 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Introducción}
+
+Gracias a los avances médicos del último siglo, ha incrementado la esperanza de vida y la calidad
+de vida; desafortunadamente también ha aumentado la presencia de enfermedades no-transmisibles 
+asociadas con la edad, de las cuales no se han identificado factores causales 
+\cite{PlanAlzheimer04}.
+%
+Particularmente en México, el sector de la población en reisgo (individuos con más de 60 años) fue 
+de 10 millones de personas en 2010, y se estima que son 12 millones y medio en 2015 
+\cite{Censo10,Intercensal15}.
+
+%En México el sector de la población en riesgo\footnote{En el presente trabajo se consideran a los
+%\textbf{adultos mayores}, personas mayores de 70 años} era de 10 millones de personas en 2010 
+%\cite{Censo10}, aunque se estima que ha aumentado a 12 millones y medio en 2015 
+%\cite{Intercensal15}.
+
+De entre las enfermedades ante las cuales este grupo de edad es vulnerable, en este trabajo se 
+destaca la demencia. 
+La demencia consiste en el desarrollo de déficit cognoscitivos suficientemente graves como para 
+interferir en las actividades laborales y sociales.
+%
+El deterioro cognitivo característico de la demencia se considera irreverible, debido a lo cual 
+ha surgido un gran interés en definir y diagnosticar etapas tempranas de este padecimiento con el 
+fin de evitar en lo posible dicho síntoma.
+
+%
+Como ejemplo Petersen [?]
+%Petersen, R. C., Doody, R., Kurz, A., Mohs, R. C., Morris, J. C., Rabins, P.
+%V., ... & Winblad, B. (2001). Current concepts in mild cognitive impairment.
+%Archives of neurology, 58(12), 1985-1992.
+define una muy detallada escala de subtipos para el deterioro cognitivo, basándose principalmente
+en criterios psicológicos orientados a la funcionalidad del paciente;
+%
+en contraparte Montplaisir \cite{Brayet16} reporta asociaciones entre ejecuciones pobres en pruebas
+neuropsicológicas y atrofias en el hipocampo, detectadas usando resonancia magnética funcional.
+En el presente trabajo se otorga cierta preferencia a los criterios basados en registros 
+electrofisiológicos, ya que son más fáciles de cuantificar; se mantiene una conexión 
+estrecha con los criterios neuropsicológicos.
+
+Cabe destacar que 
+la convergencia de enfoques entre distintos niveles del sujeto (conductual, sistémico) no sería
+posible sin un cuerpo común de modelos y métodos que permitan entender los datos recabados dentro
+de un mismo marco conceptual centrado en el sujeto de estudio (el deterioro cognitivo);
+es bajo estas circunstancia que emerge el estudio de los métodos de análisis \textit{per se}
+como una necesidad ante la innovación tecnológica acelerada, que en fechas recientes ha hecho
+de uso común el registro y procesamiento de conjuntos masivos datos.
+
+El principal problema que se aborda en el presente trabajo comienza en que las señales
+electrofisiológicas típicamente son complejas, y representan procesos no--lineales y 
+no--estacionarios; sin embargo, las herramientas para analizar tales datos a menudo siguen 
+asumiendo linealidad y estacionariedad.
+A consecuencia de lo anterior, los conjuntos de datos pueden contener
+información \textit{oculta} y que puede ser de valor clínico; o información que no es extraída y 
+manejada de forma apropiada, y por tanto puede no ser representativa del fenómeno que se estudia. 
+%En este trabajo de tesis
+%se pretende usar herramientas matemáticas que involucren la no linealidad.
+%El análisis fractal es uno de los nuevos enfoques más prometedores para
+%extraer información oculta. La cual ayudará a tener una idea más clara de
+%lo que puede ocurrir a largo plazo, o bien de los cambios que se están pre-
+%sentando en los diferentes contextos de manera más clara y sencilla, con
+%resultados concretos y exactos. Proporcionando ası́ una herramienta, que
+%permita mostrar cambios en las distintas maniobras experimentales y/o en
+%aplicaciones clı́nicas con distintas patologı́as.
+
+En el presente trabajo se exponen herramientas relativas a verificar (en el sentido estadístico)
+la estacionariedad débil en series de tiempo, un supuesto básico para calcular el espectro de potencias; esta cantidad,
+calculada para el polisomnograma,
+ha sido reportada como relacionada con el deterioro cognitivo [?,?,?].
+
+%En algunos estudios de gran escala se han hallado correlaciones entre diferentes trastornos del 
+%sueño y algún grado de deterioro cognitivo objetivo en adultos mayores 
+%\cite{Amer13,Miyata13,Reid06,Potvin12}; entendiendo por ello una ejecuciones más pobres en tareas
+%cognitivas, pero que no impiden llevar a cabo actividades cotidianas.
+
+%En 2016 Vázquez-Tagle y colaboradores estudiaron la epidemiología del deterioro cognitivo en 
+%adultos mayores dentro del estado de Hidalgo y su posible relación con trastornos de sueño, 
+%encontrando una correlación entre una menor eficiencia del sueño\footnote{Porcentaje de tiempo
+%de sueño respecto al tiempo en cama} y la presencia de deterioro cognitivo \cite{VazquezTagle16}.
+
+%En un segundo trabajo por García-Muñoz y colaboradores \cite{Valeria} se analizaron 
+%registros de polisomnograma (PSG) 
+%%datos de PSG 
+%para detectar posibles cambios en la conectividad funcional del cerebro\footnote{La 
+%\textbf{conectividad funcional} se refiere una \textit{fuerte} relación (cuantificada) entre dos 
+%señales, y usualmente se contrasta con la \textbf{conectividad anatómica}, entendida como conexiones 
+%físicas entre los generadores de señales} en adultos mayores con posible deterioro 
+%cognitivo (PDC), reportando un mayor exponente de Hurst para registros de PSG en adultos mayores 
+%con PDC \cite{Valeria}.
+%El exponente de Hurst, calculado a través del algoritmo \textit{Detrended Fluctuation Analysis}, 
+%está relacionado con las correlaciones de largo alcance y la estructura fractal de una serie de 
+%tiempo, siendo que un mayor exponente está asociado con señales cuya función de 
+%autocorrelación decrece más lentamente \cite{Rodriguez11}.
+%Con base a que en aquellos trabajos se ha supuesto que los registros de PSG son no-estacionarios, 
+%en este trabajo se pretende verificar si efectivamente estas señales se pueden considerar con tal
+%característica.
+
+%El supuesto de estacionariedad es básico en el estudio de series de tiempo, y usualmente se 
+%acepta o rechaza sin un tratamiento formal; es de particular importancia, por ejemplo, para 
+%calcular el espectro de potencias a partir de registros.
+%La idea de que sujetos con PDC exhiben estacionariedad débil en sus registros de EEG en mayor 
+%proporción, respecto a individuos sanos, fue sugerida por Cohen \cite{Cohen77}, quien a su vez se 
+%refiere a trabajos anteriores sobre estacionariedad y normalidad en registros de EEG 
+%\cite{McEwen75,Sugimoto78,Kawabata73}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%El presente trabajo resulta de una colaboración con el departamento de Geron-
+%tologı́a, dependiente del Instituto de Ciencias de la Salud (ICSA); parte de esta
+%colaboración incluye el acceso a los registros de PSG obtenidos por Vázquez Tagle y
+%colaboradores [40].
+
+\section{Antecedentes}
+
+En algunos estudios de gran escala se han hallado correlaciones entre diferentes trastornos del 
+sueño y algún grado de deterioro cognitivo objetivo en adultos mayores 
+\cite{Amer13,Miyata13,Reid06,Potvin12}; entendiendo por ello una ejecuciones más pobres en tareas
+cognitivas, pero que no impiden llevar a cabo actividades cotidianas.
+
+En 2016 Vázquez-Tagle y colaboradores estudiaron la epidemiología del deterioro cognitivo en 
+adultos mayores dentro del estado de Hidalgo y su posible relación con trastornos de sueño, 
+encontrando una correlación entre una menor eficiencia del sueño\footnote{Porcentaje de tiempo
+de sueño respecto al tiempo en cama} y la presencia de deterioro cognitivo \cite{VazquezTagle16}.
+
+%En un segundo trabajo por García-Muñoz y colaboradores \cite{Valeria} se analizaron 
+%registros de polisomnograma (PSG) 
+%%datos de PSG 
+%para detectar posibles cambios en la conectividad funcional del cerebro\footnote{La 
+%\textbf{conectividad funcional} se refiere una \textit{fuerte} relación (cuantificada) entre dos 
+%señales, y usualmente se contrasta con la \textbf{conectividad anatómica}, entendida como conexiones 
+%físicas entre los generadores de señales} en adultos mayores con posible deterioro 
+%cognitivo (PDC), reportando un mayor exponente de Hurst para registros de PSG en adultos mayores 
+%con PDC \cite{Valeria}.
+%El exponente de Hurst, calculado a través del algoritmo \textit{Detrended Fluctuation Analysis}, 
+%está relacionado con las correlaciones de largo alcance y la estructura fractal de una serie de 
+%tiempo, siendo que un mayor exponente está asociado con señales cuya función de 
+%autocorrelación decrece más lentamente \cite{Rodriguez11}.
+%Con base a que en aquellos trabajos se ha supuesto que los registros de PSG son no-estacionarios, 
+%en este trabajo se pretende verificar si efectivamente estas señales se pueden considerar con tal
+%característica.
+
+%El supuesto de estacionariedad es básico en el estudio de series de tiempo, y usualmente se 
+%acepta o rechaza sin un tratamiento formal; es de particular importancia, por ejemplo, para 
+%calcular el espectro de potencias a partir de registros.
+%La idea de que sujetos con PDC exhiben estacionariedad débil en sus registros de EEG en mayor 
+%proporción, respecto a individuos sanos, fue sugerida por Cohen \cite{Cohen77}, quien a su vez se 
+%refiere a trabajos anteriores sobre estacionariedad y normalidad en registros de EEG 
+%\cite{McEwen75,Sugimoto78,Kawabata73}.
+%%Cabe mencionar que en estos primeros estudios se palpa la posibilidad de que los registros de EEG 
+%%fueran 'ruido' de algún tipo, una idea que se ha probado errónea en estudios más recientes 
+%%\cite{Klonowski09}; sin embargo, se retoma como hipótesis a la luz de los estudios mencionados. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\section{Justificación}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Pregunta de investigación}
+
+¿Los registros de PSG\footnote{Polisomnograma: actividad eléctrica del cerebro durante el sueño,
+además de otros marcadores como la actividad ocular o la respiración} en adultos mayores, pueden
+considerarse como series tiempo débilmente estacionarias?
+¿Es posible que tal caracterización se relacione con el estado cognitivo general del adulto mayor?
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Hipótesis}
+
+Existen diferencias en la actividad eléctrica cerebral en adultos mayores con PDC, respecto
+a individuos sanos, y es posible detectar dichas diferencias como una mayor o menor \textit{presencia} 
+de estacionariedad débil en registros de PSG durante el sueño profundo.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Objetivo general}
+
+Deducir, a partir de pruebas estadísticas formales, las presencia de estacionariedad débil en
+registros de PSG para adultos mayores con PDC, así como individuos control.
+Usar estas pruebas para vigilar registros de PSG en sueño profundo.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Objetivos específicos}
+
+\begin{itemize}
+\item Estudiar la definición de estacionariedad para procesos estocásticos y sus posibles 
+consecuencias para el modelado de los datos considerados
+
+\item Investigar cómo detectar, como prueba de hipótesis, si una serie de tiempo dada provenga
+de un proceso estocástico débilmente estacionario, y bajo qué supuestos 
+es válida dicha caracterización
+
+\item Analizar si los registros de PSG, durante sueño profundo, son débilmente estacionarios.
+Revisar si se pueden encontrar diferencias significativas entre individuos con y sin PDC
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

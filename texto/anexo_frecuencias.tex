@@ -1,0 +1,262 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Ondas y frecuencias}
+
+\section{Transformada de Fourier como operador}
+
+La exposición inicia con los espacios de las \textbf{series $\boldsymbol{p}$-sumables}
+($\lp$), y las  \textbf{funciones $\boldsymbol{p}$-integrables} sobre un intervalo 
+$I \subseteq \R$ ($\llp$).
+%; en el presente trabajo sólo se usarán los casos $p=1,2$.
+%
+%\begin{align}
+%\ell^{p} &:= \left\{ s: \Z\rightarrow\C \talque \sum_{n=-\infty}^{\infty} \abso{s(n)}^{p} < \infty \right\}
+%\label{lpdef} \\
+%L^{p}[I] &:= \left\{ S: I\rightarrow\C \talque \int_I \abso{S(t)}^{p} dt < \infty \right\}
+%\label{llpdef}
+%\end{align}
+\begin{align*}
+\ell^{p} &:= \left\{ s: \Z\rightarrow\C \talque \sum_{n=-\infty}^{\infty} \abso{s(n)}^{p} < \infty \right\}
+\\
+L^{p}[I] &:= \left\{ S: I\rightarrow\C \talque \int_I \abso{S(t)}^{p} dt < \infty \right\}
+\end{align*}
+
+Estos espacios admiten las operaciones $+$, $\cdot$ y multiplicación por escalares complejos de la 
+manera usual.%, es decir
+
+%\begin{align*}
+%s, z \in \lp, c \in \C \Rightarrow 
+%[s+z](n) &= s(n) + z(n) \\
+%[s\cdot z](n) &= s(n) z(n) \\
+%[c \cdot s](n) &= s(n)c \\
+%S, Z \in \llp, c \in \C \Rightarrow 
+%[S+Z](t) &= S(t) + Z(t) \\
+%[S\cdot Z](t) &= S(t)  Z(t) \\
+%[c \cdot S](t) &= S(t)c
+%\end{align*}
+%
+%En las próximas líneas se seguirán usando $s, z, S, Z, c$.
+
+Para el caso particular $p=2$, los conjuntos $\ldos$ y $\lldos$ admiten los siguientes productos 
+internos:
+%
+\begin{align*}
+\left\langle s,z \right\rangle &= \sum_{n=-\infty}^{\infty} s(n) \overline{z(n)}\\
+\left\langle S,Z \right\rangle &= \int_I S(t) \overline{Z(t)} dt
+\end{align*}
+
+Usando dichos productos internos, junto con las normas y métricas que inducen, los conjuntos 
+$\ldos$ y $\lldos$ tienen estructura de \textbf{espacio de Hilbert}.
+
+Con las definiciones anteriores, que muestran que $\ldos$ y $\lldos$ son \textit{muy}
+parecidos, se puede formular unas definición para la transformada de Fourier como una equivalencia
+entre estos espacios.
+
+%{De manera pragm\'atica, en el presente trabajo la 
+%palabra  'frecuencia' se usar\'a para referirse a la cantidad $q$ en expresiones del tipo 
+%$e^{i q t}$}
+
+\begin{definicion}[Serie de Fourier]
+Sea $S: \R \rightarrow \C$ una función periódica con periodo $2T$ y tal que 
+$S \in L^{2}\left[[-T,T]\right]$. Se dice que $A$ es la serie de Fourier para $S$ si cumple que
+\begin{equation*}
+A(n) = \frac{1}{2 T} \simint{T} S(t) e^{-\nicefrac{ i \abso{n} t}{2T}} dt
+\end{equation*}
+%Adicionalmente, la función $\mathcal{F} : \lldos \rightarrow \ldos : S \mapsto A$  recibe el nombre
+%de \textbf{Transformada de Fourier}
+\label{FourierClasico}
+\end{definicion}
+
+\begin{definicion}[Transformada de Fourier]
+Sean $S$ y $A$ como en la definición \ref{FourierClasico}. Se le llama transformada de Fourier a la
+función $\mathcal{F}_T : L^{2}\left[[-T,T]\right] \rightarrow \ldos : S \mapsto A$
+\end{definicion}
+
+Puede interpretarse a $A$ como las \textit{coordenadas} de $S$ en $L^{2}\left[[-T,T]\right]$, 
+usando una base de funciones $\left\{ e^{\nicefrac{i \abso{n} t}{2 T}} \right\}_{n\in \Z}$, las
+cuales resultan ser ortonormales; esta base en particular es conocida como la \textbf{base de 
+Fourier}.
+Se demuestra en el anexo A que $\mathcal{F_T}$ está bien definida en el sentido de 
+tener efectivamente el dominio y codominio indicados. Así mismo, cabe mencionar las siguientes 
+propiedades de $\mathcal{F}_T$
+\begin{itemize}
+\item Es lineal, es decir, $\mathcal{F}_T[cS + Z] = c\mathcal{F}_T[S] + \mathcal{F}_T[Z]$
+
+\item \textbf{No} es invertible, aunque se le suele definir una
+pseudoinversa\footnote{$\mathcal{F}_T^{\text{inv}}$ es \textit{exacta} salvo por la suma
+de alguna función $S_0$ tal que $\int_{-T}^{T}\abso{S_0(t)}dt = 0$} como
+\begin{equation*}
+\mathcal{F}_{T}^{\text{inv}} : \ldos \rightarrow L^{2}\left[[-T,T]\right] :
+A \mapsto \sum_{n -\infty}^{\infty} A(n) e^{\nicefrac{i \abso{n} t}{2 T}}
+\end{equation*}
+\end{itemize}
+
+Con esta terminología se define, de manera pragmática, la \textbf{energía disipada} y la 
+\textbf{potencia} de una función $S$ en un intervalo $[a,b]$ como 
+\begin{align*}
+\text{energía}[S]_{[a,b]} &= \int_a^{b} \abso{S(t)}^{2} dt \\
+\text{potencia}[S]_{[a,b]} &= \frac{1}{b-a} \int_a^{b} \abso{S(t)}^{2} dt
+\end{align*}
+%
+%Estas últimas definiciones cobran importancia a la luz del teorema \ref{parseval}: la energía de 
+%una función equivale a su norma.
+
+Una consecuencia interesante de este concepto de energía frente al teorema \ref{parseval} es que la 
+energía disipada por una función equivale a la suma de la energía disipada por sus 
+\textit{componentes} en la base de Fourier.
+Conviene, entonces, definir una función que \textit{desglose} estos \textit{aportes}.
+
+\begin{teorema}[Parseval]
+Sea $S \in L^{2}\left[[-T,T]\right]$, y sea $A = \mathcal{F}[S]$. Se cumple que
+\begin{equation*}
+\int_{-T}^{T} \abso{S(t)}^{2} dt = \sum_{n=-\infty}^{\infty} \abso{A(n)}^{2}
+\end{equation*}
+\label{parseval}
+\end{teorema}
+
+\begin{definicion}[Espectro de potencias]
+Sea $S \in L^{2}\left[[-T,T]\right]$, y sea $A = \mathcal{F}[S]$. Se llama espectro de potencias 
+para $S$ a la función $h_S : \R \rightarrow \R $, definida como
+\begin{equation*}
+h_S(\omega) = 
+\begin{cases}
+\abso{A(n)}^{2} & \text{ , si } \omega = \nicefrac{n}{2T}, \text{   con } n\in \mathbb{Z} \\
+0 & \text{ ,  otro caso}
+\end{cases}
+\end{equation*}
+\label{espec}
+\end{definicion}
+
+Un elemento que será de crucial importancia en el desarrollo posterior es la \textbf{convolución}, 
+$\ast$, una tercera operación binaria definida en estos espacios como
+%
+\begin{align*}
+[s \ast z] (\tau) &= \sum_{n=-\infty}^{\infty} s(n) \overline{z(\tau-n)} \\
+[S \ast Z] (\tau) &= \int_I S(t) \overline{Z(\tau-t)}
+\end{align*}
+%
+donde $\overline{c}$ es el conjugado complejo de $c$. 
+%La convolución es conmutativa y asociativa con la suma. 
+Esta operación cobra importancia por la forma en que se relaciona con $\mathcal{F}_T$
+%
+\begin{teorema}%[de la convolución]
+Sean $S,Z \in L^{2}\left[[-T,T]\right]$, entonces se satisface que
+\begin{align*}
+\mathcal{F}_T[S\ast Z]  &= \mathcal{F}_T[S] \cdot \mathcal{F}_T[Z] \\
+\mathcal{F}_T[S\cdot Z] &= \mathcal{F}_T[S] \ast  \mathcal{F}_T[Z] \\
+\end{align*}
+\label{t_convolucion}
+\end{teorema}
+
+\subsubsection{Generalizaciones}
+
+La primera gran generalización sobre la transformada de Fourier es para el conjunto de funciones 
+$L^{1}\left[ \R \right]$, definido como en la sección anterior; éste también es un espacio de 
+Hilbert usando el producto interno descrito.
+La generalización propuesta, teorema \ref{intFourier}, sólo se diferencia en que no se exige que 
+la función sea periódica y en el espacio que actúa; 
+es quizá más llamativo el que el codominio de $\mathcal{F}_\infty$ no sea $\ldos$ sino $\lldos$,
+%es decir que su codominio no son series sino funciones integrables
+lo cual afecta cómo deben interpretarse los \textit{componentes de frecuencia generalizados}. La 
+discusión pertinente se efectúa en el anexo B.
+
+\begin{definicion}[Integral de Fourier]
+Sea $S \in L^{1}\left[\R\right]$. Se dice que $A$ es la integral de Fourier para $S$ si cumple que
+\begin{equation*}
+A(\omega) = \intR S(t) e^{- i \omega t} dt
+\end{equation*}
+%Adicionalmente, la función $\mathcal{F} : \lldos \rightarrow \ldos : S \mapsto A$  recibe el nombre
+%de \textbf{Transformada de Fourier}
+\label{intFourier}
+\end{definicion}
+
+\begin{definicion}[Transformada de Fourier]
+Sean $S$ y $A$ como en la definición \ref{intFourier}. Se le llama transformada de Fourier a la
+función $\mathcal{F}_\infty : L^{1}\left[\R\right] \rightarrow \ldos : S \mapsto A$
+\end{definicion}
+
+Una forma de \textit{relacionar} a los $\mathcal{F}_T$ con $\mathcal{F}_\infty$ es tomar una
+función $S \in L^{1}\left[\R\right]$ y para cada $T$ definir una continuación periódica de $S$
+%, $S_T$
+%\begin{equation*}
+\begin{center}
+$\displaystyle S_T(t) = S(t_0) $, 
+%\end{equation*}
+con $\displaystyle -T\leq t_0 \leq T$ y $\displaystyle \frac{t-t_0}{2T} \in \Z$
+\end{center} 
+%
+Posteriormente puede hacerse que
+%\begin{equation*}
+$\lim_{T\rightarrow \infty} \mathcal{F}_T[S_T] = \mathcal{F}_{\infty}$.
+%\end{equation*}
+%Este proceso suele interpretarse como que $\mathcal{F}_\infty$ es una versión de la transformada
+%de Fourier donde se permite que la función sea periódica con periodo infinito,
+%%el periodo de la función ($\nicefrac{1}{\text{frecuencia}}$) sea
+%%infinitamente grande, 
+%o que la distancia entre frecuancias sea infinitamente pequeño.
+%
+Dado que las funciones definidas en \ref{FourierClasico} y en \ref{intFourier} serán importantes 
+en lo que prosigue, conviene introducir una segunda generalización que abarque a ambas, para lo que
+se acude al concepto de integrales en el sentido de Lebesgue-Stieltjes (en un anexo)
+
+\begin{definicion}[Integral de Fourier-Stieltjes]
+Sea $S: \R\rightarrow \C$. Se dice que $F$ es la integral de Fourier-Stieltjes para $S$ si ésta 
+puede escribirse como
+\begin{equation*}
+S(x) = \intR e^{- i \omega t} dF(\omega)
+\end{equation*}
+donde la integral está definida en el sentido de Lebesgue-Stieltjes, y la igualdad se cumple
+casi en todas partes
+%Adicionalmente, la función $\mathcal{F} : \lldos \rightarrow \ldos : S \mapsto A$  recibe el nombre
+%de \textbf{Transformada de Fourier}
+\label{intFourierStieltjes}
+\end{definicion}
+
+\section{Transformada Rápida de Fourier}
+
+Como se mostró en el texto, la transformada de Fourier es un operador clave para la definición y el
+estudio del \textit{dominio de las frecuencias}. Sin embargo, su aplicación a series de tiempo grandes se ve
+dificultada porque es un proceso lento: si se toma una serie de tiempo 
+$\{s_n\}_{n=0,\dots,N}$ y se calcula su transformada finita de Fourier según su definición
+\begin{equation*}
+\mathfrak{F}_s(\omega) = \sum_{n=0}^{N} s_n e^{i \omega n}
+\end{equation*}
+entonces para cada frecuencia $\omega$ se requerirán $N$ multiplicaciones y $N-1$ sumas, siendo que
+usualmente se analizan las frecuencias de la forma $\omega_k = \nicefrac{2 \pi k}{N}$ 
+con $k = 0, 1, \dots, \nicefrac{N}{2}$.
+Usando la notación de Landau (definición \ref{orden}) se deduce que obtener la transformada discreta
+de Fourier de una serie de tiempo de longitud $N$, usando este método, 
+ocupa un tiempo de orden $\mathcal{O}(N^{2})$.
+
+\begin{definicion}[Orden $\mathcal{O}$]
+Sean $f, g$ dos funciones en $\R$ con $g(x)\neq 0$ para $x\in \R$. Se dice que $f = \mathcal{O}(g)$,
+que $f$ tiene orden $g$, si existe una constante $k\in \R$ tal que
+\begin{equation*}
+\lim_{x\rightarrow \infty} \frac{f(x)}{g(x)} = k
+\end{equation*}
+\label{orden}
+\end{definicion}
+
+El algoritmo presentado por Cooley y Tukey en 1965, la Transformada Rápida de Fourier 
+(TRF), usa menos operaciones si el número de observaciones es \textit{altamente 
+compuesto}\footnote{Se dice que un número entero es \textit{compuesto} si no tiene dos o más
+divisores propios mayores a 1; se dice que es más compuesto si tiene más de estos factores}.
+
+Considerando la serie de tiempo $\{s_n\}_{n=0,\dots,N}$ con $N$ de la forma $N= p q$ para 
+$p, q$ enteros mayores a 1, entonces su TRF se puede reescribir como
+
+\begin{align*}
+\mathfrak{F}_s(\omega) &= \sum_{m = 0}^{p} \sum_{k=0}^{q} s_n e^{i \omega (mp + q)} 
+\\
+&= 
+\end{align*}
+
+\section{Ondas cerebrales y su frecuencia}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

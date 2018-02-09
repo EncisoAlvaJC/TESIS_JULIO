@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="15.08784cm"
+   height="11.72cm"
+   viewBox="0 0 534.60851 415.27559"
+   id="svg3422"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="electrofisiologia.svg">
+  <defs
+     id="defs3424" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.08"
+     inkscape:cx="280.3824"
+     inkscape:cy="226.06795"
+     inkscape:document-units="cm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="cm"
+     inkscape:window-width="1280"
+     inkscape:window-height="724"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata3427">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-637.08667)">
+    <image
+       sodipodi:absref="/home/laptop_casa/TESIS/TESIS/img_diagramas/eeg.png"
+       xlink:href="eeg.png"
+       width="306.87814"
+       height="187.29057"
+       preserveAspectRatio="none"
+       id="image3438"
+       x="-74.570427"
+       y="640.15411" />
+    <image
+       sodipodi:absref="/home/laptop_casa/TESIS/TESIS/img_diagramas/Screenshot at 2017-09-24 00:08:19.png"
+       xlink:href="Screenshot at 2017-09-24 00:08:19.png"
+       width="1041"
+       height="510"
+       preserveAspectRatio="none"
+       id="image3449"
+       x="-1094.9832"
+       y="579.12286" />
+    <image
+       sodipodi:absref="/home/laptop_casa/TESIS/TESIS/img_diagramas/Screenshot at 2017-09-24 00:07:43.png"
+       xlink:href="Screenshot at 2017-09-24 00:07:43.png"
+       width="292.63297"
+       height="144.0864"
+       preserveAspectRatio="none"
+       id="image3460"
+       x="233.23363"
+       y="663.91382" />
+    <image
+       sodipodi:absref="/home/laptop_casa/TESIS/TESIS/img_diagramas/Screenshot at 2017-09-17 17:08:48.png"
+       xlink:href="Screenshot at 2017-09-17 17:08:48.png"
+       width="465.52118"
+       height="251.34015"
+       preserveAspectRatio="none"
+       id="image3471"
+       x="26.090639"
+       y="838.37524" />
+  </g>
+</svg>

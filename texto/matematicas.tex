@@ -1,0 +1,873 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Matem\'aticas}
+
+%Se describen algunos conceptos sobre estimaci\'on espectral para procesos estoc\'asticos 
+%d\'ebilmente estacionarios, as\'i como la generalizaci\'on 
+%propuesta por Priestley para procesos no-estacionarios. Esta descripci\'on se basa principalmente 
+%en libro \textit{Spectral Analysis and Time Series} de M. B. Priestley \cite{Priestley81}.
+
+%Como se mencion\'o, el objeto de estudio en este trabajo son registros de se\~nales
+%electrofisiol\'ogicas (en particular, de PSG) que son modeladas como procesos estoc\'asticos; (por 
+%simplicidad, se escribir\'a simplemente 'procesos'); antes de continuar, conviene presentar la 
+%definici\'on de este concepto. 
+
+%Si bien el de variable aleatoria es b\'asico para la probabilidad y la estad\'istica,
+%en el presente trabajo s\'olo se expone de forma m\'as bien pragm\'atica en un ap\'endice 
+%(definici\'on \ref{variable_aleatoria}). 
+%En cambio se empieza definiendo un proceso estoc\'astico.
+
+%A continuación
+%Debido a las condiciones particulares del presente trabajo, 
+%se expondrán de forma concreta los
+%objetos abstractos usados, dejando los detalles formales pertinentes como apéndice. En particular,
+%se definirá lo que es un proceso estocástico dando por sentado que es conocido
+%el concepto de variable aleatoria (definición \ref{variable_aleatoria}).
+
+
+
+\begin{defn}[Proceso estoc\'astico]
+Un proceso estoc\'astico \xt es una familia de variables aleatorias reales, 
+indexadas por $t \in T$.
+\label{proc_estocastico}
+\end{defn}
+
+Respecto al conjunto $T$ que indexa a un proceso estoc\'astico, y que ser\'a referido como 
+\textit{tiempo}, conviene introducir dos grandes grupos para los mismos
+\begin{itemize}
+\item \textit{A tiempo continuo} si $T$ es un intervalo cerrado
+\item \textit{A tiempo discreto} si $T$ es de la forma 
+$\{ t_0 + n \delta \lvert n \in U \subseteq \mathbb{Z} \}$
+\end{itemize}
+
+Los procesos a tiempo discreto contemplan conjuntos finitos e infinitos de puntos en el tiempo.
+%, as\'i como 'tiempos ausentes' si la cantidad de estos es negligible.
+No se manejan discutir\'a sobre otros tipos de tiempo en este trabajo.
+
+Como notaci\'on, se usar\'a \xt  para el proceso estoc\'astico y $X(t)$ para una de las variables
+aleatorias que lo componen; de la misma manera $x(t)$ es una realizaci\'on de $X(t)$ y $F_{X(t)}$ 
+es la funci\'on de probabilidad acumulada para $X(t)$.
+%Cabe enfatizar que para cada valor de $t$, $X(t)$ es una 
+%variable aleatoria y que una realizaci\'on del proceso {X(t)}.
+
+%La definici\'on \ref{proc_estocastico} es aplicable tanto para procesos en tiempo continuo como 
+%para tiempo discreto\footnote{Un proceso se dice \textbf{a tiempo discreto} cuando el \'indice $t$ 
+%(tradicionalmente asociado al tiempo) pertenece a un conjunto a lo m\'as numerable, mientras que se 
+%dice \textbf{a tiempo continuo} si este conjunto es un intervalo; en este trabajo s\'olo se 
+%consideran estos dos tipos de 'tiempos'}.
+Para modelar las se\~nales que componen el polisomnograma (PSG) se asume que éstas
+constituyen un fen\'omeno predominantemente estocástico\footnote{Cabe aclarar que tal enfoque no
+implica suponer una completa aleatoriedad, sino que} a tiempo 
+continuo, pero que no es registrable sino en un conjunto finito de puntos en el tiempo; 
+esta forma de entender a los datos 
+permitir\'a asumir algunas propiedades que ser\'an descritas m\'as adelante.
+
+El cuerpo central de este trabajo es averiguar sin este modelo de tipo estocástico para los datos
+permite la hipótesis de que los procesos estocásticos involucrados son estacionarios, cuando menos en
+un sentido débil. Anteriormente se mencionó por qué parece conveniente verificar este supuesto y cuáles
+sería sus implicaciones, a continuación se define formalmente y se discute el cómo se
+pudiera confirmar.
+
+\begin{defn}[Estacionariedad d\'ebil]
+Un proceso estoc\'astico \xt es d\'ebilmente estacionario si y s\'olo si para cualesquiera tiempos 
+admisibles\footnote{El t\'ermino \textit{tiempos admisibles} significa que la definición es la misma
+para diferentes tipos de tiempo, bajo las restricciones pertinente} $t$, $s$ se tiene que
+\begin{itemize}
+\item $\E{X(t)} = \mu_X$
+\item $\Var{X(t)} = \sigma^{2}_X$
+\item $\Cov{X(t),X(s)} = \rho_X (s-t)$
+\end{itemize}
+Donde $\mu_X$, $\sigma^{2}_X$ son constantes, $\rho_X(\tau)$ es una funci\'on que \'unicamente 
+depende de $\tau$
+\label{est_orden_primera}
+\end{defn}
+
+A continuaci\'on (definici\'on \ref{cont_est}) se presenta una tipo de regularidad que se supone
+para las se\~nales registradas en el EEG: continuidad de alg\'un tipo.
+
+Adicionalmente se supondrá que las señales en el electroencefalograma (EEG) son continuas, cuando menos
+el sentido de media cuadrática
+
+\begin{defn}[Continuidad estoc\'astica en media cuadr\'atica]
+Un proceso estoc\'astico a tiempo continuo $\{ X(t) \}$ es estoc\'asticamente continuo, en el 
+sentido de media cuadr\'atica, en un tiempo admisible $t_0$ si y s\'olo si
+\begin{equation*}
+\lim_{t \rightarrow t_0} \E{\left( X(t) - X(t_0) \right)^{2}} = 0
+\end{equation*}
+\label{cont_est}
+\end{defn}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Espectro de potencias para procesos estoc\'asticos}
+
+\begin{defn}[Serie de Fourier]
+Sea $k$ una funci\'on real peri\'odica (con periodo $2T$) tal que 
+$\simint{T} \abso{k(t)} dt < \infty$. 
+Se le llamar\'a 'serie de Fourier para la funci\'on $k$' a la sucesi\'on $\left( A_n \right)$, 
+calculada de la siguiente manera
+\begin{equation*}
+A_n = \frac{1}{2 T} \simint{T} k(t) e^{-\nicefrac{ i n t}{2T}} dt
+\end{equation*}
+\label{FourierClasico}
+\end{defn}
+
+\begin{defn}[Transformada de Fourier]
+Sea $P_T$ el espacio de las funciones peri\'odicas con periodo $2T$ que tienen una serie de Fourier 
+bien definida. Existe una funci\'on $\mathfrak{F}$ que mapea cada funci\'on a su respectiva serie 
+de Fourier, y \'esta ser\'a referida como la transformada de Fourier
+\label{trFourier}
+\end{defn}
+
+Como se mencion\'o, en este trabajo se suponen conocidas las propiedades de las series de Fourier 
+(seg\'un la definici\'on \ref{FourierClasico}), de entre las cuales se destacan las siguientes:
+\begin{itemize}
+\item Las series de Fourier  son cuadrado-sumables\footnote{Una sucesi\'on $\left( S_n \right)$ se 
+dice cuadrado-integrable si cumple que $\sum_{n\in \mathbb{Z}} \abso{S_n}^{2} < \infty$. El 
+conjunto de estas series es denotado por $\ell^{2}$}
+
+\item La transformada de Fourier, $\mathfrak{F}$, no es invertible en general. Es com\'un definir
+una pseudoinversa como 
+$\mathfrak{F}_{\text{inv}} 
+: \left( A_n \right) \mapsto \sum_{n \in \mathbb{Z}} A_n e^{\nicefrac{i n t}{2 T}} $
+
+\item Los conjuntos $P_T$ y $\ell^{2}$, con la suma y producto usuales, tienen la estructura de 
+espacio vectorial. M\'as a\'un, usando las respectivas normas $\Vert k \Vert = \intR k(t) dt$ y 
+$\left\Vert \left( A_n \right) \right\Vert_2 = \sum_{n\in \mathbb{Z}} \abso{S_n}^{2} < \infty$,
+ambos son espacios de Hilbert.
+\end{itemize}
+
+La transformada de Fourier goza de una interpretaci\'on f\'isica muy extendida, seg\'un la cual 
+toda se\~nal peri\'odica puede verse como la superposici\'on (suma) de se\~nales senoidales 
+ortogonales de diferentes frecuencias\footnote{De manera pragm\'atica, en el presente trabajo la 
+palabra  'frecuencia' se usar\'a para referirse a la cantidad $q$ en expresiones del tipo 
+$e^{i q t}$}; suponiendo previamente que las se\~nales se suman y multiplican por escalares de la 
+manera usual. 
+Esta afirmaci\'on es equivalente a que el conjunto de funciones con una serie de Fourier bien 
+definida, tiene estructura de espacio vectorial y admite una base ortonormal de funciones 
+senoidales (referida como la base de Fourier). 
+La interpretaci\'on f\'isica adquiere mayor relevancia cuando se exhibe el concepto de energ\'ia
+disipada (definici\'on \ref{energia}) en conjunto con el el teorema \ref{parseval_serie}, ya que 
+permite formular la siguiente interpretaci\'on: la energ\'ia disipada por una se\~nal peri\'odica 
+puede verse como la suma de la energ\'ia disipada por sus componentes en la base de Fourier 
+(usualmente referidos como \textbf{componentes de frecuencias}).
+La funci\'on que 'desglosa' estos componentes se conoce como espectro de potencias (definici\'on 
+\ref{espec}). 
+
+\begin{defn}[Energ\'ia de una se\~nal]
+Sea $k$ una funci\'on real que modela una se\~nal. La energ\'ia disipada por $k$ en el intervalo de
+tiempo $[a,b]$ est\'a dada por
+\begin{equation*}
+\text{Energ\'ia}_{[a,b]} = \int_{a}^{b} \abso{k\left(t\right)}^{2} dt
+\end{equation*}
+\label{energia}
+\end{defn}
+
+\begin{thrm}[Relaci\'on de Parseval]
+Sea $k$ una funci\'on peri\'odica (de periodo $2T$) que admite una serie de Fourier bien definida,
+$(A_n)$. Se cumple que
+\begin{equation*}
+\int_T^{T} k^{2}(t) dt = \sum_{n=-\infty}^{\infty} \abso{A_n}^{2}
+\end{equation*}
+\label{parseval_serie}
+\end{thrm}
+
+%\newpage
+
+\begin{defn}[Espectro de potencias]
+Sea $P_T$ el espacio de las funciones peri\'odicas con periodo $2T$ que tienen una serie de Fourier 
+bien definida. Se le llama espectro de potencias a la funci\'on 
+$h: P_T \times \mathbb{R} \mapsto \mathbb{R}$ definida como
+\begin{equation*}
+h_k(\omega) = 
+\begin{cases}
+\abso{A_i}^{2} & \text{ , si } \omega = \frac{n}{2T} \text{   con } n\in \mathbb{Z} \\
+0 & \text{ ,  otro caso}
+\end{cases}
+\end{equation*}
+donde $\left( A_n \right)$ es la serie de Fourier de $k$
+\label{espec}
+\end{defn}
+
+Es importante mencionar que la energ\'ia, entendida como la integral de una forma cuadr\'atica, es 
+un concepto com\'un a varias ramas de la f\'isica y las ingenier\'ias; en cambio, en econom\'ia o 
+en epidemiolog\'ia, por ejemplo, no hay una motivaci\'on clara para usar el concepto de energ\'ia 
+seg\'un \ref{energia}.
+
+\begin{defn}[Integral de Fourier]
+Sea $k$ una funci\'on tal que $\intR \abso{k(t)} dt < \infty$. Se le llamar\'a 'integral de 
+Fourier para la funci\'on $k$' a la funci\'on $A:\mathbb{R}\rightarrow \mathbb{C}$ calculada de la 
+siguiente manera
+\begin{equation*}
+A(\omega) = \frac{1}{2 \pi} \intR k(t) e^{- i \omega t} dt
+\end{equation*}
+\label{fourier_int}
+\end{defn}
+
+%La integral de Fourier  se encuentra bien definida para cualquier $\omega \in \mathbb{R}$, e 
+%incluso se puede probar que es una funci\'on continua y que converge a 0 en $\pm \infty$.
+%Sin embargo, por brevedad s\'olo se usar\'a como motivaci\'on para la transformada de 
+%Fourier-Stieltjes.
+
+\begin{defn}[Transformada de Fourier-Stieltjes]
+Se dice que una funci\'on real $A$ es la transformada de Fourier-Stieltjes de una funci\'on $k$ si 
+\'esta puede expresarse casi en todas partes como
+\begin{equation*}
+k(x) = \intR e^{ i \omega t} dF(\omega)
+\end{equation*}
+siendo que la integral est\'a definida en el sentido de Stieltjes
+\label{fourier_stieltjes}
+\end{defn}
+
+%En la definici\'on \ref{fourier_stieltjes}, si $F$ es derivable en todas partes entonces $F\prima$ 
+%cumple el mismo papel que la integral de Fourier; en cambio, si $k$ es una funci\'on peri\'odica 
+%entonces $F$ toma una forma escalonada cuyos aumentos coinciden con la serie de Fourier para $k$. 
+%M\'as a\'un, existen funciones que no son ni peri\'odicas ni absolutamente sumables pero poseen 
+%una transformada de Fourier-Stieltjes, como $k(x)=\SEN{x}+\SEN{\sqrt{2}x}$, 
+%$k(x)=\COS{x} + (1+x^{2})^{-1}$.
+%
+%\begin{comment}
+%\begin{thrm}[Descomposici\'on de Lebesgue]
+%Sea $f:I\rightarrow \R$ una funci\'on de variaci\'on acotada, con $I$ un intervalo. Entonces pueden 
+%hallarse funciones $f_j, f_c, f_a :I\rightarrow \R$ tales que
+%\begin{itemize}
+%\item $f = f_j+ f_c+ f_a$
+%\item $f_j = \sum_{y \leq x} f(x-0) + f(x+0)$
+%\item $f_a$ es absolutamente continua\footnote{Para que una funci\'on sea absolutamente continua,
+%basta que sea de variaci\'on acotada y que mapee conjuntos de medida cero en conjuntos de medida
+%cero} en $I$
+%\item $f_c$ es una funci\'on singular\footnote{Una funci\'on es singular si es continua, de 
+%variaci\'on acotada y no-constante, y se cumple que tiene derivada cero casi en todas partes} en 
+%$I$
+%\end{itemize}
+%Estas funciones son \'unicas excepto por constantes, y en conjunto son llamados la 
+%\textit{descomposici\'on de Lebesgue} de $f$
+%\label{Lebesgue_decomp}
+%\end{thrm}
+%\end{comment}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\subsubsection{Espectro de potencias para un proceso d\'ebilmente estacionario}
+
+Por simplicidad, el enfoque la definici\'on que se aborda considera un proceso d\'ebilmente 
+estacionario, $\{X(t)\}$, y posteriormente una realizaci\'on particular, $x(t)$; como no hay 
+garant\'ia que $x$ tenga una transformada de Fourier bien definida (o alguna de las 
+generalizaciones presentadas previamente), se procede a aproximarla por una serie de funciones que 
+s\'i las tienen.
+As\'i entonces, para cada $T>0$ se define a $x_T$ como
+\begin{equation*}
+x_T(t) = 
+\begin{cases}
+x(t) & \text{ , } -T\leq t \leq T \\
+0 & \text{ , otro caso}
+\end{cases}
+\end{equation*}
+Posteriormente se define a $G_T$; bien puede entenderse como una transformada de Fourier para una 
+funci\'on extendida peri\'odicamente, y de modo que el espacio entre frecuencias se vuelven 
+infinitesimal, o bien puede verse como una integral de Fourier (claramente bien definida) para una 
+serie convergente de funciones.
+
+\begin{equation*}
+G_T (\omega) = \frac{1}{\sqrt{2 \pi}} \intR x_T(t) e^{-i \omega t} dt
+= \frac{1}{\sqrt{2 \pi}} \int_{-T}^{T} x(t) e^{-i \omega t} dt
+\end{equation*}
+
+Sin la garant\'ia de que $x(t)$ tenga una integral de Fourier bien definida, no hay garant\'ia que 
+$G_T$ converja cuando $T\rightarrow \infty$. Recuperando el concepto de energ\'ia disipada, ligado 
+a $\left| G_T(\omega) \right|^{2}$, se puede construir una explicaci\'on f\'isica para la 
+divergencia de $G_T$: un sistema que disipa 'niveles constantes' de energ\'ia (porque $\Var{X(t)}$ 
+es constante) puede disipar una cantidad infinita de energ\'ia durante un tiempo infinito. 
+Conviene, entonces, usar el tama\~no de los intervalos sobre los cuales se define $G_T$, de modo 
+que se converja a una 'densidad' de energ\'ia disipada:
+$\lim_{T\rightarrow{\infty}} \frac{ \left| G_T(\omega) \right|^{2}}{2 T}$.
+Tal expresi\'on se puede adaptar al proceso per se como en la definici\'on \ref{FDE}.
+
+\begin{defn}[Funci\'on de densidad espectral (FDE)]
+Sea $\{X(t)\}$ un proceso estoc\'astico en tiempo continuo, d\'ebilmente estacionario. Se define la 
+funci\'on de densidad espectral (FDE) para $\{X(t)\}$ como
+%\begin{equation*}
+%h(\omega) = \lim_{T\rightarrow \infty} \E{ \frac{ \left| G_T(\omega) \right|^{2}}{2 T} }
+%\end{equation*}
+\begin{equation*}
+h(\omega) = \lim_{T\rightarrow \infty} \E{ \frac{1}{2T} \frac{1}{2 \pi}
+\abso{ \int_{-T}^{T} X(t) e^{-i \omega t} dt}^{2} }
+\end{equation*}
+%Donde $G_T (\omega) = \frac{1}{\sqrt{2 \pi}} \int_{-T}^{T} X(t) e^{-i \omega t} dt$
+\label{FDE}
+\end{defn}
+
+Conviene mencionar que la convergencia de la FDE est\'a garantizada casi en todas partes, pero la
+funci\'on resultante puede no ser suficiente para explicar adecuadamente al proceso; por ejemplo, 
+un proceso peri\'odico, con periodo $T$, tendr\'a una FDE que es cero en todos sus puntos salvo en 
+los m\'ultiplos enteros de $T$.
+Este fen\'omeno es similar al caso de variables aleatorias discretas, que no poseen una funci\'on 
+de densidad de probabilidad bien definida en todos sus puntos.
+Conviene definir una versi\'on 'integral' de la FDE (definici\'on\ref{FDE_integrado}).
+
+\begin{defn}[Funci\'on de espectro integrado]
+Sea $\{X(t)\}$ un proceso estoc\'astico a tiempo continuo, d\'ebilmente estacionario. Se define la 
+funci\'on de espectro integrado para $\{X(t)\}$ como
+\begin{equation*}
+H(\omega) = \int_{-\infty}^{\omega} h(\lambda) d\lambda
+\end{equation*}
+Donde $h$ es la funci\'on de densidad espectral para $\{X(t)\}$
+\label{FDE_integrado}
+\end{defn}
+
+Si la FDE, $h$, est\'a bien definida en todos sus puntos, entonces la funci\'on de espectro 
+integrado ($H$) satisface que $H\prima= h$ y se dir\'a que el proceso tiene un \textbf{espectro 
+puramente continuo}; si $H$ tiene una forma escalonada, con escalones rectos, se dir\'a que es un 
+\textbf{espectro puramente discreto}.
+Como es de esperarse, cada tipo de proceso tiene caracter\'istica diferentes y se puede estudiar 
+mejor con herramientas diferentes; para el caso de procesos con un espectro mixto (ninguno de los 
+anteriores), se exhiben herramientas que los reducen a estos casos 'puros'.
+
+Cabe destacar que, por como se defini\'o la FDE integrada, \'esta es una funci\'on positiva, 
+no-decreciente, y que en $-\infty$ vale 0; esta observaci\'on ser\'a importante.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Estimaci\'on de la funci\'on de densidad espectral}
+
+Anteriormente se defini\'o espectro de potencias para procesos d\'ebilmente estacionarios con 
+segundos momentos finitos (definici\'on \ref{FDE}); sin embargo, aquella definici\'on es sumamente 
+ineficiente dentro de la estimaci\'on pues requiere valores esperados sobre todo del proceso.
+A continuaci\'on se muestran dos teoremas respecto a la FDE facilitar\'an su estimaci\'on.
+
+\begin{thrm}[Wiener-Khinchin]
+Una condici\'on suficiente y necesaria para que $\rho$ sea una funci\'on de autocorrelaci\'on de 
+alg\'un proceso estoc\'astico a tiempo continuo $\{X(t)\}$ d\'ebilmente estacionario y 
+estoc\'asticamente continuo, es que exista una funci\'on $F$ que tenga las siguientes propiedades
+\begin{itemize}
+\item Mon\'otonamente creciente
+\item $F(-\infty) = 0$
+\item $F(+\infty) = 1$
+\end{itemize}
+y tal que para todo $\tau \in \R$ se cumple que
+\begin{equation*}
+\rho(\tau) = \intR e^{i \omega \tau} dF(\omega)
+\end{equation*}
+\label{t_wienerkhinchin}
+\end{thrm}
+
+\begin{thrm}[Wold]
+Una condici\'on suficiente y necesaria para que $\rho$ sea una funci\'on de autocorrelaci\'on de 
+alg\'un proceso estoc\'astico a tiempo discreto $\{X(t)\}$ d\'ebilmente estacionario es que exista 
+una funci\'on $F$ con las siguientes propiedades
+\begin{itemize}
+\item Mon\'otonamente creciente
+\item $F(-\pi) = 0$
+\item $F(+\pi) = 1$
+\end{itemize}
+y tal que para todo $\tau \in \R$ se cumple que
+\begin{equation*}
+\rho(\tau) = \intPI e^{i \omega \tau} dF(\omega)
+\end{equation*}
+\label{t_wold}
+\end{thrm}
+
+Una observaci\'on interesante sobre estos teoremas es el caso $\tau = 0$
+\begin{equation*}
+\rho(0) = \int_{-A}^{+A} dF(\omega) = F(A) - F(-A)
+\end{equation*}
+donde $A$ vale $\infty$ o $\pi$ seg\'un sea el caso discreto o continuo. Si $R$ es la funci\'on de
+autocovarianza del proceso, entonces la ecuaci\'on anterior se traduce en que
+\begin{equation*}
+R(0) = \sigma^{2} \left( F(A) - F(-A) \right) = \sigma^{2} F(A)
+\end{equation*}
+donde $\sigma^{2}$ es la varianza del proceso. 
+Esta observaci\'on adquiere importancia porque la FDE integrada ($H$), por definici\'on, satisface 
+el papel de $F$ salvo por la condici\'on $F(\infty)=1$; si se puede garantizar que 
+$H(\infty)<\infty$ entonces puede ser normalizada para satisfacer tal condici\'on y, m\'as a\'un,
+si tal fuera el caso entonces $H(\infty)=\sigma^{2}$. Una consecuencia muy fuerte de este 
+comentario es que, como se ha establecido previamente que s\'olo se considerar\'an procesos con
+segundos momentos finitos, entonces la FDE de los procesos considerados siempre es acotada.
+
+Como corolario, se puede afirmar que la FDE de un proceso (d\'ebilmente estacionario y de varianza
+finita) es la transformada de Fourier-Stieltjes de la funci\'on de autocovarianza.
+Esto implica que el estimador m\'as 'natural' para la FDE es la transformada de Fourier (discreta) 
+de la funci\'on de autocorrelaci\'on (estimada); esta funci\'on se conoce como 
+\textit{periodograma}. 
+
+Conviene introducir estimadores para la funci\'on de autocovarianza de un proceso d\'ebilmente 
+estacionario, $\{ X(t) \}$, a partir de un conjunto de $N$ observaciones equiespaciadas en el 
+tiempo con separaci\'on $\Delta t$; se denotar\'a a estas observaciones como 
+$x_1, x_2 , \dots, x_N$. Como se cumple la siguiente propiedad para la funci\'on de autocovarianza, 
+$R$, por definici\'on
+\begin{equation*}
+R(\tau) = \E{X(n\Delta t)X(n\Delta t + \tau)} \text{  ,  } n = 0, 1, 2,  3,\dots, N
+\end{equation*}
+el estimados est\'andar para $R$ est\'a dado por la siguiente expresi\'on
+\begin{equation*}
+\widehat{R}(\tau) = \frac{1}{N-\abso{\tau}} 
+\sum_{t = 1}^{N-\abso{\tau}} x_t x_{t+\abso{\tau}}
+\label{estimador_R}
+\end{equation*}
+
+Se puede demostrar que $\widehat{R}$ es un estimador insesgado\footnote{Un estimador para el 
+par\'ametro $\theta$, $\widehat{\theta}$, se dice \textbf{insesgado} si 
+$\E{\widehat{\theta}}=\theta$} y consistente\footnote{Un estimador para el par\'ametro $\theta$ que 
+depende de $N$ observaciones, 
+$\widehat{\theta}_N$, se dice \textbf{consistente} si 
+$\lim_{N\rightarrow \infty} \Var{\widehat{\theta}_N} = 0$} 
+para $R$; sin embargo conviene introducir un estimador diferente para $R$
+\begin{equation*}
+\aste{R}(\tau) = \frac{1}{N} 
+\sum_{t = 1}^{N-\abso{\tau}} x_t x_{t+\abso{\tau}}
+\label{estimador_R_ast}
+\end{equation*}
+
+Se puede demostrar que $\aste{R}$ tiene las siguientes propiedades:
+\begin{itemize}
+\item $\E{\aste{R}(\tau)} = \left(1 - \frac{\abso{\tau}}{N} \right) R(\omega)$
+\item $\Var{\aste{R}(\tau)} \approx \frac{1}{N} 
+\sum_{r=-\infty}^{\infty} \left( R^{2}(r) + R(r-\tau)R(r+\tau) \right)$
+\item $\Cov{\aste{\rho}(\tau),\aste{\rho}(\tau+\nu)} \approx \frac{1}{N} 
+\sum_{r=-\infty}^{\infty} \left( \rho(r)\rho(r+\nu) + \rho(r-\tau)\rho(r+\tau+\nu) \right)$
+\end{itemize}
+Las aproximaciones para la varianza y covarianza se vuelven exactas si el proceso sigue una 
+distribuci\'on normal en todos los tiempos.
+
+Bajo estas consideraciones, se exhibe formalmente el periodograma (definici\'on 
+\ref{periodograma}); si bien la expresi\'on con que se escribe es f\'acil de interpretar (la 
+transformada de Fourier discreta para la se\~nal) y es eficiente computacionalmente, es conveniente
+ligarla con la funci\'on de autocovarianza (teorema \ref{periodograma_rho}).
+
+\begin{defn}[Periodograma]
+Sean $x_1, x_2 , \dots, x_N$ observaciones de un proceso estoc\'astico de media cero y varianza
+finita. Se llama periodograma a la funci\'on $I_N: [-\pi,\pi] \rightarrow \R$ calculada como
+\begin{equation*}
+I_N(\omega) = \frac{2}{N} \abso{ \sum_{t=0}^{N} e^{i \omega t} x_t }^{2}
+\end{equation*}
+\label{periodograma}
+\end{defn}
+
+\begin{thrm}
+Sean $x_1, x_2 , \dots, x_N$ observaciones de un proceso estoc\'astico de media cero y varianza
+finita. Se puede calcular el periodograma para estos datos como
+\begin{equation*}
+I_N(\omega) = 2 \sum_{r = -(N-1)}^{N-1} \aste{R}(r) \COS{r \omega}
+\end{equation*}
+Donde $\aste{R}$ es el estimador para la funci\'on de autocovarianza del proceso, calculado como
+$\widehat{R}(\tau) = \frac{1}{N-\abso{\tau}} \sum_{t = 1}^{N-\abso{\tau}} x_t x_{t+\abso{\tau}}$
+\label{periodograma_rho}
+\end{thrm}
+
+Se puede demostrar que el periodograma es un estimador insesgado de la FDE para los proceso 
+considerados; sin embargo, si el proceso tuviera un espectro puramente continuo, ocurre que 
+$\lim_{N\rightarrow \infty} \Var{I_N(\omega)} = h^{2}(\omega)$, con $h$ la FDE del proceso: el 
+periodograma, en general, no es consistente.
+En parte esto ocurre porque el periodograma depende de los estimadores para la funci\'on de 
+autocovarianza, $\est{R}$, evaluada en todos los puntos posibles: para calcular $\est{R}$ en 
+valores muy altos se requieren puntos muy alejados, los cuales son menos abundantes e implican 
+una mayor varianza.
+
+Si efectivamente el periodograma aumenta su varianza cuando incluye las 'colas' de la funci\'on de 
+autocovarianza, entonces una soluci\'on es evitarlas, multiplicando por una funci\'on de pesos. 
+Tales consideraciones dan origen a estimadores de la forma
+\begin{equation*}
+\est{h}(\omega) = \frac{1}{2\pi} \sum_{s = -(N-1)}^{N-1} 
+\lambda(s) \aste{R}(s) e^{i \omega t}
+\label{ventaneando}
+\end{equation*}
+donde la funci\'on de pesos, $\lambda$, es referida como \textbf{ventana de retrasos}. Para 
+estudiar las propiedades estos estimadores, conviene reescribirlos en funci\'on del periodograma
+
+\begin{equation*}
+\est{h}(\omega) = \intPI I_N(\theta) W(\omega-\theta) d\theta
+\end{equation*}
+donde $W$ es la transformada de Fourier finita de $\lambda$
+\begin{equation*}
+W(\theta) = \frac{1}{2\pi} \sum_{s = -(N-1)}^{N-1} \lambda(s) e^{-is\theta}
+\end{equation*}
+
+Cabe destacar la forma que adopta $\est{h}$ como la convoluci\'on $I_N \ast W$, que bien puede 
+entenderse como que $W$ es una funci\'on de pesos en el 'dominio de las frecuencias'; por ello, $W$ 
+es referida como \textbf{ventana de retrasos}.
+En la tabla \ref{ventanas} hay una lista corta de algunas funciones tipo ventana. Estos estimadores 
+son consistentes y sesgados, aunque son asint\'oticamente insesgados.
+
+\begin{SidewaysTable}
+\centering
+\bordes{1.5}
+\begin{tabular}{c}
+\textbf{Algunas funciones tipo ventana}
+\vspace{1em}
+\end{tabular}
+\begin{tabular}{lll}
+\toprule
+ & \textbf{Ventana de retrasos} & \textbf{Ventana en las frecuencias} \\
+\midrule
+\textbf{P. truncado} & 
+$\displaystyle
+\lambda(s) = \begin{cases}
+1 &\text{, si } \abso{s} \leq M \\
+0 &\text{, otro caso}
+\end{cases}$ &
+$\displaystyle
+W(\theta) = \frac{1}{2\pi} \frac{\SEN{(M+\frac{1}{2})\theta}}{\SEN{\nicefrac{\theta}{2}}}
+=: D_M(\theta)$
+\\
+\rowcolor{gris}
+\textbf{Bartlet} &
+$\displaystyle
+\lambda(s) = \begin{cases}
+1-\nicefrac{\abso{s}}{M} &\text{, si } \abso{s} \leq M \\
+0 &\text{, otro caso}
+\end{cases}$ &
+$\displaystyle
+W(\theta) = \frac{1}{2\pi M} 
+\left( \frac{\SEN{ \nicefrac{M\theta}{2}}}{\SEN{\nicefrac{\theta}{2}}} \right)^{2}
+=: F_M(\theta)$
+\\
+\textbf{Daniell} &
+$\displaystyle
+\lambda(s) = \frac{\SEN{\nicefrac{\pi s}{M}}}{\nicefrac{\pi s}{M}}$ &
+$\displaystyle
+W(\theta) = \begin{cases}
+\nicefrac{M}{2\pi} &\text{, si } \abso{\theta} \leq \nicefrac{\pi}{M} \\
+0 &\text{, otro caso}
+\end{cases}$
+\\
+\rowcolor{gris}
+\textbf{Tukey-Hanning} &
+$\displaystyle
+\lambda(s) = \begin{cases}
+\nicefrac{1}{2}\left( 1+ \COS{\nicefrac{\pi s}{M}} \right) &\text{, si } \abso{s} \leq M \\
+0 &\text{, otro caso}
+\end{cases}$ &
+$\displaystyle
+W(\theta) = \frac{1}{4} D_M\left(\theta - \frac{\pi}{M} \right) 
++\frac{1}{2} D_M\left(\theta \right)
+\frac{1}{4} D_M\left(\theta + \frac{\pi}{M} \right)$
+\\
+\textbf{Parzen} &
+$\displaystyle
+\lambda(s) = \begin{cases}
+1-6\left( \nicefrac{s}{M} \right)^{2} + 6\left( \nicefrac{\abso{s}}{M} \right)^{3} 
+&\text{, si } \abso{s} \leq \nicefrac{M}{2} \\
+2\left( 1 - \nicefrac{\abso{s}}{M} \right)^{3}
+ &\text{, si } \nicefrac{M}{2} \leq \abso{s} \leq M \\
+0 &\text{, otro caso}
+\end{cases}$ &
+$\displaystyle
+W(\theta) = \frac{3}{8 \pi M^{3}} \left( 
+\frac{\SEN{\nicefrac{M\theta}{4}}}{\nicefrac{1}{2}\SEN{\nicefrac{\theta}{2}}} 
+\right)^{4}
+\left( 1- \nicefrac{2}{3} \SEN{\nicefrac{\theta}{2}}^{2} \right)$
+\\
+\rowcolor{gris}
+\textbf{Bartlet-Priestley} &
+$\displaystyle
+\lambda(s) = \frac{3M^{2}}{\left(\pi s\right)^{2} }
+\left( \frac{\SEN{\nicefrac{\pi s}{M}}}{\nicefrac{\pi s}{M}} - \COS{\nicefrac{\pi s}{M}}
+\right)
+$ 
+&
+$\displaystyle
+W(\theta) = \begin{cases}
+\frac{3M}{4\pi} \left( 1- \left(\frac{M \theta}{\pi} \right)^{2} \right)
+&\text{, si } \abso{\theta} \leq \nicefrac{\pi}{M} \\
+0 &\text{, otro caso}
+\end{cases}$
+\\
+\bottomrule
+\end{tabular}
+\caption{Ejemplos de algunas ventanas que suavizan el periodograma, formando estimadores 
+consistente de la FDE para el caso de espectro puramente continuo.
+Las funciones $F_M$ y $D_M$ toman, respectivamente, los nombres de \textit{n\'ucleo de Fejer} y
+\textit{N\'ucleo de Dirichlet} de orden $M$}
+\label{ventanas}
+\end{SidewaysTable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Filtros lineales}
+
+Como herramienta auxiliar en la estimaci\'on de la FDE, conviene considerar procesos del tipo 
+$Y(t) = \intR g(u) X(t-u) du$, referidos como 'filtrados'.
+Hist\'oricamente los filtros se originan como circuitos f\'isicos que, por dise\~no, son de ayuda 
+en la 'cancelaci\'on' anal\'ogica de componentes de frecuencia (ver m\'as adelante).
+%
+Los filtros, aplicados a proceso d\'ebilmente estacionarios, afectan su FDE de manera 'simple' 
+(teorema \ref{filtro}); por otro lado, permiten interpretar a procesos autorregresivos (AR) y de 
+medias m\'oviles (MA) como versiones filtradas de procesos ruido blanco; m\'as a\'un, si los 
+procesos filtrados pueden tener la forma\footnote{La integral est\'a definida en el sentido de 
+Stieltjes} $Y(t) = \intR X(t-u) dG(u)$, entonces es posible manejar el operador retraso 
+($B[Y](t) = Y(t)-Y(t-1)$).
+%
+
+\begin{thrm}
+Sea $\{ X(t) \}$ un proceso d\'ebilmente estacionario que admite una representaci\'on de 
+Wold-Cram\'er. Sea $g$ una funci\'on real con $\intR \abso{g(u)} du < \infty$, y sea $\{ Y(t) \}$ 
+un proceso definido de la siguiente forma:
+\begin{equation*}
+Y(t) = \intR g(u) X(t-u) du
+\end{equation*}
+Entonces, se cumple la siguiente relaci\'on
+\begin{equation*}
+h_X(\omega) = h_Y(\omega) \abso{\Gamma(\omega)}^{2}
+\end{equation*}
+donde $h_X$ y $h_Y$ son las respectivas FDE de $\{X(t)\}$ y $\{Y(t)\}$, y 
+$\Gamma(\omega) = \intR g(u) e^{i \omega u} du$.
+\label{filtro}
+\end{thrm}
+
+En el teorema \ref{filtro}, la funci\'on $g$ es referida como \textbf{funci\'on de respuesta}; tal 
+nombre tiene sentido si $\{X(t)\}$ no fuera un proceso, sino un 'impulso unitario' (una funci\'on 
+tipo \dirac \footnote{La funci\'on $\delta_x:\R\rightarrow \R$ es una funci\'on $\delta$ de Dirac 
+si puede verse como la funci\'on de distribuci\'on de masa para una medida finita que es cero para 
+todo conjunto que no contenga a $x$}).
+La funci\'on $\Gamma$ es referida como \textbf{funci\'on de transferencia}, nombre motivado de 
+manera similar al considerar a $\{X(t)\}$ una 'se\~nal' senoidal ($X(t) = e^{i \omega t}$); la 
+conexi\'on se vuelve m\'as clara si se interpreta esta segunda se\~nal como funci\'on tipo \dirac 
+en el dominio de las frecuencias.
+Respecto a la 'cancelaci\'on' de frecuencias basta decir que, en teor\'ia, se puede construir a $g$ 
+de modo que $\Gamma$ sea 0 fuera de un intervalo cerrado y 1 dentro del mismo; este efecto es 
+referido como \textbf{filtro de banda}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Representaci\'on de Wold-Cram\'er}
+
+Como consecuencia de los teoremas \ref{t_wienerkhinchin} y \ref{t_wold}, los procesos d\'ebilmente 
+estacionarios pueden ser caracterizados usando directamente la FDE (sin usar la funci\'on de
+autocorrelaci\'on).
+Esta representaci\'on existe en virtud del teorema \ref{rep_espectral}, cuya demostraci\'on no 
+ser\'a incluida en este trabajo; el lector interesado en tan imponente teorema puede referirse a 
+\cite{Priestley81}.
+
+\newpage
+
+\begin{thrm}
+Sea $\{X(t)\}$ un proceso estoc\'astico a tiempo continuo d\'ebilmente estacionario de media 0 y 
+estoc\'asticamente continuo en el sentido de media cuadr\'atica. Entonces, existe un proceso 
+ortogonal $\{Z(\omega)\}$ tal que, para todo tiempo $\omega$ admisible, se puede 
+escribir\footnote{La integral se encuentra definida en el sentido de media cuadr\'atica.}
+\begin{equation*}
+X(t) = \intR e^{i t \omega} dZ(\omega)
+\end{equation*}
+Donde el proceso $\{Z(t)\}$ tiene las siguientes propiedades para todo $\omega$
+\begin{itemize}
+\item $\E{dZ(\omega)} = 0$
+\item $\E{\abso{dZ(\omega)}^{2}} = dH(\omega)$
+\item $\Cov{dZ(\omega),dZ(\lambda)} = 0 \Leftrightarrow \omega \neq \lambda$
+\end{itemize}
+Donde $dH(\omega)$ la FDE integrada de $\{X(t)\}$
+\label{rep_espectral}
+\end{thrm}
+
+En virtud del teorema de Wold, se puede tener una variante del teorema \ref{rep_espectral}
+para procesos a tiempo discreto, raz\'on por la cual  
+tal representaci\'on es referida como \textbf{representaci\'on de Wold-Cram\'er}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Prueba de Priestley-Subba Rao}
+
+Esta t\'ecnica fue presentada por Priestley y Subba Rao en 1969 \cite{Priestley69}, y consiste en 
+estimar el espectro local del proceso len varios puntos en el tiempo y las frecuencias, para luego 
+probar la hip\'otesis de que el espectro cambia en el tiempo; la explicaci\'on presente es m\'as 
+bien somera, los detalles formales que se omiten en el presente texto (la existencia del proceso 
+evolutivo para cierto tipo de procesos, las propiedades de los estimadores usados) pueden 
+encontrarse son tomadas de \cite{Priestley65} y \cite{Priestley66}.
+
+Se pre-supone que los datos pueden entenderse como una cantidad finita de 
+observaciones provenientes de un proceso estoc\'astico a tiempo continuo que, para todos los 
+tiempos, tiene media cero y varianza finita, adem\'as de ser estoc\'asticamente continuo y tener 
+un espectro puramente continuo.
+Si bien son numerosas las condiciones, no se ha supuesto que
+el proceso sea estacionario; adem\'as, se ha argumentado porqu\'e los que conviene ver a los 
+registros de PSG  como observaciones de procesos, estoc\'asticamente continuos, con valor 
+esperado y varianzas finitas. El tener media cero y espectro puramente continuo ser\'an 'forzadas' 
+num\'ericamente, estimando del proceso su media y componente peri\'odica mediante regresi\'on
+lineal adaptativa; en particular, se utiliza el algoritmo \textit{Seasonal-Trend decomposition
+using Loess} (STL), propuesto por Cleveland y colaboradores \cite{Cleveland1990}.
+
+Por brevedad, se mostrar\'a s\'olo someramente una condici\'on extra para los procesos a considerar:
+tener una representaci\'on de la forma
+\begin{equation*}
+X(t) = \intPI A(t,\omega) e^{i t \omega} dZ(\omega)
+\end{equation*}
+donde $\{ dZ(\omega) \}$ es un proceso ortogonal 
+($\Cov{dZ(\omega),dZ(\lambda)} = 0 \Leftrightarrow \omega \neq \lambda$).
+Este objeto, que bien puede entenderse como una representaci\'on de Wold-Cram\'er que puede cambiar
+en el tiempo, fue introducida por Priestley \cite{Priestley65} como el
+\textbf{espectro evolutivo}; es amplia e interesante
+la discusi\'on sobre qu\'e procesos admiten un espectro evolutivo, pero se omite en
+el presente trabajo por motivos de tiempo.
+
+Respecto a la estimaci\'on del espectro local se usa el \textbf{estimador de doble ventana}, 
+t\'ecnica introducida por Priestley \cite{Priestley69} y que requiere dos funciones, $w_\tau$ y 
+$g$, que funcionan como ventana de retrasos y como filtro lineal, respectivamente.
+%
+En cuando a $g$, se define a $\Gamma(u) = \intR g(u) e^{i u \omega} du$ y se les pide que
+\begin{equation*}
+2\pi \int_{-\infty}^{\infty} \lvert g(u) \lvert^{2} du 
+= 
+\int_{-\infty}^{\infty} \lvert \Gamma(\omega) \lvert^{2} d\omega
+= 1
+\end{equation*}
+
+Cabe mencionar que las ventanas espectrales mostradas en la tabla \ref{ventanas} bien 
+pueden cumplir las propiedades requeridas para ser filtros.
+Posteriormente se define el estimador $U$ con el objetivo de asignar pesos en el tiempo para estimar
+a la FDE
+% en el tiempo dado; m\'as a\'un, $U$ sirve 
+%como una aproximaci\'on de la representaci\'on de Wold-Cram\'er para 
+%el proceso.
+\begin{equation*}
+U(t,\omega) = \int_{t-T}^{t} g(u) X({t-u}) e^{i \omega (t-u)} du
+\end{equation*}
+
+Bajo el entendido que la funci\'on $\Gamma$ converge a una funci\'on tipo \dirac, puede 
+considerarse que 
+$\E{\abso{U(t,\omega)}^{2}} \approx f_t(\omega)$; sin embargo, se demuestra en \cite{Priestley66} 
+que $\Var{\abso{U(t,\omega)}^{2}} \nrightarrow 0$.
+%
+Debido a ello se usa una segunda funci\'on tipo ventana,
+%, para 'suavizar' el estimador y hacerlo consistente (
+de forma similar al periodograma.
+Se considera la funci\'on $W_\tau$, ventana de retrasos, y su respectiva ventana espectral 
+$w_\tau$; deben satisfacer las siguientes propiedades:
+\begin{itemize}
+\item $w_{\tau}(t) \geq 0$ para cualesquiera $t$, $\tau$
+\item $w_{\tau}(t) \rightarrow 0$ cuando $\lvert t \lvert \rightarrow \infty$, para todo $\tau$
+\item $\displaystyle \int_{-\infty}^{\infty} w_{\tau}(t) dt = 1$ para todo $\tau$
+\item $\displaystyle \int_{-\infty}^{\infty} \left( w_{\tau}(t) \right)^{2} dt < \infty$ para todo $\tau$
+\item $\exists C$ tal que  
+$\displaystyle \lim_{\tau\rightarrow\infty} \tau \int_{-\infty}^{t} \abso{ W_{\tau}(\lambda) }^{2} d\lambda = C$
+\end{itemize}
+
+%Por ejemplo, la ventana de Daniell satisface estas propiedades; para ello, conviene calcular que
+%$\lim_{\tau\rightarrow\infty} \tau \int_{t-T}^{t} \lvert W_{\tau}(\lambda) \lvert^{2} d\lambda = 2\pi$;
+%m\'as a\'un, 
+Cabe mencionar que todas las ventanas mostradas en \ref{ventanas} satisfacen las propiedades 
+anteriores.
+Finalmente, se define el estimador $\est{f}$ para las FDE normalizada, $f_t$, como
+\begin{equation*}
+\widehat{f}(t,\omega) = \int_{t-T}^{t} w_{T'}(u) \lvert U(t-u,\omega) \lvert^{2} du
+\label{estimador_doble_ventana}
+\end{equation*}
+
+Fue demostrado por Priestley \cite{Priestley65} que los estimadores de doble ventana son 
+asint\'oticamente insesgados y consistentes, y propone las siguientes aproximaciones:
+%conviene exhibir las siguientes expresiones aproximadas propuestas en aqu\'el trabajo
+\begin{itemize}
+\item $\displaystyle
+\E{\est{f}(t,\omega)} \approx 
+\intR \widetilde{f}(t,\omega+\theta) \abso{\Gamma(\theta)}^{2} d\theta$
+\item $\displaystyle
+\Var{\est{f}(t,\omega)} \approx \frac{C}{\tau} \left( \overline{f}^{2}(\omega) \right)
+\intR \abso{\Gamma(\theta)}^{4} d\theta $
+\end{itemize}
+
+donde las funciones $\widetilde{f}$ y $\overline{f}$ son versiones 'suavizadas' de la FDE 
+normalizada, $f$, y est\'an definidas de la siguiente manera
+\begin{equation*}
+\widetilde{f}(t,\omega+\theta) = 
+\intR W_{\tau}(u) f(t-u,\omega+\theta) du
+\end{equation*}
+\begin{equation*}
+\overline{f}^{2} (t,\omega) =
+\frac{\intR f^{2}\left(t-u,W_{\tau}^{2}(u)\right) du}
+{\intR \left( W_{\tau}(u) \right)^{2} du}
+\end{equation*}
+
+Como $W_{\tau}$ funciona como ventana espectral, converge a una 
+funci\'on tipo \dirac; luego $\widetilde{f}$ es aproximadamente la convoluci\'on 
+$\widetilde{f}(t,\omega+\theta) \approx \delta_t \ast f(\bullet,\omega+\theta)$. 
+Una aproximaci\'on muy similar 
+puede hacerse respecto al segundo t\'ermino, de modo que $\widetilde{f}\approx f$ y 
+$\overline{f}^{2}\approx f^{2}$.
+Tales aproximaciones ser\'an mejores en tanto las ventanas $w_{\tau}$ y $W_{\tau}$ sean m\'as 
+cercanas a funciones tipo \dirac.
+%; m\'as a\'un, una condici\'on adecuada es que estas funciones 
+%tengan una forma 'm\'as delgada' que el espacio entre los tiempos y frecuencias donde se estimar\'a 
+%$f$.
+Dicho esto, se pueden hacer las siguientes aproximaciones, un poco m\'as arriesgadas:
+\begin{itemize}
+\item $\displaystyle \E{\est{f}(t,\omega)} \approx f(t,\omega)$
+\item $\displaystyle \Var{\est{f}(t,\omega)} \approx 
+\frac{C}{\tau} f^{2}(t,\omega) \intR \abso{\Gamma (\theta)}^{4} d\theta$
+\end{itemize}
+
+%Por otro lado, es importante mostrar expresiones para la covarianza, si bien s\'olo se
+%se reescriben 
+%aqu\'i unas simplificaciones hechas en el caso que el proceso, adem\'as de cumplir las hip\'otesis 
+%de semi-estacionariedad, sea 'normal'
+A continuaci\'on se exhiben expresiones para la covarianza del estimador, en el caso particular
+de un proceso aproximadamente normal
+\begin{equation*}
+\Cov{\est{f}(t_1,\omega_1) , \est{f}(t_2,\omega_2)} \approx \intR \intR
+w_\tau (u) w_\tau(v) \Cov{ \abso{U(t_1-u,\omega_1)}^{2} , \abso{U(t_2-u,\omega_2)}^{2} }
+du dv
+\end{equation*}
+la covarianza ser\'a negligible en tanto $w_\tau$ se comporte como una 
+funci\'on \dirac, con un pico m\'as delgado que $\abso{\omega_1-\omega_2}$.
+El mismo efecto se logra si $\abso{U(t_1-u,\omega_1)}^{2}$ y $\abso{U(t_2-u,\omega_2)}^{2}$ son 
+no-correlacionados, pero por brevedad s\'olo se citar\'a de \cite{Priestley65} que basta que 
+$\Gamma$ sea una funci\'on \dirac, cuyo ancho sea menor a $\abso{t_1-t_2}$.
+
+Un dato sumamente importante para la estimaci\'on de la FDE es c\'omo la varianza del estimador 
+$\widehat{f}$ depende 'multiplicativamente' de la verdadera FDE.
+Una interpretaci\'on sobre este hecho, difundida dentro de las ingenier\'ias, es sobre la 
+'modulaci\'on' de ondas, que puede verse como una 'multiplicaci\'on de ondas', y que motiva el uso 
+de la 'transformaci\'on logar\'itmica'.
+Formalmente, se introduce el siguiente estimador
+\begin{equation*}
+Y(t,\omega) = \log{\left( \est{f}(t,\omega)\right)}
+\end{equation*}
+
+Se puede demostrar que $Y$ tiene las siguientes propiedades:
+\begin{itemize}
+\item $\displaystyle 
+\E{ Y(t,\omega) } \approx \log \left( f(t,\omega) \right)$
+\item $\displaystyle 
+\Var{ Y(T,\omega) } 
+\approx \frac{C}{\tau} \intR \abso{\Gamma (\theta)}^{4} d\theta $
+\end{itemize}
+m\'as a\'un, el estimador $Y$ puede ser representado de la siguiente forma
+\begin{equation*}
+Y(t,\omega) = \log \left( f(t,\omega) \right) + \varepsilon(t,\omega)
+\end{equation*}
+donde las variables $\varepsilon(t,\omega)$ satisfacen que
+\begin{itemize}
+\item $\displaystyle \E{\varepsilon(t,\omega)} = 0$
+\item $\displaystyle \Var{\varepsilon(t,\omega)}
+\approx \frac{C}{\tau} \intR \abso{\Gamma (\theta)}^{4} d\theta$
+\end{itemize}
+
+Priestley \cite{Priestley81} destaca que la transformaci\'on logar\'itmica tiene la propiedad de 
+hacer que el estimador $Y$ tenga una distribuci\'on 'm\'as cercana' a la normal, y que en la 
+pr\'actica bien puede considerarse que las variables $\varepsilon$'s tienen distribuci\'on normal 
+con media 0 y varianza $\sigma^{2}$.
+Es destacable que las variables $\varepsilon$'s comparten la misma media y varianza, adem\'as de 
+que son aproximadamente no-correlacionadas.
+
+La prueba de Priestley-Subba Rao, como se mencion\'o, funciona calculando el estad\'istico $Y$ 
+sobre varios puntos en el tiempo y la frecuencia, y luego revisando si se puede afirmar que el 
+vector  $\left( Y(t,\omega_1), Y(t,\omega_2), \dots, Y(t,\omega_N) \right)$ es constante en el 
+tiempo; de forma concreta  se maneja la siguiente aproximaci\'on
+\begin{equation*}
+\sum_{i = 1 }^{N} \left( Y(t,\omega_i) - \overline{Y}(\bullet,\omega_i) \right)^{2} 
+\sim \sigma^{2} \chi^{2}(N)
+\end{equation*}
+donde $\sigma^{2} = \Var{\varepsilon(t,\omega)}$, y
+$\overline{Y}(\bullet,\omega) = \frac{1}{M} \sum_{j=1}^{M} Y(t_j,\omega)$.
+Con tal caracterizaci\'on se puede usar una prueba ANOVA de manera relativamente f\'acil.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,0 +1,100 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Preliminares}
+
+\section{Antecedentes}
+
+En algunos estudios de gran escala se han hallado correlaciones entre diferentes trastornos del 
+sueño y algún grado de deterioro cognitivo objetivo en adultos mayores 
+\cite{Amer13,Miyata13,Reid06,Potvin12}; entendiendo por ello una ejecuciones más pobres en tareas
+cognitivas, pero que no impiden llevar a cabo actividades cotidianas.
+
+En 2016 Vázquez-Tagle y colaboradores estudiaron la epidemiología del deterioro cognitivo en 
+adultos mayores dentro del estado de Hidalgo y su posible relación con trastornos de sueño, 
+encontrando una correlación entre una menor eficiencia del sueño\footnote{Porcentaje de tiempo
+de sueño respecto al tiempo en cama} y la presencia de deterioro cognitivo \cite{VazquezTagle16}.
+
+En un segundo trabajo por García-Muñoz y colaboradores \cite{Valeria} se analizaron 
+registros de polisomnograma (PSG) 
+%datos de PSG 
+para detectar posibles cambios en la conectividad funcional del cerebro\footnote{La 
+\textbf{conectividad funcional} se refiere una \textit{fuerte} relación (cuantificada) entre dos 
+señales, y usualmente se contrasta con la \textbf{conectividad anatómica}, entendida como conexiones 
+físicas entre los generadores de señales} en adultos mayores con posible deterioro 
+cognitivo (PDC), reportando un mayor exponente de Hurst para registros de PSG en adultos mayores 
+con PDC \cite{Valeria}.
+El exponente de Hurst, calculado a través del algoritmo \textit{Detrended Fluctuation Analysis}, 
+está relacionado con las correlaciones de largo alcance y la estructura fractal de una serie de 
+tiempo, siendo que un mayor exponente está asociado con señales cuya función de 
+autocorrelación decrece más lentamente \cite{Rodriguez11}.
+Con base a que en aquellos trabajos se ha supuesto que los registros de PSG son no-estacionarios, 
+en este trabajo se pretende verificar si efectivamente estas señales se pueden considerar con tal
+característica.
+
+El supuesto de estacionariedad es básico en el estudio de series de tiempo, y usualmente se 
+acepta o rechaza sin un tratamiento formal; es de particular importancia, por ejemplo, para 
+calcular el espectro de potencias a partir de registros.
+La idea de que sujetos con PDC exhiben estacionariedad débil en sus registros de EEG en mayor 
+proporción, respecto a individuos sanos, fue sugerida por Cohen \cite{Cohen77}, quien a su vez se 
+refiere a trabajos anteriores sobre estacionariedad y normalidad en registros de EEG 
+\cite{McEwen75,Sugimoto78,Kawabata73}.
+%Cabe mencionar que en estos primeros estudios se palpa la posibilidad de que los registros de EEG 
+%fueran 'ruido' de algún tipo, una idea que se ha probado errónea en estudios más recientes 
+%\cite{Klonowski09}; sin embargo, se retoma como hipótesis a la luz de los estudios mencionados. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\section{Justificación}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Pregunta de investigación}
+
+¿Los registros de PSG\footnote{Polisomnograma: actividad eléctrica del cerebro durante el sueño,
+además de otros marcadores como la actividad ocular o la respiración} en adultos mayores, pueden
+considerarse como series tiempo débilmente estacionarias?
+¿Es posible que tal caracterización se relacione con el estado cognoscitivo del adulto mayor?
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Hipótesis}
+
+Existen diferencias en la conectividad funcional del cerebro en adultos mayores con PDC, respecto
+a sujetos sanos, y es posible detectar estas diferencias como una mayor o menor 'presencia' de 
+estacionariedad débil en registros de PSG durante el sueño profundo.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Objetivo general}
+
+Deducir, a partir de pruebas estadísticas formales, las presencia de estacionariedad débil en
+registros de PSG para adultos mayores con PDC, así como individuos control.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Objetivos específicos}
+
+\begin{itemize}
+\item Estudiar la definición de estacionariedad para procesos estocásticos y sus posibles 
+consecuencias dentro de un modelo para los datos considerados
+
+\item Investigar en la literatura cómo detectar si es plausible que una serie de tiempo dada sea 
+una realización para un proceso estocástico débilmente estacionario, y bajo qué supuestos 
+es válida esta caracterización
+
+\item Usando los análisis hallados en la literatura, determinar si las series de tiempo 
+obtenidas a partir de los datos considerados provienen de procesos débilmente estacionarios.
+Revisar si la información obtenida en los diferentes sujetos muestra diferencias entre sujetos 
+con y sin PDC
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

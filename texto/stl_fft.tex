@@ -1,0 +1,335 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Detalles}
+
+Se exponen varios de los conceptos expuestos como preeliminares pero con las formalidades
+pertinentes; cabe mencionar que todos estos resultados no son originales del presente trabajo,
+razón por la cual fueron omitidos anteriormente.
+%presentados como preeliminares, incluyendo demostraciones. 
+%Esta informaci\'on fue cortada del 
+%cuerpo principal del trabajo porque no son resultados originales, y si bien son sumamaente
+%importantess e interesantes, se omitieron a favor de los resultados originales generados en el 
+%trabajo.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Variable aleatoria}
+
+Un primer motivo para esta sección es enfatizar que, formalmente, una variable aleatoria se concibe 
+como un espacio de medida y no como un recuento de eventos. 
+Paralelamente, introducir la terminología adecuada permitirá entender los teoremas que dan base
+a los análisis realizados.
+%relevante para varios resultados utilizados, por lo que
+%conviene no omitirla.
+%
+%Antes de poder definir formalmente las variable aleatoria, debe definirse las medidas.
+
+\begin{defn}[$\boldsymbol{\sigma}$-álgebra]
+Sea $U$ un conjunto y $\mathcal{U}$ una colección de subconjuntos de $U$. Se dice que $\mathcal{U}$
+es una $\sigma$-álgebra si comple que
+\begin{itemize}
+\item $U \in \mathcal{U}$
+\item $A \in \mathcal{U}$ implica que $A^{C} \in \mathcal{U}$
+\item Si $\{ A_n \}_{n\in \mathbb{N}}$ son conjuntos tales que $A_i \in \mathcal{U}$, entonces
+$\displaystyle \cup_{n\in \mathbb{N}} A_n \in \mathcal{U}$
+\end{itemize}
+Donde $A^{C}$ es el complemento $\{ u \in U | u \notin A \} $
+\end{defn}
+
+Por simplicidad, en este trabajo sólo se usarán medidas para conjuntos de números reales derivadas 
+de la $\sigma$-álgebra de Borel, que es definida como la $\sigma$-álgebra más pequeña que contiene a 
+los intervalos abiertos abiertos\footnote{Si una $\sigma$-álgebra contiene a todos los
+intervalos abiertos, entonces debe contener a todos los elementos de la $\sigma$-álgebra de Borel}.
+
+\begin{defn}[Medida]
+Sea $U$ un conjunto y $\mathcal{U}$ una $\sigma$-álgebra definida en $U$. Se dice que una función
+$\mu : \mathcal{U} \rightarrow \R \cup {\infty}$ es una medida si cumple que
+\begin{itemize}
+\item $\mu(\emptyset) = 0$
+\item $\mu(A) \geq 0$ para cualquier $A \in \mathcal{U}$
+\item Si $\{ A_n \}_{n\in \mathbb{N}}$ son conjuntos disjuntos a pares y tales que 
+$A_i \in \mathcal{U}$, entonces 
+$\displaystyle \mu\left( \cup_{n\in \mathbb{N}} A_n \right) = \sum_{n\in \mathbb{N}} \mu(A_n)$
+\end{itemize}
+Donde $\emptyset$ es el conjunto vacío %y $\R^{*} = \R \cup \{-\infty,\infty \}$
+\end{defn}
+
+\begin{defn}[Medida de probabilidad en $\boldsymbol{\R}$]
+Sea $\mathcal{B}$ la sigma álgebra de Borel definida para $\R$, se dice que una función
+$P : \mathcal{B} \rightarrow [0.1]$ es una \textbf{medida de probabilidad} si cumple que
+\begin{itemize}
+\item $P(\emptyset) = 0$
+\item $0 \leq P(A) \leq 1$ para cualquier $A \in \mathcal{B}$
+\item Si $A, B \in \mathcal{B}$ y $A\cap B = \emptyset$, entonces $P(A \cup B) = P(A) + P(B)$ 
+\item $P(\R) = 1$
+\end{itemize}
+\label{variable_aleatoria}
+\end{defn}
+
+%Cabe mencionar que cuando se usa una variable aleatoria para modelar un fenómeno, existe un paso
+%intermedio en que los eventos relevantes se asocian con números reales
+
+Otra forma de entender una variables aleatoria es a partir de su función de probabilidad
+acumulada (FPA), ya que hay una correspondencia unívoca entre cada variable aleatoria y su FPA.
+
+\begin{defn}[Función de Probabilidad Acumulada]
+Sea 
+\begin{equation*}
+F_X (x) = P\left( (-\infty,x] \right)
+\end{equation*}
+\end{defn}
+
+Habitualmente, como se hace el presente texto, se usa el símbolo $X$ para denotar a una variable 
+aleatoria cuya FDA es $F_X$; bajo esta idea, para cualquier conjunto $I \subseteq \R$ se denota
+$P(X \in I) = P(I)$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Notas sobre la estacionariedad}
+
+En el texto se presentó la estacionariedad débil (definición \ref{est_usual}) como la característica
+a verificar en los registros de estudio, aunque cabe ahondar un poco sobre por qué
+la versión \textit{débil}. La estacionariedad formaliza el que
+las características de un proceso estocástico no cambien en el tiempo, lo cual permite 
+caracterizarlo a partir de sus realizaciones; la definición \ref{est_fuerte} presenta
+una condición suficiente para ello.
+
+\begin{defn}[Estacionariedad fuerte]
+Un proceso estoc\'astico \xt es fuertemente estacionario si, para cualquier conjunto de 
+tiempos admisibles
+$t_1,t_2,\dots,t_n$ y cualquier $\tau$ tal que los tiempos $t_i+\tau$ son admisibles; se cumple que
+\begin{equation*}
+F_{\left(X(t_1),X(t_2),\dots,X(t_n)\right) }
+\equiv
+F_{\left(X(t_1+\tau),X(t_2+\tau),\dots,X(t_n+\tau)\right)}
+\end{equation*}
+
+Donde $F_{\left(X(t_1),X(t_2),\dots,X(t_n)\right) }$ es la funci\'on de probabilidad acumulada 
+conjunta para el vector $\left(X(t_1),X(t_2),\dots,X(t_n)\right)$
+\label{est_fuerte}
+\end{defn}
+
+Tal definición es problemática en el problema tratado, ya que requiere estimar para cada tiempo
+
+%Sin embargo, la definici\'on \ref{est_fuerte} resulta in\'util si se pretende verificar que un 
+%registro dado pudiera ser modelado como la realizaci\'on de un proceso es fuertemente estacionario 
+%(un objetivo descartado para este trabajo). 
+%En ese escenario, para cada tiempo registrado $t$ se 
+%tiene s\'olo una observaci\'on para cada variable aleatoria $X(t)$, lo cual es muy poca 
+%informaci\'on como para estimar las funciones de probabilidad acumulada mencionadas en la 
+%definici\'on.
+%Estas limitaciones motivan una definici\'on m\'as d\'ebil de estacionariedad, pero que pueda ser 
+%detectada en realizaciones dadas de procesos; se exhibe la definici\'on \ref{est_orden_m} como 
+%alternativa.
+
+\begin{defn}[Estacionariedad de orden $\boldsymbol{m}$]
+Un proceso estoc\'astico $\{ X(t) \}$ se dice estacionario de orden $m$ si, para cualquier conjunto 
+de tiempos admisibles $t_1,t_2,\dots,t_n$ y cualquier $\tau \in \R$ se cumple que
+\begin{equation*}
+\E{ X^{m_1}(t_1)X^{m_2}(t_2)\cdots X^{m_n}(t_n) }
+=
+\E{ X^{m_1}(t_1+\tau)X^{m_2}(t_2+\tau)\cdots X^{m_n}(t_n+\tau) }
+\end{equation*}
+Para cualesquiera enteros $m_1,m_2,\dots,m_n$ tales que $m_1+m_2+\dots+m_n \leq m$
+\label{est_orden_m}
+\end{defn}
+
+Para entender mejor la definici\'on \ref{est_orden_m} y sus limitaciones frente a la 
+estacionariedad fuerte, consid\'erense tres procesos: $\{X(t)\}$ fuertemente estacionario, 
+$\{Y_1(t)\}$ estacionario de orden 1, y $\{Y_2(t)\}$ estacionario de orden 2. Luego
+\begin{itemize}
+\item Las medias\footnote{La media de una variable aleatoria $V$ se define como $ \mu_V := \E{V}$} 
+$ \mu_{X(t)}$, $ \mu_{Y_1(t)}$ y $ \mu_{Y_2(t)}$ no dependen de $t$
+
+\item Las varianzas\footnote{La varianza de una variable aleatoria $V$ se define como 
+$ \Var{V} := \E{\left(V - \mu_V \right)^{2}}$} $ \Var{Y_1(t)}$ y $ \Var{Y_2(t)}$ no dependen de 
+$t$, pero no se puede garantizar lo mismo para $\Var{X(t)}$
+
+\item El coeficiente de asimetr\'ia\footnote{El coeficiente de asimetr\'ia para una variable 
+aleatoria $V$ se define como 
+$\gamma_V = \frac{\E{\left(V-\mu_V\right)^{3}}}{\Var{V}^{\nicefrac{3}{2}}}$}
+$ \gamma_{X(t)}$ no depende de $t$, pero no se puede garantizar lo mismo para $ \gamma_{Y_1(t)}$ ni 
+para $ \gamma_{Y_2(t)}$
+\end{itemize}
+
+Cabe mencionar que hay una relaci\'on de contenci\'on clara en familia de los conjuntos de procesos 
+estacionarios de orden finito (si un proceso es estacionario de orden $m$, entonces es estacionario 
+de orden $n$ para todo $n \leq m$); es posible definir procesos estacionarios de orden 'infinito' 
+seg\'un \ref{est_orden_m}, que intuitivamente ser\'ian fuertemente estacionarios. 
+De manera pragm\'atica, en este trabajo no se discuten tales interrogantes, sino que se usar\'a 
+\'unicamente la definici\'on correspondiente al caso $m=2$, referida como estacionariedad d\'ebil o 
+de orden 2, y repetida en la definici\'on \ref{est_orden_2}.
+
+
+
+\begin{defn}[Estacionariedad d\'ebil]
+Un proceso estoc\'astico \xt es d\'ebilmente estacionario si, para cualesquiera tiempos 
+admisibles\footnote{El t\'ermino \textit{tiempos admisibles} indica que para tiempo 
+discreto o continuo la afirmaci\'on es la misma, bajo las restricciones pertinentes} 
+$t, s, t+\tau, s+\tau$, se cumple que
+\begin{center}
+\begin{tabular}{ccc}
+$\E{X(t)} = \E{X(t+\tau)}$
+& y &
+$\E{X(t)X(s)} = \E{X(t+\tau)X(s+\tau)}$
+\end{tabular}
+\end{center}
+\label{est_orden_2}
+\end{defn}
+
+M\'as a\'un, parece conveniente exhibir una caracterizaci\'on equivalente para los procesos 
+d\'ebilmente estacionarios, pero que tiene una interpretaci\'on m\'as sencilla.
+\begin{thrm}
+Un proceso estoc\'astico es d\'ebilmente estacionario si y s\'olo si para cualesquiera tiempos 
+admisibles $t$, $s$ se tiene que
+\begin{itemize}
+\item $\E{X(t)} = \mu_X$
+\item $\Var{X(t)} = \sigma^{2}_X$
+\item $\Cov{X(t),X(s)} = \rho_X (s-t)$
+\end{itemize}
+Donde $\mu_X$, $\sigma^{2}_X$ son constantes, $\rho_X(\tau)$ es una funci\'on que \'unicamente 
+depende de $\tau$
+\label{est_usual}
+\end{thrm}
+
+-----------------
+
+Cabe comentar  sobre la existencia de procesos que son fuertemente estacionarios pero que no son 
+estacionarios de ning\'un orden: por ejemplo, un proceso de variables aleatorias independientes con 
+distribuci\'on de Cauchy\footnote{Una variable aleatoria tiene distribuci\'on de Cauchy si su 
+funci\'on de probabilidad acumulada es de la forma 
+$\displaystyle F(x) = \frac{1}{\pi} \int_{-\infty}^{x} \frac{1}{1+y^{2}} dy$}.
+Una condici\'on suficiente para que un proceso fuertemente estacionario sea estacionario de orden 
+$m$ es que tenga sus primeros $m$ momentos bien definidos.
+Con respecto a las se\~nales registradas en el EEG, entendidas como procesos estoc\'asticos, se 
+espera que tengan (cuando menos) segundos momentos bien definidos; m\'as adelante se presentan 
+argumentos, desde una interpretaci\'on f\'isica, sobre por qu\'e se espera que ocurra lo anterior.
+
+
+
+-------------------
+
+Como ejemplos, un proceso ruido blanco (definici\'on \ref{r_blanco}) no es estoc\'asticamente 
+continuo, mientras que un proceso de Wiener (definici\'on \ref{r_wiener}) s\'i lo es.
+
+\begin{defn}[Proceso ruido blanco]
+Se dice de un proceso estoc\'astico $\{ R(t) \}$ que cumple, para cualesquiera tiempos admisibles
+$t$ y $s$, las siguientes propiedades:
+\begin{itemize}
+\item $\E{R(t)}=0$
+\item $\Cov{R(t),R(s)}=0 \Leftrightarrow t=s$ 
+\end{itemize}
+\label{r_blanco}
+\end{defn}
+
+\begin{defn}[Proceso de Wiener]
+Se dice de un proceso estoc\'astico $\{ W(t) \}$ que cumple, para cualesquiera tiempos admisibles
+$t$ y $s$ (con $s>t$) las siguientes propiedades:
+\begin{itemize}
+\item $W(0) = 0$ ($W(0)$ es constante)
+\item $W(s)-W(t)$ es independiente de $W(u)$, para todo $u<t$ admisible
+\item $W(s)-W(t) \sim N(0,\abso{t-s})$  (los incrementos tienen distribuci\'on normal)
+\end{itemize}
+\label{r_wiener}
+\end{defn}
+
+Una forma natural de pensar en la definici\'on \ref{cont_est} es que, si $\abso{t-t_0}$ es muy 
+peque\~no, entonces $X(t)$ y $X(t_0)$ difieren muy poco entre s\'i (como variables aleatorias).
+Es destacable que si un proceso es estoc\'asticamente continuo en un intervalo, sus realizaciones 
+solamente se pueden garantizar continuas casi en todas partes \footnote{Una propiedad se cumple 
+\textbf{casi en todas partes} si se cumple en un conjunto cuyo complemento tiene medida cero} en 
+ese intervalo.
+
+--------------------------
+
+En la definici\'on \ref{fourier_stieltjes}, si $F$ es derivable en todas partes entonces $F\prima$ 
+cumple el mismo papel que la integral de Fourier; en cambio, si $k$ es una funci\'on peri\'odica 
+entonces $F$ toma una forma escalonada cuyos aumentos coinciden con la serie de Fourier para $k$. 
+M\'as a\'un, existen funciones que no son ni peri\'odicas ni absolutamente sumables pero poseen 
+una transformada de Fourier-Stieltjes, como $k(x)=\SEN{x}+\SEN{\sqrt{2}x}$, 
+$k(x)=\COS{x} + (1+x^{2})^{-1}$.
+
+%\begin{comment}
+\begin{thrm}[Descomposici\'on de Lebesgue]
+Sea $f:I\rightarrow \R$ una funci\'on de variaci\'on acotada, con $I$ un intervalo. Entonces pueden 
+hallarse funciones $f_j, f_c, f_a :I\rightarrow \R$ tales que
+\begin{itemize}
+\item $f = f_j+ f_c+ f_a$
+\item $f_j = \sum_{y \leq x} f(x-0) + f(x+0)$
+\item $f_a$ es absolutamente continua\footnote{Para que una funci\'on sea absolutamente continua,
+basta que sea de variaci\'on acotada y que mapee conjuntos de medida cero en conjuntos de medida
+cero} en $I$
+\item $f_c$ es una funci\'on singular\footnote{Una funci\'on es singular si es continua, de 
+variaci\'on acotada y no-constante, y se cumple que tiene derivada cero casi en todas partes} en 
+$I$
+\end{itemize}
+Estas funciones son \'unicas excepto por constantes, y en conjunto son llamados la 
+\textit{descomposici\'on de Lebesgue} de $f$
+\label{Lebesgue_decomp}
+\end{thrm}
+%\end{comment}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Transformada R\'apida de Fourier}
+
+Como se mostró en el texto, la transformada de Fourier es un operador clave para la definición y el
+estudio del \textit{dominio de las frecuencias}. Sin embargo, su aplicación a series de tiempo grandes se ve
+dificultada porque es un proceso lento: si se toma una serie de tiempo 
+$\{s_n\}_{n=0,\dots,N}$ y se calcula su transformada finita de Fourier según su definición
+\begin{equation*}
+\mathfrak{F}_s(\omega) = \sum_{n=0}^{N} s_n e^{i \omega n}
+\end{equation*}
+entonces para cada frecuencia $\omega$ se requerirán $N$ multiplicaciones y $N-1$ sumas, siendo que
+usualmente se analizan las frecuencias de la forma $\omega_k = \nicefrac{2 \pi k}{N}$ 
+con $k = 0, 1, \dots, \nicefrac{N}{2}$.
+Usando la notación de Landau (definición \ref{orden}) se deduce que obtener la transformada discreta
+de Fourier de una serie de tiempo de longitud $N$, usando este método, 
+ocupa un tiempo de orden $\mathcal{O}(N^{2})$.
+
+\begin{defn}[Orden $\mathcal{O}$]
+Sean $f, g$ dos funciones en $\R$ con $g(x)\neq 0$ para $x\in \R$. Se dice que $f = \mathcal{O}(g)$,
+que $f$ tiene orden $g$, si existe una constante $k\in \R$ tal que
+\begin{equation*}
+\lim_{x\rightarrow \infty} \frac{f(x)}{g(x)} = k
+\end{equation*}
+\label{orden}
+\end{defn}
+
+El algoritmo presentado por Cooley y Tukey en 1965, la Transformada Rápida de Fourier 
+(TRF), usa menos operaciones si el número de observaciones es \textit{altamente 
+compuesto}\footnote{Se dice que un número entero es \textit{compuesto} si no tiene dos o más
+divisores propios mayores a 1; se dice que es más compuesto si tiene más de estos factores}.
+
+Considerando la serie de tiempo $\{s_n\}_{n=0,\dots,N}$ con $N$ de la forma $N= p q$ para 
+$p, q$ enteros mayores a 1, entonces su TRF se puede reescribir como
+
+\begin{align*}
+\mathfrak{F}_s(\omega) &= \sum_{m = 0}^{p} \sum_{k=0}^{q} s_n e^{i \omega (mp + q)} 
+\\
+&= 
+\end{align*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\section{Efecto del filtro STL}
+%
+%En el texto se menciona al filtro STL como un algoritmo para eliminar los efectos de tendencias
+%deterministas sobre los registros, con lo cual se puede argumentar que los registros tienen
+%valor esperado cero y que admiten una representaci\'on de Wold-Cram\'er. Sin embargo, se omiti\'o
+%una descripci\'on m\'as adecuada por motivos narrativos.
+%
+%El algoritmo, introducido por Cleveland y colaboradores en 1990 \cite{Cleveland1990} toma sus siglas
+%del ingl\'es \textit{Seasonal-Trend decomposition based on Loess} (descomposici\'on en tendencia y
+%periodicidad basada en loess)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

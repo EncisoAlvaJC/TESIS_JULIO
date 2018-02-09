@@ -1,0 +1,168 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Introducción}
+
+Gracias a los avances médicos del último siglo se ha incrementado la esperanza de vida y la 
+calidad de vida; desafortunadamente también ha aumentado la presencia de enfermedades 
+no-transmisibles asociadas con la edad. 
+%
+Para muchas de esas enfermedades no se han identificado factores causales o curas definitivas 
+\cite{PlanAlzheimer04}.
+%
+En México el sector de la población con más de 60 años de edad (aquellos con alto riesgo para este
+tipo de enfermedades) contempló a 10 millones de personas en 2010; se estima en 2015 esta cifra 
+creció a 12 millones \cite{Censo10,Intercensal15}.
+
+De entre las enfermedades ante las cuales este grupo de edad es vulnerable, en este trabajo se 
+destaca la demencia. 
+%
+La demencia consiste en el desarrollo de déficit cognoscitivos suficientemente graves como para 
+interferir en las actividades laborales y sociales.
+%
+El deterioro cognitivo característico de la demencia se considera irreversible, debido a lo cual 
+ha surgido un gran interés en definir y diagnosticar etapas tempranas de este padecimiento con el 
+fin de evitar en lo posible dicho síntoma \cite{Knopman01}.
+
+Se define entonces al deterioro cognitivo leve (DCL) como \textit{una alteración adquirida y 
+prolongada de una o varias funciones cognitivas, que no corresponde a un síndrome focal y no cumple 
+criterios suficientes de gravedad para ser calificada como demencia} \cite{Robles02}.
+%
+No hay un consenso absoluto sobre qué deficiencias cognitivas --o más bien en qué grado-- 
+distinguen a un individuo con DCL, de modo que hay una multitud de definiciones que no son
+equivalente \cite{Petersen01}.
+%
+En el presente trabajo se favorecen los métodos para caracterizar --y diagnosticar-- el DCL en base 
+a mediciones físicas, pero manteniendo presente que el fenómeno del deterioro cognitivo no puede 
+reducirse exclusivamente a tales mediciones; las conclusiones sobre las señales electrofisiológicas 
+deben ser contrastadas, por ejemplo, con los resultados de evaluaciones neuropsicológicas.
+
+En concreto se utilizarán registros de electroencefalograma (EEG) obtenidos durante etapas
+específicas en el sueño del paciente, técnica conocida como polisomnogrfía (PSG).
+%
+Conviene destacar que muchos de los marcadores para el DCL definidos en base al EEG, dependen
+efectivamente de su respectivo espectro de potencias; el razonamiento usual para ello es que si el 
+EEG está asociado al grado de actividad cerebral en términos de energía, entonces el espectro de 
+potencias explica \textit{cómo} es dicha actividad.
+
+El presente trabajo toma parte en el problema metodológico de que las señales 
+electrofisiológicas típicamente representan procesos no--lineales y no--estacionarios, y sin 
+embargo suelen ser analizadas usando herramientas que suponen linealidad y estacionariedad.
+%
+En el caso particular del espectro de potencias, es común que sea calculado usando la 
+transformada de Fourier sobre segmentos cortos para evitar los \textit{efectos} de la 
+no--estacionariedad \cite{Kaiser00}.
+%
+A consecuencia de lo anterior los datos pueden contener información \textit{oculta}, o incluso 
+pueden llegar a no ser representativos del fenómeno que se estudia. 
+%
+%Es por ello que se buscan herramientas para verificar la estacionariedad débil en los registros
+%electrofisiológicas, y con especial atención en la posibilidad de que puedan usarse como marcadores
+%de deterioro cognitivo.
+%%
+%Adicionalmente, la posibilidad de que sujetos con PDC exhiben estacionariedad débil en sus 
+%registros de EEG en mayor proporción (respecto a individuos sanos) fue sugerida anteriormente
+%\cite{Cohen77}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Antecedentes}
+
+El sueño MOR ha sido ampliamente reconocido como parte de la consolidación de la memoria, así como
+otras funciones cognitivas 
+\cite{Fishbein1971,Fishbein1977,Lucero1970,Pearlman1971,Pearlman1974,Smith1991}.
+%
+En el caso de adultos mayores, la correlación entre deterioro cognitivo y trastornos del sueño ha 
+sido reportada por varios autores a partir de estudios poblacionales 
+\cite{Amer13,Miyata13,Reid06,Potvin12}.
+%
+Tal correlación era de esperarse ya que los proceso de atención y memoria, por ejemplo, dependen de 
+los circuitos colinérgicos activados durante el sueño MOR \cite{Braun1997}; estos circuitos son 
+propensos a degradación estructural tanto en tanto en el envejecimiento normal como en el 
+patológico,  y especialmente en el segundo \cite{Schliebs11}.
+
+En 2016 Vázquez-Tagle y colaboradores estudiaron la epidemiología del DCL en adultos mayores dentro 
+del estado de Hidalgo y su posible relación con trastornos de sueño, encontrando efectivamente una 
+correlación entre una menor eficiencia del sueño (porcentaje de tiempo de sueño respecto al tiempo 
+en cama) y la presencia de deterioro cognitivo \cite{VazquezTagle16}.
+%
+En aquél estudio se efectuaron registros de PSGpara algunos de los participantes, con la intención 
+de verificar que existen diferencias en los registros correspondientes a individuos con y sin DCL.
+%
+El presente trabajo se enmarca dentro de una colaboración los responsables del estudio mencionado, 
+con el objetivo de identificar concretamente los posibles cambios en los registros de PSG 
+ocurridos durante el DCL.
+
+La idea de que sujetos con deterioro cognitivo exhiban cambios en sus registros de PSG relacionados 
+a la estacionariedad débil, fue sugerida por Cohen en 1977 \cite{Cohen77}; aquél análisis se 
+refiere a su vez a trabajos anteriores sobre estacionariedad y normalidad en registros de EEG
+\cite{McEwen75,Sugimoto78,Kawabata73}.
+%
+Los estudios referidos se enmarcan en un primer intento de verificar que los registros 
+electrofisiológicos no pueden modelarse como señales son simples.
+%
+El tema de la estacionariedad en señales parece relevante nuevamente a la luz de una revisión
+por Kreuz y colaboradores \cite{Kreuz07}, según la cual el método más eficaz para detectar 
+correlación es la correlación \textit{clásica} --en comparación con algunos métodos basados en 
+entropía o información mutua, por ejemplo. 
+%
+Para llegar a tal conclusión analizaron algunos tipos \textit{comunes} de datos, experimentales y 
+simulados, así como algunos tipos comunes de perturbaciones.
+
+Un resultado tan controversial provoca replantearse, por ejemplo, si algún método en particular es 
+adecuado para un tipo arbitrario de datos, o si algunas generalizaciones para estos métodos son 
+efectivamente necesarias.
+%
+Claramente una grupo tan vasto de interrogantes es efectivamente inútil como motivo de
+investigación; se presenta como tal con base a los resultados obtenidos.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Pregunta de investigación}
+
+¿Los registros de polisomnograma en adultos mayores pueden considerarse como series tiempo 
+débilmente estacionarias?
+%
+¿Es posible que tal caracterización se veo influida por el estado cognitivo del sujeto?
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Hipótesis}
+
+Existen diferencias en la actividad eléctrica cerebral en adultos mayores con PDC, respecto a 
+individuos sanos, y es posible detectar dichas diferencias como una mayor o menor 
+\textit{presencia} de estacionariedad débil en registros de PSG durante el sueño profundo.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Objetivo general}
+
+Obtener pruebas estadísticas formales para detectar si una serie de tiempo dada procede de un
+proceso estocástico débilmente estacionario.
+%
+Usar tales pruebas sobre registros de polisomnograma en adultos mayores, para investigar si la 
+presencia de segmentos débilmente estacionarios se correlaciona con la condición de probable
+deterioro cognitivo.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Objetivos específicos}
+
+\begin{itemize}
+\item Estudiar la definición de estacionariedad para procesos estocásticos
+
+\item Investigar cómo detectar, como prueba de hipótesis, si una serie de tiempo dada proviene
+de un proceso estocástico débilmente estacionario, y bajo qué supuestos 
+es válida dicha caracterización
+
+\item Decidir si los registros de PSG, durante sueño profundo, son débilmente estacionarios
+
+\item Investigar si la presencia de segmentos estacionarios en los registros es diferente si el
+PSG corresponde a un individuo con PDC
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

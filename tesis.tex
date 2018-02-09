@@ -1,0 +1,571 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\documentclass[12pt,letterpaper,draft]{book}
+\documentclass[12pt,letterpaper]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+% para poner el tamano de los margenes
+\usepackage[left=4cm,top=4cm,right=2.5cm,bottom=2.5cm]{geometry}
+
+% para poner doble espacio
+\usepackage{setspace}
+\onehalfspacing
+
+% util para revisar detalles finos, descativar despues
+%\usepackage{layouts}
+
+% para que escriba 'Figura...' en negritas
+\usepackage[labelfont=bf]{caption}
+
+% numeros con punto decimal (el default es coma decimal)
+\decimalpoint
+
+% tienen algunos comandos que ocupo, como align o defn
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+% sin este no se pueden incluir imagenes
+\usepackage{graphicx}
+
+% sobre el formato de las paginas
+\usepackage{cmap}
+\pagestyle{plain}
+
+% para importar el codigo de R y que se vea bien
+\usepackage{listings}
+\usepackage{color}
+
+% este paquete pone las fracciones bonitas
+\usepackage{nicefrac}
+
+% hipervinculos a internet
+\usepackage{url}
+
+% para poner imagenes verticales en pagina completa
+\usepackage{pdflscape}
+\usepackage{afterpage}
+\usepackage{everypage}
+\usepackage{environ}
+
+% tablas a hoja completa
+\usepackage{tabularx}
+
+% tablas con lineas gruesas
+\usepackage{booktabs}
+
+% grandes cantidades de codigo como comentario
+\usepackage{verbatim}
+
+% para que no se muevan mucho las figuras y tablas
+\usepackage[section]{placeins}
+
+% etiquetas en un multiplot
+%\usepackage[caption=false]{subfig}
+\usepackage{float}
+
+% para que el indice tenga hipervinculos
+\usepackage[pdftex,
+            pdfauthor={Enciso Alva Julio Cesar},
+            pdftitle={Tesis: Estacionariedad en PSG de AM como macador de PDC},
+            pdfsubject={Matemáticas Aplicadas},
+            %pdfkeywords={PALABRAS CLAVE},
+            pdfproducer={Latex en Linux},
+            pdfcreator={pdflatex}]{hyperref}
+
+% para que la bibliografia aparezca en el indice
+\usepackage[nottoc]{tocbibind}
+
+% opciones de la bibliografia en espanol
+\usepackage{babelbib}
+
+% para tablas de colores
+\usepackage{xcolor,colortbl}
+\usepackage{multirow}
+
+% arreglar problemas con las etiquetas con archivos multiples
+\usepackage{xr}
+\usepackage{zref}
+
+% para poner palomita y tache
+\usepackage{pifont}
+
+% usar la F bonita para la tr de Fourier
+\usepackage{mathrsfs}
+
+% para escribir pseudocodigo
+%\usepackage[spanish,onelanguage,linesnumbered,vlined]{algorithm2e}
+\usepackage[spanish,onelanguage,linesnumbered,ruled,vlined]{algorithm2e}
+% boxed
+
+% para que aparezcan bien microvolt
+\usepackage{siunitx}
+
+% para que no haya espacio de sobra despues de las tablas
+\usepackage{tabularx}
+
+% resuelve el problema del espacio despues de as abreviaciones \newcommand
+\usepackage{xspace}
+
+% usar figuras de varias paginas
+\usepackage[label font=bf]{subcaption}
+
+% textsc + textbf
+\usepackage{bold-extra}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% ajustando las figuras, parametros globales
+%\renewcommand{\fps@figure}{!b}
+%\renewcommand{\fps@table}{!b}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% comandos para tablas/figuras en hoja completa: SidewaysTable y SidewaysFigure
+
+\newcounter{abspage}% \thepage not reliab
+
+\makeatletter
+\newcommand{\newSFPage}[1]% #1 = \theabspage
+  {\global\expandafter\let\csname SFPage@#1\endcsname\null}
+
+\NewEnviron{SidewaysFigure}{
+\begin{figure}[p]
+\protected@write\@auxout{\let\theabspage=\relax}% delays expansion until shipout
+  {\string\newSFPage{\theabspage}}%
+\ifdim\textwidth=\textheight
+  \rotatebox{90}{\parbox[c][\textwidth][c]{\linewidth}{\BODY}}%
+\else
+  \rotatebox{90}{\parbox[c][\textwidth][c]{\textheight}{\BODY}}%
+\fi
+\end{figure}}
+
+\NewEnviron{SidewaysTable}{
+\begin{table}[p]
+\bordes{1.1}
+\protected@write\@auxout{\let\theabspage=\relax}% delays expansion until shipout
+  {\string\newSFPage{\theabspage}}%
+\ifdim\textwidth=\textheight
+  \rotatebox{90}{\parbox[c][\textwidth][c]{\linewidth}{\BODY}}%
+\else
+  \rotatebox{90}{\parbox[c][\textwidth][c]{\textheight}{\BODY}}%
+\fi
+\end{table}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\abbrlabel}[1]{\makebox[3cm][l]{\textbf{#1}\ \dotfill}}
+\newenvironment{abbreviations}{\begin{list}{}{\renewcommand{\makelabel}{\abbrlabel}}}{\end{list}}
+
+\pagestyle{plain}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% munchas abreviaciones que uso para ahorrar codigo, quiza ponga mas
+
+\newtheorem{definicion}{Definición}[chapter]
+\newtheorem{teorema}{Teorema}[chapter]
+\newtheorem{proposicion}{Proposición}[chapter]
+\newtheorem{demostracion}{Demostración}[chapter]
+\newtheorem{observacion}{Observación}[chapter]
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\intR}{\int_{-\infty}^{\infty}}
+\newcommand{\intZ}{\int_{-\infty}^{0}}
+\newcommand{\intPI}{\int_{-\pi}^{\pi}}
+\newcommand{\simint}[1]{\int_{- #1 }^{ #1 }}
+\newcommand{\prima}{^{\prime}}
+
+\newcommand{\ddd}{$\delta$}
+\newcommand{\dirac}{$\delta$  de Dirac}
+
+\newcommand{\aste}[1]{\widehat{ #1 }^{\star}}
+\newcommand{\est}[1]{\widehat{ #1 }}
+
+\newcommand{\COS}[1]{\mathrm{cos}\left( #1 \right)}
+\newcommand{\SEN}[1]{\mathrm{sen}\left( #1 \right)}
+
+\newcommand{\E}[1]{\mathrm{E}\left[ #1 \right]}
+\newcommand{\Var}[1]{\mathrm{Var}\left( #1 \right)}
+\newcommand{\Cov}[1]{\mathrm{Cov}\left( #1 \right)}
+\newcommand{\abso}[1]{\left| #1 \right|}
+
+\newcommand{\xt}{$\{X(t)\}_{t\in \mathcal{T}}$ }
+\newcommand{\xtd}{$\{x_t\}_{t=0,\dots,N}$ }
+\newcommand{\orden}{\mathcal{O}}
+
+\newcommand{\talque}{\mathrel{}\middle|\mathrel{}}
+
+\newcommand{\lp}{\ell^{p}}
+\newcommand{\llp}{L^{p}}
+\newcommand{\ldos}{\ell^{2}}
+\newcommand{\lldos}{L^{2}_I}
+
+\newcommand{\sip}{\ding{51}}
+\newcommand{\nop}{\ding{55}}
+
+\newcommand{\pz}{\phantom{.0}}
+\newcommand{\ppu}{\phantom{1}}
+\newcommand{\phm}{\phantom{-}}
+
+\newcommand{\hz}{\si{\hertz}\xspace}
+\newcommand{\mv}{\si{\micro\volt}\xspace}
+
+\newcommand{ \lento }{$\text{R}_{\text{E}}$\xspace}
+
+\DeclareMathOperator{\argmax}{arg\,max}
+
+\newcommand{\wdd}{\omega^{\star}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% colores para tablas
+
+\newcommand{\bordes}[1]{\renewcommand{\arraystretch}{#1}}
+
+\definecolor{gris}{gray}{0.925}
+\definecolor{gris2}{gray}{0.8}
+
+\newcommand{\toprulec}{%
+  \arrayrulecolor{black}\specialrule{\heavyrulewidth}{\aboverulesep}{0pt}
+  \arrayrulecolor{gris}\specialrule{\belowrulesep}{0pt}{0pt}
+  \arrayrulecolor{black}
+}
+\newcommand{\midrulec}{%
+  \arrayrulecolor{gris}\specialrule{\aboverulesep}{0pt}{0pt}
+  \arrayrulecolor{black}\specialrule{\lightrulewidth}{0pt}{\belowrulesep}
+}
+\newcommand{\bottomrulec}{%
+  \arrayrulecolor{black}
+  \arrayrulecolor{gris}\specialrule{\belowrulesep}{0pt}{0pt}
+  \arrayrulecolor{black}\specialrule{\lightrulewidth}{0pt}{\belowrulesep}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% colores para lslistings
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{ %
+  language=R,                     % the language of the code
+  basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+% basicstyle=\tiny,               % the size of the fonts that are used for the code
+  numbers=left,                   % where to put the line-numbers
+  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+  stepnumber=1,                   % the step between two line-numbers. If it's 1, each line
+                                  % will be numbered
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  frame=single,                   % adds a frame around the code
+  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+  title=\lstname,                 % show the filename of files included with \lstinputlisting;
+                                  % also try caption instead of title
+  %keywordstyle=\color{blue},      % keyword style
+  %commentstyle=\color{dkgreen},   % comment style
+  %stringstyle=\color{mauve},      % string literal style
+  %escapeinside={\%*}{*)},         % if you want to add a comment within your code
+  morekeywords={*,/,.}            % if you want to add more keywords to the set
+  deletekeywords={t,_,max,R}      % to remove keywords
+} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% los vinculos dentro del documento son mas discretos
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\setcounter{page}{0}
+\thispagestyle{empty}
+
+\title{Estacionariedad débil en registros polisomnográficos de adultos mayores,
+como marcador de deterioro cognitivo}
+\author{Julio Cesar Enciso Alva}
+
+\begin{center}
+    \includegraphics[width=0.2\linewidth]{./img_oficiales/logo_uaeh.png}\\
+    
+    {\large 
+        \textbf{\textsc{
+            Universidad Autónoma del Estado de Hidalgo\\
+            Instituto de Ciencias Básicas e Ingeniería\\
+        }}
+    }
+\vspace*{2.5em}
+    {\huge
+        Estacionariedad débil en registros polisomnográficos de adultos mayores,
+        como marcador de deterioro cognitivo\\
+    }
+\vspace*{2.5em}
+    {\large
+        \textbf{Presenta}\\
+    }
+\vspace*{.25em}
+    {\Large
+        Julio Cesar Enciso Alva\\
+    }
+\vspace*{3em}
+    {\large
+        \textbf{Dirección}\\
+    }
+\vspace*{.25em}
+    {\Large
+        Dra. Erika Elizabeth Rodríguez Torres\\
+        Dra. Alejandra Rosales Lagarde\\
+    }
+\vspace*{3em}
+    {\large
+        Pachuca, Hidalgo, Febrero de 2018\\
+        M\'exico
+    }
+\end{center}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+\chapter*{Resumen}
+
+En las últimas décadas ha aumentado la esperanza y calidad de vida, paralelamente se observa una 
+mayor presencia de enfermedades no-transmisibles asociadas a la edad, entre ellas la demencia.
+%
+Anteriormente se ha reportado, para adultos mayores, correlaciones entre la presencia de deterioro
+cognitivo leve (PDC, considerado una etapa temprana de la demencia) y algunas propiedades del 
+espectro  de potencias calculado para registros de polisomnograma (PSG, electroencefalograma 
+durante el sueño) \cite{Brayet16}.
+%
+En este trabajo se buscan marcadores para un diagnóstico de PDC, basados en cantidades dependientes
+del espectro de potencias para registros de actividad. En particular se estudia la estacionariedad 
+débil, una cantidad que se ha propuesto como marcador de alteraciones neurológicas \cite{Cohen77}, 
+pero que usualmente se deshecha heurísticamente y sin una comprobación formal.
+%
+Se concluye que hay conexiones entre los marcador reportados en la literatura para PDC y el 
+marcador propuesto, basado en el estudio de la estacionariedad débil.
+
+\newpage
+
+\chapter*{Abstract}
+
+In the last decades, life expectancy and quality has increased, along with a greater presence of
+non--communicable diseases associated wth age, including dementia.
+%
+Has been previously reported, for older adults, correlations between the presence of mild cognitive 
+impairment (MCI, considered an early stage of dementia) and some properties of the power spectrum
+calculated for polysomnogram records (PSG, electroencephalogram during sleep) \cite{Brayet16}. 
+%
+In this work we search for diagnostic markers of MCI, based quantities derived from the power 
+spectrum of PSG records.
+%
+In particular, weak stationarity is considered, a proporty that was before proposed as a marker of 
+neurological alterations \cite{Cohen77} but is usually discarded without any formal verification. 
+%
+It is found a connection between the MCI markers reported in the literature and the proposed 
+marker, based on the study of weak stationarity.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+%La doctora Alejandra Rosales Lagarde propuso investigar el tema del sueño en el adulto mayor al 
+%maestro José Sócrates López Noguerola, en ese entonces enlace ante \textit{Cátedras CONACYT}, y así
+%mismo a los responsables del Área Académica de Gerontología de la UAEH. 
+%%
+%La doctora Rosales Lagarde está comisionada a dicha instituación de acuerdo al contrato con el 
+%programa Cátadras CONACYT con el número de investigadora 1411 y el proyecto número 2162, 
+%\textit{Evaluación y diagnóstico de los aspectos biopsicosociales del adulto mayor y sus cuidadores 
+%primarios}. 
+%%
+%Que este documento conste como prueba de que el Área Académica de Gerontología de la UAEH aceptó su 
+%propuesta, compró un polisomnógrafo con el dinero que CONACYT le otorgó y que está ejerciendo el 
+%recurso de alto costo y su derecho a la libertad de investigación, facultad estipulada en el 
+%contrato referido.
+
+La doctora Alejandra Rosales Lagarde propuso investigar el tema del sueño en el adulto mayor en el
+Área Académica de Gerontología de la UAEH, institución a la cual está comisionada de acuerdo al 
+contrato con el programa Cátadras CONACYT con el número de investigadora 1411 y el proyecto número 
+2162, \textit{Evaluación y diagnóstico de los aspectos biopsicosociales del adulto mayor y sus 
+cuidadores primarios}. 
+%
+
+De manera adicional, el presente estudio fue apoyado parcialmente por las siguientes entidades: 
+SNI-CONACYT (96080), Convenio PROMEP UAEHGO-103.5-14-10567, la Sociedad Matemática Mexicana Sofia 
+Kovalévskaya (2014); otorgados a a la doctora Erika E. Rodríguez Torres.
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter*{Agradecimientos}
+
+Antes que nada a mis padres, María Guadalupe Alva González y Nicolás Enciso Maturano, quienes 
+además  darme la vida me han soportado y apoyado en ella. Y también a mi hermano, Erick Ricardo 
+Enciso Alva, por su apoyo incondicional.
+%
+Les agradezco por su enorme paciencia conmigo.
+
+A todos los profesores de la Licenciatura en Matemáticas Aplicadas. Los muchos conocimientos que 
+han compartido y a mis compañeros han sido más que una inspiración, un ejemplo a seguir.
+%
+
+Doblemente a mis asesoras, Dra. Ericka Rodríguez Torres y Dra. Alejandra Rosales Lagarde, por 
+obligarme a superarme a mí mismo y centrarme en el trabajo.
+
+De manera particular a la Dra. Alejandra Rosales Lagarde y a la Mtra. Génesis Vázquez Tagle por el 
+permitirme el acceso y análisis de los registros de polisomnograma. Mi contribución con este 
+trabajo luce pequeña en comparación.
+
+También a los amigos que conocí durante la carrera: Alberto, Augusto, Daniel, Omar, Angie, Magali, 
+Alejandro; por hacer la vida más llevadera.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter*{Acrónimos}
+
+\begin{tabular}{rl}
+\textbf{AABFM} & Actividad de Amplitud Baja y Frecuencias Mixtas
+\\
+\textbf{AASM} & American Association of Sleep Medicine
+\\
+\textbf{DCL} & Deterioro Cognitivo Leve
+\\
+\textbf{EEG} & Electroencefalografía
+\\
+\textbf{EMG} & Electromiografía
+\\
+\textbf{EOG} & Electrooculografía
+\\
+\textbf{FDE} & Función de Densidad Espectral
+\\
+\textbf{MOR} & Movimientos Oculares Rápidos
+\\
+\textbf{NMOR}& No-MOR
+\\
+\textbf{PSG} & Polisomnografía
+\\
+\textbf{PDC} & Posible Deterioro Cognitivo
+\\
+\textbf{PSR} & [Prueba de] Priestley-Subba Rao
+\\
+\textbf{VA} & Variable Aleatoria
+\\
+\end{tabular}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\thispagestyle{empty}
+
+\tableofcontents
+\newpage
+
+\listoffigures
+\listoftables
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{center}\textit{
+Creo que el conocimiento científico tiene \\
+propiedades fractales: que por mucho que aprendamos,  \\
+lo que queda, por pequeño que parezca,  \\
+es tan infinitamente complejo como el todo \\ 
+por el que empezamos. \\
+Ese, creo yo, es el secreto del universo.} 
+\vspace{1em}
+\end{center}
+\begin{flushright}
+\textsc{Isaac Asimov (1920--1992)}
+\end{flushright}
+
+\begin{figure*}
+\centering
+\includegraphics[width = 0.7\textwidth]{frase.png} 
+\end{figure*}
+
+\newpage
+
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{./texto/intro_v2.tex}
+
+\input{./texto/fisiologia_v3.tex}
+
+\input{./texto/matematicas_v3.tex}
+
+\input{./texto/metodologia_v2.tex}
+
+\input{./texto/resultados_v2.tex}
+
+\appendix
+
+%\input{./texto/anexo_teoremas_v2.tex}
+
+\input{./texto/tablas_graficos_v3.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bibliographystyle{bababbrv}
+\bibliography{referencias_estacionariedad,referencias_fisiologia,referencias_otros,referencias_mixto}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
