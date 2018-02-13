@@ -21,14 +21,14 @@ Un total de 14 adultos mayores cumplieron los criterios de inclusión. Estos par
 sometidos a una batería de pruebas neuropsicológicas para determinar su estado cognoscitivo general 
 (Neuropsi, MMSE), descartar cuadros depresivos (GDS, SATS) y cambios en la vida cotidiana (KATZ).
 %
-En base a las pruebas se determinó que, objetivamente, 9 de los voluntarios no padecen depresión ni 
+En base a las pruebas se determinó que, objetivamente, 10 de los voluntarios no padecen depresión ni 
 ansiedad, además de que no presentan afectaciones significativas en la vida diaria.
 
-Para su análisis, los 9 participantes se dividieron en dos grupos en base a su estado cognoscitivo:
+Para su análisis, los 10 participantes se dividieron en dos grupos en base a su estado cognoscitivo:
 control (CTL) y con Probable Deterioro Cognitivo (PDC). 
 %
 Para esta clasificación se dio mayor atención al puntaje de Neuropsi, estandarizado según edad y 
-escolaridad (tabla \ref{puntajes}). 
+escolaridad (cuadro \ref{puntajes}). 
 %
 El puntaje de MMSE se le otorgó menos importancia como clasificador debido a que tiene baja 
 sensibilidad para el diagnóstico de deterioro cognitivo leve \cite{Ardila12}, y baja especificidad 
@@ -123,21 +123,21 @@ Nula
 \section{Registro del polisomnograma}
 
 Para llevar a cabo el registro, los adultos mayores participantes fueron invitados a acudir a las 
-instalaciones de la Clínica Gerontológica de Sueño, ubicada dentro del Instituto de Ciencias de la 
-Salud (ICSa) dependiente de la Universidad Autónoma del Estado de Hidalgo. Los participantes 
+instalaciones del Laboratorio de Sueño, Emoción y Cognición, ubicado dentro del Instituto de Ciencias 
+de la Salud (ICSa) dependiente de la Universidad Autónoma del Estado de Hidalgo. Los participantes 
 recibieron instrucciones de realizar una rutina normal de actividades durante la semana que 
 precedió al estudio, y se les recomendó no ingerir bebidas alcohólicas o energizantes (como café 
 o refresco) durante las 24 horas previas al experimento, y que no durmieran siesta ese día.
 
 Para efectuar el registro se usó un polisomnógrafo Medicid 5 (Neuronic Mexicana). El protocolo de 
-PSG incluye 
+PSG incluye: 
 \begin{itemize}
 \item 19 electrodos de EEG, colocadas siguiendo las coordenadas del Sistema Internacional 10--20
-\item 4 electrodos de EOG para movimientos oculares horizontales y verticales
+\item 2 electrodos de EOG para movimientos oculares horizontales y verticales
 \item 2 electrodos de EMG colocados en los músculos submentonianos
 \end{itemize}
 %
-Los electrodos para registro de EEG fueron montados usando los lóbulos oculares como referencia
+Los electrodos para registro de EEG fueron montados usando los lóbulos auriculares como referencia
 común; se mantuvo por debajo de \SI{50}{\micro\ohm}.
 
 Las señales fueron amplificadas analógicamente usando amplificadores de alta ganancia en cadena, 
@@ -309,7 +309,7 @@ para los cuales el \textit{nivel de homogeneidad} del PSG es muy similar durante
 \begin{figure}
 \centering
 \includegraphics[width=\linewidth]{./img_diagramas/epocas_diferentes_v2.pdf}
-\caption{Efecto del tamaño de ventana sobre la clasificación de estacionariedad}
+\caption{Efecto del tamaño de ventana sobre la clasificación de estacionariedad.}
 \label{epocas_diferentes}
 \end{figure}
 
@@ -318,7 +318,7 @@ para los cuales el \textit{nivel de homogeneidad} del PSG es muy similar durante
 \includegraphics[width=\linewidth]
 {./img_art_dfa/VCNNS1_comp_est_.png}
 \caption{Distribución en el tiempo de ventanas estacionarias, usando diferentes tamaños
-de ventana}
+de ventana.}
 \label{comp_VCR}
 \end{figure}
 
@@ -341,7 +341,7 @@ delta, theta, alfa, beta y gamma (ver cuadro \ref{tabla_ondas}).
 \includegraphics[width=\linewidth]
 {./img_art_dfa/VCNNS1_espectral_total.png} 
 \caption[Espectro de potencias de banda ancha]{Espectro de potencias de banda ancha (delta, theta
-alfa, beta, gamma)}
+alfa, beta, gamma).}
 \end{figure}
 
 Usando los espectros de banda ancha se ha calculado el coeficiente de enlentecimiento \lento, 
@@ -364,11 +364,11 @@ Barbour y Parker \cite{Barbour14}, el cual se encuentra implementado dentro del 
 Se ha usado dicho estimador para garantizar heurísticamente que el espectro de potencias
 calculado (1) es independiente del usado para determinar la estacionariedad y (2)
 es compatible con la metodología \textit{usual}; como el algoritmo \texttt{psd} 
-supone estacionariedad débil se espera que emulae resultados 
+supone estacionariedad débil se espera que emule resultados 
 obtenidos bajo tal supuesto.
 
 Como se discute posteriormente, los bloques de épocas estacionarias están relacionados a bloques
-cuyo espectro de potencia son distintos. Así mismo son diferentes los coeficientes \lento calculado
+cuyo espectro de potencia son distintos. Así mismo son diferentes los coeficientes \lento calculados
 para dichos bloques.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

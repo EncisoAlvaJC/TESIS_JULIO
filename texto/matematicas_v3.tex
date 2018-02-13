@@ -586,7 +586,7 @@ de un circuito RC:
 si $X$ no fuera un un \textit{pulso} unitario de longitud infinitesimal entonces $Y$ sería $g$,
 y si $X$ fuera una función periódica entonces $Y$ sería un pulso unitario.
 
-Conviene destacar que el papel de los filtros se ve incrementando en dos casos particuares:
+Conviene destacar que el papel de los filtros se ve incrementando en dos casos particulares:
 \begin{itemize}
 \item En la interpretación como circuito RC, si $\Gamma$ fuera 1 sobre un intervalo de frecuencias
 y 0 en otro caso entonces puede decirse que el sistema \textit{filtra} dichas frecuencias.
@@ -977,7 +977,7 @@ H_{E_1} : h(t_0,\omega_j) = h(t_1,\omega_j) = \cdots = h(t_I,\omega_j)
 \end{equation*}
 %
 condición que puede reescribirse\footnote{$H_{E_1}$ y $H_{E_2}$ son equivalentes en cuanto a la
-decisión producen} en términos de $Y$, en su versión discreta
+decisión que producen} en términos de $Y$, en su versión discreta
 %
 \begin{equation*}
 H_{E_2} : \E{Y_{0,j}} = \E{Y_{1,j}} = \cdots = \E{Y_{I,j}} \text{ , para } j = 1, 2, \dots , J
@@ -1100,6 +1100,14 @@ $Y \leftarrow \log{\widehat{f}}$\;
     $Y_{\bullet,j} = \frac{1}{I} \sum_{i=1}^{I} Y_{i,j}$\;
 }
 $Y_{\bullet,\bullet} = \frac{1}{I J} \sum_{i=1}^{I} \sum_{j=1}^{J} Y_{i,j}$ \;
+
+\If{$S_{I+R} > 0$}{Aceptar $H_0$\; 
+\Return
+}
+\If{$S_{T} > 0$}{Aceptar $H_1$\; 
+\Return
+}
+Aceptar $H_2$ \;
 %\displaystyle
 
 \caption{Prueba de Priestley-Subba Rao}

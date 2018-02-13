@@ -1,0 +1,43 @@
+\babel@toc {spanish}{}
+\babel@toc {spanish}{}
+\contentsline {chapter}{\'{I}ndice de figuras}{\es@scroman {xi}}{chapter*.6}
+\contentsline {chapter}{\'{I}ndice de cuadros}{\es@scroman {xiii}}{chapter*.7}
+\contentsline {chapter}{\numberline {1}Introducci\IeC {\'o}n}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Antecedentes}{2}{section.1.1}
+\contentsline {section}{\numberline {1.2}Pregunta de investigaci\IeC {\'o}n}{3}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Hip\IeC {\'o}tesis}{3}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}Objetivo general}{4}{subsection.1.2.2}
+\contentsline {subsection}{\numberline {1.2.3}Objetivos espec\IeC {\'\i }ficos}{4}{subsection.1.2.3}
+\contentsline {chapter}{\numberline {2}Marco conceptual del problema}{5}{chapter.2}
+\contentsline {section}{\numberline {2.1}Psicolog\IeC {\'\i }a}{5}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Psicometr\IeC {\'\i }a}{6}{subsection.2.1.1}
+\contentsline {section}{\numberline {2.2}Fisiolog\IeC {\'\i }a}{7}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Polisomnograf\IeC {\'\i }a}{8}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Estructura del sue\IeC {\~n}o}{10}{subsection.2.2.2}
+\contentsline {chapter}{\numberline {3}Medida y frecuencia}{15}{chapter.3}
+\contentsline {section}{\numberline {3.1}Variables aleatorias}{15}{section.3.1}
+\contentsline {section}{\numberline {3.2}Estacionariedad d\IeC {\'e}bil}{17}{section.3.2}
+\contentsline {section}{\numberline {3.3}Transformada de Fourier}{20}{section.3.3}
+\contentsline {section}{\numberline {3.4}Funci\IeC {\'o}n de densidad espectral}{22}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Unidades de tiempo y efecto \textit {alias}}{24}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Filtros lineales}{26}{subsection.3.4.2}
+\contentsline {section}{\numberline {3.5}Estimadores}{28}{section.3.5}
+\contentsline {chapter}{\numberline {4}Espectro evolutivo}{31}{chapter.4}
+\contentsline {section}{\numberline {4.1}Estimador de doble ventana}{32}{section.4.1}
+\contentsline {section}{\numberline {4.2}Prueba de Priestley-Subba Rao}{34}{section.4.2}
+\contentsline {chapter}{\numberline {5}Metodolog\IeC {\'\i }a}{39}{chapter.5}
+\contentsline {section}{\numberline {5.1}Participantes}{39}{section.5.1}
+\contentsline {section}{\numberline {5.2}Registro del polisomnograma}{41}{section.5.2}
+\contentsline {section}{\numberline {5.3}Aplicaci\IeC {\'o}n de la prueba de Priestley-Subba Rao}{43}{section.5.3}
+\contentsline {section}{\numberline {5.4}Espectro de potencias}{49}{section.5.4}
+\contentsline {chapter}{\numberline {6}Resultados}{51}{chapter.6}
+\contentsline {section}{\numberline {6.1}Estacionariedad en sue\IeC {\~n}o MOR}{53}{section.6.1}
+\contentsline {section}{\numberline {6.2}Discusi\IeC {\'o}n}{56}{section.6.2}
+\contentsline {section}{\numberline {6.3}Conclusiones}{56}{section.6.3}
+\contentsline {section}{\numberline {6.4}Trabajo a futuro}{56}{section.6.4}
+\contentsline {chapter}{\numberline {A}Compilados gr\IeC {\'a}ficos}{57}{appendix.Alph1}
+\contentsline {chapter}{Bibliograf\'{\i }a}{65}{appendix*.41}
+\babel@toc {spanish}{}
+\babel@toc {spanish}{}
+\babel@toc {spanish}{}
+\babel@toc {spanish}{}
