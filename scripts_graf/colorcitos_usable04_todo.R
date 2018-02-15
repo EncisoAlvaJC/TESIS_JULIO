@@ -2,9 +2,8 @@
 # directorio de trabajo
 dir_actual = '~/TESIS/TESIS_JULIO/scripts_graf'
 dir_graf   = '~/TESIS/TESIS_JULIO/scripts_graf_res'
-info_dir   = '~/TESIS/TESIS_JULIO/articulo_dfa'
+info_dir   = '~/TESIS/TESIS_JULIO/scripts_graf'
 dir_datos  = '~/TESIS/graf_datos/estacionariedad_sf/'
-dir_epocas = '~/TESIS/graf_datos/epocas3/'
 
 ###############################################################################
 # parametros
@@ -48,6 +47,11 @@ canales.arch = kanales$Nombre_archivo
 
 ###############################################################################
 # parametros del script
+setwd(dir_actual)
+source('utileria.R')
+
+###############################################################################
+# parametros del script
 nombre      = info$Nombre_archivo[sujeto]
 etiqueta    = info$Nombre[sujeto]
 dir_res_mid = dir_datos
@@ -88,46 +92,50 @@ RES.collect = data.frame(Indice=as.POSIXct(character()),
                          D_chunk=integer(),
                          stringsAsFactors=F)
 
-stop('Espacio para usar otros scripts')
+#stop('Espacio para usar otros scripts')
 
-for(expon in c(2,0,-2)){
+#for(expon in c(2,0,-2)){
+for(expon in (-5):2){
   setwd(dir_actual)
   dur_epoca = 30*(2**expon)
-  source('~/TESIS/TESIS_JULIO/img_ejemplos/colorcitos_usable04_parte.R')
+  setwd(dir_actual)
+  source('colorcitos_usable04_parte.R')
 }
 
-RES.collect$D_chunk = log2(RES.collect$D_chunk/30)
-escala_labeller = function(variable,value){
-  return(paste0('30*2^',value))
-}
-
-print(
-  ggplot(RES.collect,aes(x=Indice,y=Canal_var,fill=Estacionario)) +
-    geom_raster() +
-    xlab('Tiempo [hh:mm]') + ylab(NULL) +
-    theme_bw() +
-    #scale_x_discrete(expand=c(0,0)) +
-    scale_x_datetime(expand=c(0,0),labels=date_format("%H:%M"),
-                     breaks = date_breaks("20 min"))+
-    scale_y_discrete(expand=c(0,0),
-                     limits=rev(levels(RES.extenso$Canal_var))) +
-    #scale_fill_manual(values=c('white','black','#acff81','#077813'))+
-    scale_fill_manual(values=c('white','black'))+
-    #labs(title=paste('Época =',toString(dur_epoca),'s'),
-    #     subtitle=paste('Participante:',etiqueta,'| Grupo:',grupo)) +
-    labs(title=paste('Participante:',etiqueta,'| Grupo:',grupo)) +
-    #theme(legend.position=c(1,1),legend.direction = 'horizontal',
-    #      legend.justification=c(1,0))+
-    theme(legend.position='bottom') +
-    theme(legend.title=element_blank()) +
-    facet_grid(D_chunk~.,as.table = T,
-               labeller=label_bquote(rows=30%.%2^.(D_chunk)))+
-    rotate_x_text(angle = 45)
-)
-
-if(grabar_tot){
-  ggsave(filename = paste0(nombre,'_comp_est_','.png'),
-         path = dir_graf,units='in',dpi=600,width=6,height=8)
-}
-# fin guardado automatico del grafico
-#################################################
+# stop('Hasta aqui hoy')
+# 
+# RES.collect$D_chunk = log2(RES.collect$D_chunk/30)
+# escala_labeller = function(variable,value){
+#   return(paste0('30*2^',value))
+# }
+# 
+# print(
+#   ggplot(RES.collect,aes(x=Indice,y=Canal_var,fill=Estacionario)) +
+#     geom_raster() +
+#     xlab('Tiempo [hh:mm]') + ylab(NULL) +
+#     theme_bw() +
+#     #scale_x_discrete(expand=c(0,0)) +
+#     scale_x_datetime(expand=c(0,0),labels=date_format("%H:%M"),
+#                      breaks = date_breaks("20 min"))+
+#     scale_y_discrete(expand=c(0,0),
+#                      limits=rev(levels(RES.extenso$Canal_var))) +
+#     #scale_fill_manual(values=c('white','black','#acff81','#077813'))+
+#     scale_fill_manual(values=c('white','black'))+
+#     #labs(title=paste('Época =',toString(dur_epoca),'s'),
+#     #     subtitle=paste('Participante:',etiqueta,'| Grupo:',grupo)) +
+#     labs(title=paste('Participante:',etiqueta,'| Grupo:',grupo)) +
+#     #theme(legend.position=c(1,1),legend.direction = 'horizontal',
+#     #      legend.justification=c(1,0))+
+#     theme(legend.position='bottom') +
+#     theme(legend.title=element_blank()) +
+#     facet_grid(D_chunk~.,as.table = T,
+#                labeller=label_bquote(rows=30%.%2^.(D_chunk)))+
+#     rotate_x_text(angle = 45)
+# )
+# 
+# if(grabar_tot){
+#   ggsave(filename = paste0(nombre,'_comp_est_','.png'),
+#          path = dir_graf,units='in',dpi=600,width=6,height=8)
+# }
+# # fin guardado automatico del grafico
+# #################################################
