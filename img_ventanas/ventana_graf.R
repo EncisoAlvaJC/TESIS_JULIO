@@ -2,7 +2,7 @@
 ## Funciones de ventana #####################################
 
 ###########################################################
-setwd('~/TESIS/TESIS/img_ventanas')
+setwd('C:/Users/EQUIPO 1/Desktop/julio/Tesis_en_Git/Tesis/img_ventanas')
 
 grabar = T
 
