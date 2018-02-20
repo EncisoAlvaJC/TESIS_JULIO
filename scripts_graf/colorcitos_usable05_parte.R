@@ -83,36 +83,22 @@ if(binario){
 
 #################################################
 # preparacion de los datos
-RES.grande = t(rbind(RES_T,1:length(RES_T[1,])))
+otro_factor = dur_epoca/(30*(2**-5))
+indize     = ((1:n_epocas)-1)*otro_factor
 
-#################################################
-# epocas de suenno MOR
-ar_indice = read_excel(paste0(info_dir,'/info_tecnico.xlsx'),
-                       sheet='EpocasTesis')
-indice    = ar_indice[,etiqueta]
-indice    = as.numeric(unlist(indice))
-indice    = indice[!is.na(indice)]
-
-if(fr_muestreo==200){
-  indixe = ceiling(indice/3)
-  indixe = unique(indixe)
-  indixe = sort(indixe)
-  indice = indixe
+RES.grande = c()
+for(i in (1:otro_factor)){
+  RES.grande = cbind(RES.grande,rbind(RES_T,indize+i))
 }
+RES.grande = t(RES.grande)
 
-RES.MOR         = rep(0,hms2t(max_hms)/30)
-RES.MOR[indice] = 1
+#RES.grande = t(rbind(RES_T,1:length(RES_T[1,])))
 
 RES.grande = as.data.frame(RES.grande)
 colnames(RES.grande) = c(kanales$Etiqueta,'Indice')
 
-RES.MOR         = as.data.frame(RES.MOR)
-colnames(RES.MOR)[1] = 'Etapa'
-RES.MOR$Indice  = (1:length(RES.MOR$Etapa) -1)*30
-RES.MOR$Relleno = RES.MOR$Etapa*0
-RES.MOR$Etapa   = factor(RES.MOR$Etapa,labels = c('NMOR','MOR'))
-RES.MOR$Relleno = factor(RES.MOR$Relleno,
-                         labels=c('Etapa'))
+#################################################
+# epocas de suenno MOR
 
 RES.extenso = melt(RES.grande,id.vars=c('Indice'))
 colnames(RES.extenso) = c('Indice','Canal_var','Estacionario')
@@ -124,58 +110,60 @@ RES.extenso$Estacionario = factor(RES.extenso$Estacionario,
                                   labels=c('No-estacionario',
                                            'Estacionario'))
 
-RES.MOR$Indice = (RES.MOR$Indice-1)
-RES.MOR$Indice = as.POSIXct(as.hms(RES.MOR$Indice))
+RES.extenso$Indice = (RES.extenso$Indice-1)*(30/(2**5))
+RES.extenso$Indice = as.POSIXct(as.hms(RES.extenso$Indice))
 
-#RES.extenso$D_chunk = rep(dur_epoca,length(RES.extenso$Indice))
-#RES.collect         = rbind(RES.collect,RES.extenso)
+RES.extenso$D_chunk = rep(dur_epoca,length(RES.extenso$Indice))
+RES.collect         = rbind(RES.collect,RES.extenso)
 
 #stop()
 
-B = ggplot(RES.extenso,aes(x=Indice,y=Canal_var,fill=Estacionario)) +
-  geom_raster() +
-  xlab(NULL) + ylab(NULL) +
-  theme_bw() +
-  scale_x_discrete(expand=c(0,0),breaks=NULL) +
-  #scale_x_datetime(expand=c(0,0),labels=date_format("%H:%M"),
-  #                 breaks = date_breaks("20 min"))+
-  scale_y_discrete(expand=c(0,0),
-                   limits=rev(levels(RES.extenso$Canal_var))) +
-  scale_fill_manual(values=c('white','black'))+
-  #labs(title=paste('Época =',toString(dur_epoca),'s'),
-  #     subtitle=paste('Participante:',etiqueta,'| Grupo:',grupo)) +
+if(FALSE){
+  B = ggplot(RES.extenso,aes(x=Indice,y=Canal_var,fill=Estacionario)) +
+    geom_raster() +
+    xlab(NULL) + ylab(NULL) +
+    theme_bw() +
+    scale_x_discrete(expand=c(0,0),breaks=NULL) +
+    #scale_x_datetime(expand=c(0,0),labels=date_format("%H:%M"),
+    #                 breaks = date_breaks("20 min"))+
+    scale_y_discrete(expand=c(0,0),
+                     limits=rev(levels(RES.extenso$Canal_var))) +
+    scale_fill_manual(values=c('white','black'))+
+    #labs(title=paste('Época =',toString(dur_epoca),'s'),
+    #     subtitle=paste('Participante:',etiqueta,'| Grupo:',grupo)) +
+    
+    labs(title=paste('Participante:',etiqueta,'| Grupo:',grupo)) +
+    
+    #theme(legend.position=c(1,1),legend.direction = 'horizontal',
+    #      legend.justification=c(1,0))+
+    theme(legend.position='bottom') +
+    theme(legend.title=element_blank()) +
+    theme(legend.key = element_rect(color = 'black')) +
+    rotate_x_text(angle = 45)
   
-  labs(title=paste('Participante:',etiqueta,'| Grupo:',grupo)) +
+  C =  ggplot(RES.MOR,aes(x=Indice,y=Relleno,fill=Etapa)) +
+    geom_raster() +
+    xlab('Tiempo [hh:mm]') + ylab(NULL) +
+    theme_bw() +
+    scale_x_datetime(expand=c(0,0),labels=date_format("%H:%M"),
+                     breaks = date_breaks("20 min"))+
+    #scale_x_datetime(expand=c(0,0),breaks = NULL)+
+    scale_y_discrete(expand=c(0,0)) +
+    scale_fill_manual(values=c('#acff81','#077813'))+
+    #labs(title=paste('Participante:',etiqueta,'| Grupo:',grupo)) +
+    theme(legend.position='bottom') +
+    theme(legend.title=element_blank()) +
+    #theme(axis.ticks = element_blank(),axis.text.x = NULL)+
+    rotate_x_text(angle = 45)
   
-  #theme(legend.position=c(1,1),legend.direction = 'horizontal',
-  #      legend.justification=c(1,0))+
-  theme(legend.position='bottom') +
-  theme(legend.title=element_blank()) +
-  theme(legend.key = element_rect(color = 'black')) +
-  rotate_x_text(angle = 45)
-
-C =  ggplot(RES.MOR,aes(x=Indice,y=Relleno,fill=Etapa)) +
-  geom_raster() +
-  xlab('Tiempo [hh:mm]') + ylab(NULL) +
-  theme_bw() +
-  scale_x_datetime(expand=c(0,0),labels=date_format("%H:%M"),
-                   breaks = date_breaks("20 min"))+
-  #scale_x_datetime(expand=c(0,0),breaks = NULL)+
-  scale_y_discrete(expand=c(0,0)) +
-  scale_fill_manual(values=c('#acff81','#077813'))+
-  #labs(title=paste('Participante:',etiqueta,'| Grupo:',grupo)) +
-  theme(legend.position='bottom') +
-  theme(legend.title=element_blank()) +
-  #theme(axis.ticks = element_blank(),axis.text.x = NULL)+
-  rotate_x_text(angle = 45)
-
-ggarrange(B,C,ncol=1,nrow=2,align = 'v',common.legend = TRUE,
-          heights = c(.8,.2),legend = 'bottom')
-
-ggsave(filename=paste0('zoom_no_',etiqueta,'_',
-                       toString(dur_epoca),'.png'),
-       device='png',dpi=600,width=6,height=5,unit='in',
-       path=dir_graf)
+  ggarrange(B,C,ncol=1,nrow=2,align = 'v',common.legend = TRUE,
+            heights = c(.8,.2),legend = 'bottom')
+  
+  ggsave(filename=paste0('zoom_no_',etiqueta,'_',
+                         toString(dur_epoca),'.png'),
+         device='png',dpi=600,width=6,height=5,unit='in',
+         path=dir_graf)
+}
 
 # fin grafico
 #################################################
