@@ -213,3 +213,58 @@ ggsave(filename = paste0(nombre,'_comp_est_part2.png'),
 
 # fin
 ###############################################################################
+
+stop()
+
+RES.algo = RES.collect[is.element(RES.collect$Canal_var,
+                                  c('P4','P3','PZ','LOG','ROG','EMG')),]
+RES.algo$Canal_var = droplevels(RES.algo$Canal_var)
+
+EST.graf = 
+  ggplot(RES.algo,aes(x=Indice,y=Banda.nombre,fill=(Potencia))) +
+  geom_raster() +
+  xlab(NULL) + ylab(NULL) +
+  theme_bw() +
+  scale_x_datetime(expand=c(0,0),breaks = NULL)+
+  scale_y_discrete(expand=c(0,0),
+                   limits=rev(levels(RES.algo$Banda.nombre))) +
+  #scale_fill_distiller(palette='Spectral')+
+  scale_fill_gradientn(colors = jet.colors(7)) +
+  labs(title=paste('Participante:',etiqueta,'| Grupo:',grupo)) +
+  theme(legend.position='bottom') +
+  labs(fill='Log(Área bajo la curva)') +
+  facet_grid(Canal_var~.)+
+  theme(strip.text.y = element_text(size = 12)) +
+  rotate_x_text(angle = 45)
+
+ggarrange(SPEC.graf,MOR.graf,
+          ncol=1,nrow=2,align = 'v',common.legend = TRUE,
+          heights = c(.9,.1),legend = 'bottom')
+
+ggsave(filename = paste0(nombre,'_espectral_EOG_EMG_antes.png'),
+       path = dir_graf,units='cm',dpi=600,width=21,height=29.7,
+       scale=1)
+
+SPEC.graf = ggplot(RES.algo,aes(x=Indice,y=Canal_var,fill=(Potencia))) +
+  geom_raster() +
+  xlab(NULL) + ylab(NULL) +
+  theme_bw() +
+  scale_x_datetime(expand=c(0,0),breaks = NULL)+
+  scale_y_discrete(expand=c(0,0),
+                   limits=rev(levels(RES.algo$Canal_var))) +
+  #scale_fill_distiller(palette='Spectral')+
+  scale_fill_gradientn(colors = jet.colors(7)) +
+  labs(title=paste('Participante:',etiqueta,'| Grupo:',grupo)) +
+  theme(legend.position='bottom') +
+  labs(fill='Log(Área bajo la curva)') +
+  facet_grid(Banda.nombre~.)+
+  theme(strip.text.y = element_text(size = 12)) +
+  rotate_x_text(angle = 45)
+
+ggarrange(SPEC.graf,MOR.graf,
+          ncol=1,nrow=2,align = 'v',common.legend = TRUE,
+          heights = c(.9,.1),legend = 'bottom')
+
+ggsave(filename = paste0(nombre,'_espectral_EOG_EMG_nuevo.png'),
+       path = dir_graf,units='cm',dpi=600,width=21,height=29.7,
+       scale=1)

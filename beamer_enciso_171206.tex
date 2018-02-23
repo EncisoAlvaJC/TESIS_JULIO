@@ -260,7 +260,7 @@ lo aprendido anteriormente, siendo éste el síntoma más prominente\footcite{DC
 \begin{frame}\frametitle{Polisomnograma: EEG}
 \begin{figure}
 \centering
-\includegraphics[width=0.9\linewidth]{./img_diagramas/cabeza_proporcionada_color_v2.pdf} 
+\includegraphics[width=0.9\linewidth]{./img_diagramas/cabeza_proporcionada_color_v4.pdf} 
 %\caption{Sistema de referencia 10--20}
 \end{figure}
 \end{frame}
@@ -268,7 +268,7 @@ lo aprendido anteriormente, siendo éste el síntoma más prominente\footcite{DC
 \begin{frame}\frametitle{Polisomnograma: EOG + EMG}
 \begin{figure}
 \centering
-\includegraphics[width=0.9\linewidth]{./img_diagramas/emg_eog_v3.pdf} 
+\includegraphics[width=0.9\linewidth]{./img_diagramas/emg_eog_v4.pdf} 
 %\caption{Sistema de referencia 10--20}
 \end{figure}
 \end{frame}
@@ -368,7 +368,7 @@ tal que
 
 El \textbf{espectro evolutivo} fue definido por Priestley \footcite{Priestley65} como
 \begin{equation*}
-f(t,\omega) = \abso{A(t,\omega)}^{2}
+h(t,\omega) = \abso{A(t,\omega)}^{2}
 \end{equation*}
 \end{frame}
 
@@ -377,9 +377,9 @@ f(t,\omega) = \abso{A(t,\omega)}^{2}
 
 \begin{frame}%\frametitle{Estimador de doble ventana}
 \begin{definicion}[Estimador de doble ventana]
-Se define a $\est{f}$, estimador para la $f$, como
+Se define a $\est{h}$, estimador para la $h$, como
 \begin{equation*}
-\widehat{f}(t,\omega) = \int_{t-T}^{t} w_{T'}(u) \lvert U(t-u,\omega) \lvert^{2} du
+\widehat{h}(t,\omega) = \int_{t-T}^{t} w_{T'}(u) \lvert U(t-u,\omega) \lvert^{2} du
 \end{equation*}
 
 \begin{itemize}
@@ -402,10 +402,10 @@ $ \lim_{\tau\rightarrow\infty} \tau \int_{-\infty}^{t} \abso{ W_{\tau}(\lambda) 
 
 \begin{frame}
 \begin{proposicion}
-El estimador $ Y(t,\omega) = \log{\left( \est{f}(t,\omega)\right)}$ satisface que
+El estimador $ Y(t,\omega) = \log{\left( \est{h}(t,\omega)\right)}$ satisface que
 \begin{itemize}
 \item $\displaystyle 
-\E{ Y(t,\omega) } \approx \log \left( f(t,\omega) \right)$
+\E{ Y(t,\omega) } \approx \log \left( h(t,\omega) \right)$
 \item $\displaystyle 
 \Var{ Y(T,\omega) } 
 \approx \frac{C}{\tau} \intR \abso{\Gamma (\theta)}^{4} d\theta $
@@ -571,7 +571,7 @@ CLO & RLO & RRU & JGZ & AEFP
 \begin{frame}\frametitle{Diferentes tamaños de ventana}
 \begin{figure}
 \includegraphics[width=0.7\textwidth]
-{./img_diagramas/epocas_diferentes_v2.pdf}
+{./img_diagramas/epocas_diferentes_v3.pdf}
 %\caption{Disposici\'on gr\'afica para los resultados de la prueba PSR. En verde el sue\~no MOR.}
 \end{figure}
 \end{frame}

@@ -161,6 +161,8 @@ MOR.graf =  ggplot(RES.MOR,aes(x=Indice,y=Relleno,fill=Etapa)) +
   #theme(axis.ticks = element_blank(),axis.text.x = NULL)+
   rotate_x_text(angle = 45)
 
+#stop('..')
+
 ###############################################################################
 # meta-graficacion
 SPEC.graf = ggplot(RES.collect,aes(x=Indice,y=Canal_var,fill=(Potencia))) +
@@ -191,56 +193,59 @@ ggsave(filename = paste0(nombre,'_espectral_','total','.png'),
        path = dir_graf,units='cm',dpi=600,width=21,height=29.7,
        scale=1.2)
 
-# stop('Debug 1')
-# 
-# # potencia total
-# cont = cont - qq
-# setwd(dir_actual)
-# par(fig=c(0,1,cont,cont+qq), new=TRUE)
-# source('~/TESIS/TESIS/img_resultados/graf_espectro_integrado04_varianza.R')
-# 
-# # pseudo-color
-# cont = cont - qq
-# setwd(dir_actual)
-# par(fig=c(0,1,cont,cont+qq), new=TRUE)
-# source('~/TESIS/TESIS/img_resultados/graf_espectro_integrado04_slow.R')
-# 
-# #qq = qq*(2/3)
-# 
-# # el titulo
-# par(oma=c(0,0,0,0),
-#     mar=c(0, 2, 2.5, 2),
-#     mgp=c(0,.5,0),
-#     fig=c(0,1,.95,1), new=TRUE)
-# title(paste0('Sujeto : ',etiqueta,'  | Grupo :  ',grupo),cex.main=2)
-# 
-# setwd(dir_actual)
-# if(grabar_tot){
-#   setwd(dir_actual)
-#   dev.off()
-# }
-# fin guardado automatico del grafico
-#################################################
+#####################################################3
+#####################################################3
+#####################################################3
+#####################################################3
 
 RES.algo = RES.collect[is.element(RES.collect$Canal_var,
-                       c('LOG','ROG','EMG')),]
+                       c('P4','P3','PZ','LOG','ROG','EMG')),]
+RES.algo$Canal_var = droplevels(RES.algo$Canal_var)
 
-ggplot(RES.algo,aes(x=Indice,y=Banda.nombre,fill=(Potencia))) +
+SPEC.graf = ggplot(RES.algo,aes(x=Indice,y=Banda.nombre,fill=(Potencia))) +
   geom_raster() +
   xlab(NULL) + ylab(NULL) +
   theme_bw() +
-  #scale_x_datetime(expand=c(0,0),labels=date_format("%H:%M"),
-  #                 breaks = date_breaks("20 min"))+
   scale_x_datetime(expand=c(0,0),breaks = NULL)+
   scale_y_discrete(expand=c(0,0),
-                   limits=rev(levels(RES.largo$Canal_var))) +
+                   limits=rev(levels(RES.algo$Banda.nombre))) +
   #scale_fill_distiller(palette='Spectral')+
   scale_fill_gradientn(colors = jet.colors(7)) +
   labs(title=paste('Participante:',etiqueta,'| Grupo:',grupo)) +
-  #labs(subtitle=paste('Potencia total en banda:',banda.n[que.banda])) +
   theme(legend.position='bottom') +
-  #theme(legend.title=element_blank()) +
   labs(fill='Log(Área bajo la curva)') +
   facet_grid(Canal_var~.)+
   theme(strip.text.y = element_text(size = 12)) +
   rotate_x_text(angle = 45)
+
+ggarrange(SPEC.graf,MOR.graf,
+          ncol=1,nrow=2,align = 'v',common.legend = TRUE,
+          heights = c(.9,.1),legend = 'bottom')
+
+ggsave(filename = paste0(nombre,'_espectral_EOG_EMG_antes.png'),
+       path = dir_graf,units='cm',dpi=600,width=21,height=29.7,
+       scale=1)
+
+SPEC.graf = ggplot(RES.algo,aes(x=Indice,y=Canal_var,fill=(Potencia))) +
+  geom_raster() +
+  xlab(NULL) + ylab(NULL) +
+  theme_bw() +
+  scale_x_datetime(expand=c(0,0),breaks = NULL)+
+  scale_y_discrete(expand=c(0,0),
+                   limits=rev(levels(RES.algo$Canal_var))) +
+  #scale_fill_distiller(palette='Spectral')+
+  scale_fill_gradientn(colors = jet.colors(7)) +
+  labs(title=paste('Participante:',etiqueta,'| Grupo:',grupo)) +
+  theme(legend.position='bottom') +
+  labs(fill='Log(Área bajo la curva)') +
+  facet_grid(Banda.nombre~.)+
+  theme(strip.text.y = element_text(size = 12)) +
+  rotate_x_text(angle = 45)
+
+ggarrange(SPEC.graf,MOR.graf,
+          ncol=1,nrow=2,align = 'v',common.legend = TRUE,
+          heights = c(.9,.1),legend = 'bottom')
+
+ggsave(filename = paste0(nombre,'_espectral_EOG_EMG_nuevo.png'),
+       path = dir_graf,units='cm',dpi=600,width=21,height=29.7,
+       scale=1)
