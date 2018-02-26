@@ -4,14 +4,14 @@
 \chapter{Introducción}
 
 Gracias a los avances médicos del último siglo se ha incrementado la esperanza de vida y la 
-calidad de vida; desafortunadamente también ha aumentado la presencia de enfermedades 
+calidad de vida. Desafortunadamente, también ha aumentado la presencia de enfermedades 
 no-transmisibles asociadas con la edad. 
 %
 Para muchas de esas enfermedades no se han identificado factores causales o curas definitivas 
 \cite{PlanAlzheimer04}.
 %
 En México el sector de la población con más de 60 años de edad (aquellos con alto riesgo para este
-tipo de enfermedades) contempló a 10 millones de personas en 2010; se estima en 2015 esta cifra 
+tipo de enfermedades) contempló a 10 millones de personas en 2010 y en 2015 esta cifra 
 creció a 12 millones \cite{Censo10,Intercensal15}.
 
 De entre las enfermedades ante las cuales este grupo de edad es vulnerable, en este trabajo se 
@@ -24,18 +24,18 @@ El deterioro cognitivo característico de la demencia se considera irreversible,
 ha surgido un gran interés en definir y diagnosticar etapas tempranas de este padecimiento con el 
 fin de evitar en lo posible dicho síntoma \cite{Knopman01}.
 
-Se define entonces al deterioro cognitivo leve (DCL) como \textit{una alteración adquirida y 
+Se define entonces al deterioro cognitivo leve (DCL) como ``\textit{ una alteración adquirida y 
 prolongada de una o varias funciones cognitivas, que no corresponde a un síndrome focal y no cumple 
-criterios suficientes de gravedad para ser calificada como demencia} \cite{Robles02}.
+criterios suficientes de gravedad para ser calificada como demencia "} \cite{Robles02}.
 %
 No hay un consenso absoluto sobre qué deficiencias cognitivas --o más bien en qué grado-- 
 distinguen a un individuo con DCL, de modo que hay una multitud de definiciones que no son
 equivalentes \cite{Petersen01}.
 %
-En el presente trabajo se favorecen los métodos para caracterizar --y diagnosticar-- el DCL en base 
+En el presente trabajo se desarrollaron métodos para caracterizar --y diagnosticar-- el DCL en base 
 a mediciones objetivas, pero manteniendo presente que el fenómeno del deterioro cognitivo no puede 
-reducirse exclusivamente a tales mediciones; las conclusiones sobre las señales electrofisiológicas 
-deben ser contrastadas, por ejemplo, con los resultados de evaluaciones neuropsicológicas.
+reducirse exclusivamente a tales mediciones. Las conclusiones sobre las señales electrofisiológicas 
+deben ser contrastadas, por ejemplo, con los resultados de evaluaciones neuropsicológicas y revisiones neurológicas.
 
 En concreto se utilizarán registros de varias señales electrofisiológicas --incluyendo 
 electroencefalograma (EEG), electrooculograma (EOG) y electromiograma (EMG)-- obtenidos durante 
@@ -49,8 +49,11 @@ EEG está asociado al grado de actividad cerebral en términos de energía, ento
 potencias explica \textit{cómo} es dicha actividad.
 
 El presente trabajo toma parte en el problema metodológico de que las señales 
-electrofisiológicas típicamente representan procesos no--lineales y no--estacionarios, y sin 
-embargo suelen ser analizadas usando herramientas que suponen linealidad y estacionariedad.
+electrofisiológicas típicamente representan procesos no--lineales y \textbf{no--estacionarios}, y sin 
+embargo suelen ser analizadas usando herramientas que suponen linealidad y estacionariedad. Se sabe que
+las señales biológicas son mayormente no estacionarias, pero en ventanas pequeñas de tiempo estas son
+mayormente estacionarias. Además estudios previos han demostrado que señales mayores de 20 segundos pueden ayudar 
+a inferir problemas neurológicos \cite{Cohen77}.
 %
 En el caso particular del espectro de potencias, es común que sea calculado usando la 
 transformada de Fourier sobre segmentos cortos para evitar los \textit{efectos} de la 
@@ -59,13 +62,14 @@ no--estacionariedad \cite{Kaiser00}.
 A consecuencia de lo anterior los datos pueden contener información \textit{oculta}, o incluso 
 pueden llegar a no ser representativos del fenómeno que se estudia. 
 %
-%Es por ello que se buscan herramientas para verificar la estacionariedad débil en los registros
-%electrofisiológicas, y con especial atención en la posibilidad de que puedan usarse como marcadores
-%de deterioro cognitivo.
-%%
-%Adicionalmente, la posibilidad de que sujetos con PDC exhiben estacionariedad débil en sus 
-%registros de EEG en mayor proporción (respecto a individuos sanos) fue sugerida anteriormente
-%\cite{Cohen77}.
+Es por ello que se buscan herramientas para verificar la estacionariedad débil (más detalles en 
+la sección de métodos)  en los registros electrofisiológicas, y con especial atención en la 
+posibilidad de que puedan usarse como marcadores de deterioro cognitivo.
+%
+Adicionalmente, la posibilidad de que sujetos con PDC exhiben estacionariedad débil en sus 
+registros de EEG en mayor proporción (respecto a individuos sanos) fue sugerida anteriormente
+\cite{Cohen77}. En este trabajo PDC, se asume que solo las pruebas neurológicas son las que determinan
+el posible de deterioro cognitivo.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -93,9 +97,8 @@ en cama) y la presencia de deterioro cognitivo \cite{VazquezTagle16}.
 En aquél estudio se efectuaron registros de PSG para algunos de los participantes, con la intención 
 de verificar que existen diferencias en los registros correspondientes a individuos con y sin DCL.
 %
-El presente trabajo se enmarca dentro de una colaboración con los responsables del estudio 
-mencionado, con el objetivo de identificar concretamente los posibles cambios en los registros de PSG 
-ocurridos durante el DCL.
+El presente trabajo se enmarca dentro de una reciente colaboración, con el objetivo de identificar concretamente
+los posibles cambios en los registros de PSG  ocurridos durante el DCL o PDC.
 
 La idea de que sujetos con deterioro cognitivo exhiban cambios en sus registros de PSG relacionados 
 a la estacionariedad débil, fue sugerida por Cohen en 1977 \cite{Cohen77}; aquél análisis se 
