@@ -1,0 +1,132 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Introducción}
+
+Gracias a los avances médicos del último siglo se ha incrementado la esperanza de vida y la 
+calidad de vida. Desafortunadamente, también ha aumentado la presencia de enfermedades 
+no-transmisibles asociadas con la edad. 
+%
+Para muchas de esas enfermedades no se han identificado factores causales o curas definitivas 
+\cite{PlanAlzheimer04}.
+%
+En México el sector de la población con más de 60 años de edad (aquellos con alto riesgo para este
+tipo de enfermedades) contempló a 10 millones de personas en 2010 y en 2015 esta cifra 
+creció a 12 millones \cite{Censo10,Intercensal15}.
+
+De entre las enfermedades ante las cuales este grupo de edad es vulnerable, en este trabajo se 
+destaca la demencia. 
+%
+La demencia consiste en el desarrollo de déficit cognoscitivos suficientemente graves como para 
+interferir en las actividades laborales y sociales.
+%
+El deterioro cognitivo característico de la demencia se considera irreversible, debido a lo cual 
+ha surgido un gran interés en definir y diagnosticar etapas tempranas de este padecimiento con el 
+fin de evitar en lo posible dicho síntoma \cite{Knopman01}.
+
+Se define entonces al deterioro cognitivo leve (DCL) como ``\textit{ una alteración adquirida y 
+prolongada de una o varias funciones cognitivas, que no corresponde a un síndrome focal y no cumple 
+criterios suficientes de gravedad para ser calificada como demencia "} \cite{Robles02}.
+%
+No hay un consenso absoluto sobre qué deficiencias cognitivas --o más bien en qué grado-- 
+distinguen a un individuo con DCL, de modo que hay una multitud de definiciones que no son
+equivalentes \cite{Petersen01}.
+%
+En el presente trabajo se desarrollaron métodos para caracterizar --y diagnosticar-- el DCL en base 
+a mediciones objetivas, pero manteniendo presente que el fenómeno del deterioro cognitivo no puede 
+reducirse exclusivamente a tales mediciones. Las conclusiones sobre las señales electrofisiológicas 
+deben ser contrastadas, por ejemplo, con los resultados de evaluaciones neuropsicológicas y revisiones neurológicas.
+
+En concreto se utilizarán registros de varias señales electrofisiológicas --incluyendo 
+electroencefalograma (EEG), electrooculograma (EOG) y electromiograma (EMG)-- obtenidos durante 
+etapas específicas en el sueño del paciente, técnica conocida como polisomnografía (PSG)\footnote{La 
+PSG puede contener otro tipo de registros como electrocardiograma, niveles de oxígeno en la sangre, 
+esfuerzo respiratorio, entre otros}.
+%
+Conviene destacar que muchos de los marcadores para el DCL definidos en base al EEG, dependen
+efectivamente de su respectivo espectro de potencias; el razonamiento usual para ello es que si el 
+EEG está asociado al grado de actividad cerebral en términos de energía, entonces el espectro de 
+potencias explica \textit{cómo} es dicha actividad.
+
+El presente trabajo toma parte en el problema metodológico de que las señales 
+electrofisiológicas típicamente representan procesos no--lineales y \textbf{no--estacionarios}, y sin 
+embargo suelen ser analizadas usando herramientas que suponen linealidad y estacionariedad. Se sabe que
+las señales biológicas son mayormente no estacionarias, pero en ventanas pequeñas de tiempo estas son
+mayormente estacionarias. Además estudios previos han demostrado que señales mayores de 20 segundos pueden ayudar 
+a inferir problemas neurológicos \cite{Cohen77}.
+%
+En el caso particular del espectro de potencias, es común que sea calculado usando la 
+transformada de Fourier sobre segmentos cortos para evitar los \textit{efectos} de la 
+no--estacionariedad \cite{Kaiser00}.
+%
+A consecuencia de lo anterior los datos pueden contener información \textit{oculta}, o incluso 
+pueden llegar a no ser representativos del fenómeno que se estudia. 
+%
+Es por ello que se buscan herramientas para verificar la estacionariedad débil (más detalles en 
+la sección de métodos)  en los registros electrofisiológicas, y con especial atención en la 
+posibilidad de que puedan usarse como marcadores de deterioro cognitivo.
+%
+Adicionalmente, la posibilidad de que sujetos con PDC exhiben estacionariedad débil en sus 
+registros de EEG en mayor proporción (respecto a individuos sanos) fue sugerida anteriormente
+\cite{Cohen77}. En este trabajo PDC, se asume que solo las pruebas neurológicas son las que determinan
+el posible de deterioro cognitivo.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Antecedentes}
+
+La actividad del sueño del Movimiento ocular rápido (REM) ha demostrado ser un indicador del deterioro cognitivo en los ancianos. En otros estudios, se ha encontrado una mayor potencia absoluta y relativa en frecuencias más lentas y en regiones laterales laterales versus vigilia \cite{Brayet} y menos atonía muscular \cite{Chen}.
+
+
+Los estudios anteriores han incluido análisis lineales del Electroencefalograma (EEG) o del Electromiograma (EMG), pero el Electrooculograma (EOG) no se ha considerado como un posible marcador de deterioro cognitivo. Tres indicadores de sueño REM aparecen generalmente en orden consecutivo. Al ingresar a esta etapa, los husos y las ondas lentas de alta amplitud están ausentes, el EEG tiene abundantes frecuencias beta y gamma \cite{SteriadeIntracortical1996,Llinas}, hay una abrupta pérdida de voltaje que ocurre en un intervalo menos de 2 segundos \cite{Rosales-Lagarde2009}, y, luego, aparcen los movimientos oculares (MOR) característicos \cite{Aserinsky,AASM2007,Rechtshaffen1968}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Pregunta de investigación}
+
+¿Los registros de polisomnograma en adultos mayores pueden considerarse como series de tiempo 
+débilmente estacionarias?
+%
+¿Es posible que tal caracterización se vea influida por el estado cognitivo del sujeto?
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Hipótesis}
+
+Existen diferencias en la actividad eléctrica cerebral en adultos mayores con DCL, respecto a 
+individuos sanos, y es posible detectar dichas diferencias como una mayor o menor 
+\textit{presencia} de estacionariedad débil en registros de PSG durante el sueño profundo.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Objetivo general}
+
+Buscar pruebas estadísticas formales para detectar si una serie de tiempo dada procede de un 
+proceso estocástico débilmente estacionario.
+%
+Usar tales pruebas sobre registros de polisomnograma en adultos mayores, para investigar si la 
+presencia de segmentos débilmente estacionarios se correlaciona con la condición de probable
+deterioro cognitivo.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Objetivos específicos}
+
+\begin{itemize}
+\item Estudiar la definición de estacionariedad para procesos estocásticos.
+
+\item Investigar cómo detectar, como prueba de hipótesis, si una serie de tiempo dada proviene
+de un proceso estocástico débilmente estacionario, y bajo qué supuestos 
+es válida dicha caracterización.
+
+\item Decidir si los registros de PSG, durante sueño profundo, son débilmente estacionarios.
+
+\item Investigar si la presencia de segmentos estacionarios en los registros es diferente si el
+PSG corresponde a un individuo con DCL.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
