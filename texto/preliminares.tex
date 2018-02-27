@@ -1,0 +1,303 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Preliminares}
+
+Escribir [?]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Medidas}
+
+\begin{definicion}%[$\boldsymbol{\sigma}$-álgebra]
+Sea $\Omega$ un conjunto y sea $\mathcal{U}$ una familia de subconjuntos de $\Omega$. Se dice que 
+$\mathcal{U}$ es una \textbf{$\boldsymbol{\sigma}$-álgebra} si cumple
+\begin{itemize}
+\item $\Omega \in \mathcal{U}$
+\item $A \in \mathcal{U} \Rightarrow A^{C} \in \mathcal{U}$
+\item 
+$ \displaystyle \{ A_n \}_{n\in \mathbb{N}} \subseteq \mathcal{U} 
+\Rightarrow \cup_{n\in \mathbb{N}} A_n \in \mathcal{U}$
+\end{itemize}
+Donde $A^{C}$ es el complemento de $A$ en $U$
+\end{definicion}
+
+Los elementos de una $\sigma$-álgebra se denominan \textbf{conjuntos medibles}. 
+
+\begin{definicion}
+Sea $\Omega$ un conjunto y $\mathcal{A} \subseteq \Omega$ una familia de subconjuntos. Se define a $\sigma(\mathcal{A})$, la $\sigma$-álgebra generada por $\mathcal{A}$, como la intersección de todas las $\sigma$-álgebras que contienen a $\mathcal{A}$  
+\end{definicion}
+
+En el contexto de la probabilidad, es particularmente importante la $\sigma$-álgebra de Borel, definida como
+\begin{equation}
+\mathcal{B} = \sigma\left( \left\{ \left( -\infty , a \right] \subset \R \lvert a\in \R \right\} \right)
+\end{equation}
+Este tipo de $\sigma$-álgebras puede definirse sencillamente para algún subconjunto $A \subset \R$
+\begin{equation}
+\mathcal{B}_A = \sigma\left( \left\{ \left( -\infty , a \right] \cap A \subset \R \lvert a\in \R \right\} \right)
+\end{equation}
+
+\begin{definicion}
+Sea $\Omega$ un conjunto y $\mathcal{U}$ una $\sigma$-álgebra definida en $\Omega$. El par $(\Omega,\mathcal{U})$ será referido como \textbf{espacio de medida}. Por nomenclatura, $\Omega$ es referido como \textit{espacio muestral} y $\mathcal{U}$ como \textit{$\sigma$-álgebra de sucesos}.
+\end{definicion}
+
+\begin{definicion}%[Medida]
+Sea $(\Omega, \mathcal{U})$ un espacio de medida. Se dice que una función $\mu : \mathcal{U} \rightarrow \R_+$ es una \textbf{medida} si cumple que
+\begin{itemize}
+\item $\mu(\emptyset) = 0$
+\item Si $\{ A_n \}_{n\in \mathbb{N}} \subseteq \mathcal{U}$ son tales que 
+$A_n \cap A_m = \emptyset \Leftrightarrow m\neq n$, entonces
+$$ \mu\left( \bigcup_{n\in \mathbb{N}} A_n \right) = \sum_{n\in \mathbb{N}} \mu(A_n)$$
+\end{itemize}
+Donde $\R_+ = \{ x\in \R | 0 \leq x \} \cup \{ \infty \}$ y $\emptyset$ es el conjunto vacío.
+La terna $(\Omega,\mathcal{U},\mu)$ será referida como \textbf{espacio de medida}.
+\label{medida}
+\end{definicion}
+
+\begin{definicion}%[Medida $\boldsymbol{\sigma}$-finita]
+Sea $(\Omega,\mathcal{U},\mu)$ un espacio de medida. Se dice que $\mu$ es 
+\textbf{$\boldsymbol{\sigma}$-finita} si existen una familia de conjuntos medibles $\{ A_n \}_{n\in \mathbb{N}}$ tales que
+\begin{itemize}
+\item $\mu\left( A_n \right) < \infty$
+\item $ \bigcup_{n\in \mathbb{N}} A_n = \Omega$
+\end{itemize}
+\end{definicion}
+
+\begin{definicion}
+Considérese el espacio medible $(\R, \mathcal{B})$, con $\mathcal{B}$ la $\sigma$-álgebra de Borel. Se define la medida de Lebesgue, $\mu_L$, la medida en el espacio mencionado tal que 
+\begin{equation}
+\mu_L([a,b]) = b-a
+\end{equation}
+para cualesquiera $a,b \in \R$ con $a<b$
+\end{definicion}
+
+\begin{proposicion}
+Sea $(\Omega,\mathcal{U},P)$ un espacio de probabilidad. Sea $\{ A_n \}_{n\in \mathbb{N}}$ una amilia de conjuntos medibles tales que 
+\begin{itemize}
+\item $A_n \subset A_{n+1}$ para todo $n \in \N$
+\item Existe un conjunto medible $A$ tal que $\cup_{n\in \N} A_n = A$
+\end{itemize}
+Entonces
+\begin{equation}
+\lim_{n\rightarrow \infty} P(A_n) = P(A)
+\end{equation}
+\end{proposicion}
+\begin{proof}
+Nótese que
+\begin{align*}
+P(A) &= P\left( \cup_{n\in \N} A_n \right) \\
+\end{align*}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Variables aleatorias}
+
+Si una medida $\mu$ es acotada en todo el espacio de eventos se dice que es una \textbf{medida finita} (no confundir con $\sigma$-finita). 
+%
+Una medida de probabilidad puede entenderse como un caso particular de medida finita sobre los reales.
+
+\begin{definicion}
+El espacio de medida $(\Omega,\mathcal{U},P)$ se dice un \textbf{espacio de probabilidad} si satisface que $P(\Omega) = 1$ 
+\end{definicion}
+
+Comunmente se asocia el resultado de un experimento \textit{aleatorio} con un espacio de probabilidad; el espacio muestral correspondería a los resultados posibles, y la medida representaría la \textit{probabilidad} de que el resultado ocurra en determinado conjunto.
+%
+Es común interpretar que si la probabilidad de un conjunto medible es $p$, entonces se espera que el resultado ocurra en dicho conjunto el $100*p \%$ de las ocasiones que se repita el experimento.
+
+Por simplicidad, en el presente texto únicamente se manejan espacios de probabilidad de la forma $(I,\mathcal{B}_I,P)$, con $I\subseteq \R$ un intervalo.
+
+\begin{definicion}%[Función de Probabilidad Acumulada]
+Sea $(\R,\mathcal{B},P)$ un espacio de probabilidad. La \textbf{función de probabilidad acumulada}, $F : \R \rightarrow [0,1]$, se define como
+\begin{equation*}
+F (x) := P\left( \left(-\infty,x \right] \right)
+\end{equation*}
+\end{definicion}
+
+Una función de probabilidad acumulada satisface las siguientes propiedades
+\begin{itemize}
+\item Para cualesquiera $x,y\in \R$, $x < y \Rightarrow F(x) < F(y)$
+\item Pra cualquier $x\in\R$, $F(x) = \lim_{x\rightarrow x^{-}} F(x) + P(\{x\})$
+\item $\lim_{x\rightarrow +\infty} F(x) = 1$
+\item $\lim_{x\rightarrow -\infty} F(x) = 0$
+\end{itemize}
+
+Conviene considerar las funciones que satisface las condiciones anteriores, referidas simplemente como \textbf{función de distribución}, pero que no necesariamente provienen de un espacio de probabilidad. Naturalmente, una función de distribución $F$ puede inducir una medida $\mu$.
+
+\begin{teorema}
+Sea $F:\R \rightarrow \R$ una función de distribución; se puede contruir una medida $\mu_F$ sobre el espacio medible $(\R, \mathcal{B})$ tal que la función de probabilidad acumulada asociada al espacio de probabilidad $(\R, \mathcal{B}, \mu_F)$ es exactamente $F$.
+
+La medida $\mu_F$ será referida como la \textbf{medida inducida} por $F$.
+\end{teorema}
+\begin{proof}
+Para cualesquiera $a, b \in \R$, puede escribirse
+\begin{equation}
+\mu((a,b]) := F(b) - F(a)
+\end{equation}
+[? pag 18, 25 del libro de teorei ade la medida]
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Variables aleatorias continuas y discretas}
+
+Sea $P$ una medida de probabilidad, se define su \textbf{soporte} como
+\begin{equation}
+\mathcal{D}_P = \left\{ x\in \R \lvert P\left( \left\{ x\right\} \right)>0 \right\}
+\end{equation}
+
+Se dice que una medida de probabilidad, $P$, es \textbf{discreta} si $P\left(\mathcal{D}_P\right)=1$.
+
+\begin{definicion}
+Una función $F: \R \rightarrow \R$ se dice \textbf{absolutamente continua} si para cualquier $\varepsilon>0$ arbitrario existe un $\delta>0$ y una familia de intervalos, $\{ [a_n, b_n]\}_{n\in \N}$, tal que
+\begin{align}
+\sum_{n\in \N} \abso{b_n - a_n} &< \delta \\
+\sum_{n\in \N} \abso{F(b_n) - F(a_n)} &< \varepsilon 
+\end{align}
+\end{definicion}
+
+Se dice que una medida de probabilidad $P$ es \textbf{continua} si su función de probabilidad acumulada es absolutamente continua.
+
+Naturalmente es posible construir medidas de probabilidad que no sean ni continuas ni discretas. Por ejemplo, considérese la función de Cantor $K$ que puede ser definida iterativamente como
+\begin{equation}
+K_{n+1}(x) =
+\begin{cases}
+\frac{1}{2} K_n(3 x) &, 0\leq x \leq \frac{1}{3} \\
+\frac{1}{2} K_n(3 x-2) + \frac{1}{2} &, 0\leq x \leq \frac{1}{3} \\
+0 &, \text{otro caso}
+\end{cases}
+\end{equation}
+con $K_0(x) = x$ y $K := \lim_{n\rightarrow \infty} K_n$
+
+[?] demostracion de que la funcion de cantor esta bien definida
+% https://es.wikipedia.org/wiki/Funci%C3%B3n_de_Cantor
+
+\begin{proposicion}
+La función de Cantor es continua pero no es absolutamente continua
+\end{proposicion}
+
+Luego entonces, puede construirse la siguiente función de distribución
+\begin{equation}
+F_K = \begin{cases}
+K(x) &, 0\leq x \leq 1 \\
+0 &, x < 0 \\
+1 ,& x > 1
+\end{cases}
+\end{equation}
+la cual no es ni continua ni discreta. Por simplicidad, en el presente trabajo únicamente se considerarán variables aleatorias que son continuas o discretas.
+%
+La distinción entre variables aleatorias continuas y discretas puede verse más notoria en virtud del teorema \ref{Lebesgue_decomp}.
+
+\begin{teorema}[Descomposición de Radon-Nikodym]
+Sea $\mu$ una medida definida sobre la $\sigma$-álgebra $\mathcal{B}$, y sea $\nu$ una medida 
+$\sigma$-finita definida sobre $\mathcal{B}$. Entonces $\mu$ puede descomponerse de manera única como
+$\mu = \mu_A + \mu_S$, donde
+\begin{itemize}
+\item $\mu_A$ es absolutamente continua respecto a $\nu$
+\item Existe un conjunto $A$ tal que $\nu(A)=0$, $\mu_S\left(A^{C}\right) = 0$
+\end{itemize}
+\label{Lebesgue_decomp}
+\end{teorema}
+
+Dado que la medida de Lebesgue es $\sigma$-finita, cualquier medida de probabilidad puede 
+\textit{descomponerse} como la suma de una medida continua, una medida discreta y un \textit{residuo}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Estimación de parámetros}
+
+Es común que se conozca cierta información de estos fenómenos que permita suponer que se comportan como variables aleatorias con cierta forma. Por ejemplo, ?.%se suele suponer que entre la población, 
+%
+Conviene destacar el caso de fenómenos que son \textit{forzados} a seguir una distribución conocida; por ejemplo, la metodología para aplicar la prueba Neuropsi \cite{Ostrosky00} ha sido diseñada de tal forma que los puntajes siguen una distribución normal para cada segmento poblacional.
+
+En este tipo de escenarios se puede hablar de una función de distribución $f(\bullet; \theta)$ que depende de un parámetro $\theta \in \Omega$, donde $\Omega$ se conoce como \textbf{espacio de parámetros}; el objetivo consiste en deducir el valor de $\theta$ a partir de los datos recabados.
+%
+Los datos en general pueden considerarse como las va iid $X_1, X_2, \dots, X_N$, si bien de manera concreta son la realización $x_1, x_2, \dots, x_N$; por simplcidad, en esta sección se considerará que los elementos de una muestra son independientes.
+%
+Por ejemplo, considérese la variable aleatoria binomial $X \sim B(\theta)$ con $\theta \in [0, 1]$, cuya FDP es
+\begin{equation}
+f_X(x; \theta) = \begin{cases}
+\theta^{x} (1-\theta)^{1-x} &, x\in \{ 0,1 \} \\
+0 &, \text{otro caso}
+\end{cases}
+\end{equation}
+La FDP conjunta para una muestra de tamaño $N$ es
+\begin{equation}
+f_N(x_1, \dots, x_N; \theta) = 
+\begin{cases}
+\theta^{\sum_i x_i}(1-\theta)^{\sum_i(1-x_i)} &, x_i \in \{ 0,1 \}, i\in \{1, \dots, N\} \\
+0 &, \text{otro caso}
+\end{cases}
+\end{equation}
+
+Se puede entender a $f_N$, evaluada en los datos obtenidos y como función de $\theta$, como la probabilidad de que se hayan obtenido los datos que de hecho se obtuvieron.
+%
+Esta redundancia sugiere que una elección adecuada para el parámetro $\theta$ sería aquél que maximice a tal función, que que recibe el nombre de \textbf{función de verosimilitud}
+\begin{equation}
+L(\theta; x_1, \dots, x_N) = \theta^{\sum_i x_i}(1-\theta)^{\sum_i(1-x_i)}
+\end{equation}
+con $\theta \in [0, 1]$. Por simplicidad técnica, se maximizará a $L$ igualando a cero la derivada de $\log \circ L$ con respecto a $\theta$.
+\begin{align*}
+\frac{d}{d\theta} \log\left( L(\theta; x_1, \dots, x_N)\right)
+&= 
+\frac{d}{d\theta} \log\left(\theta^{\sum_1^{N} x_i}(1-\theta)^{\sum_1^{N}(1-x_i)}\right) \\
+&=
+\frac{d}{d\theta} \left[ \left( \sum_{1}^{N} x_i \right) \log(\theta) + 
+\left( \sum_{1}^{N}(1-x_i) \right) \log (1-\theta)\right] \\
+&= \left( \sum_{i=1}^{N} x_i \right) \frac{1}{\theta} -
+\left( N - \sum_{i=1}^{N}(x_i) \right) \frac{1}{1-\theta}
+\end{align*}
+
+Luego entonces, la función de verosimilitud es maximizada usando $\theta = \frac{1}{N} \sum_{1}^{N}(x_i)$.
+
+------
+
+\begin{definicion}
+Sea $X$ una variable aleatoria que depende de un parámetro $\theta$ y $X_1, \dots, X_N$ una muestra de tamaño $N$. Un estimador $\widehat{\theta}$ es \textbf{insesgado} si cumple que
+\begin{equation}
+\E{\widehat{\theta}} = \theta
+\end{equation}
+\end{definicion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Pruebas de hipótesis}
+
+Una tarea común en la estadística es decidir si alguna afirmación puede sostenerse a partir de la
+información proporcionada por un conjunto de datos. 
+%
+A partir de la aplicación masiva de pruebas neuropsicológicas a un grupo de adultos mayores uno 
+puede preguntarse, por ejemplo, si hombres y mujeres tienden a obtener puntajes diferentes en las
+pruebas, o si la edad de los participantes está correlacionada con su desempeño en tareas de 
+memoria.
+%
+En la tabla ... se muestran los datos sobre una simulación (artificial) de dicho escenario.
+
+Una herramienta de uso común para producir estas decisiones es la \textbf{pruebas de hipótesis},
+la cual consiste en dos afirmaciones tales que exactamente una es verdadera; tales afirmaciones
+son referidas como \textit{hipótesis}, y deben elegirse de forma que sean equivalentes a la 
+decisión que se busca. 
+%
+Usualmente la primera de las hipótesis (hipótesis nula, $H_0$) representa la afirmación más general o que se cree verdadera por omisión, mientras que la segunda hipótesis (hipótesis alternativa, $H_A$) se tomará como verdadera si
+existe suficente información para rechazar la veracidad de la primera.
+%
+Adicionalmente, una prueba de hipótesis contempla un \textit{estadístico de prueba} que toma ... para poder decidir entre rechazar o no la hipótesis nula.
+
+Retomando los datos de la tabla ..., considérese la pregunta \textit{¿Los hombres y mujeres tienden
+a obtener puntajes diferentes en las pruebas neuropsicológicas?}. 
+%
+En este ejemplo se supone que los puntajes de los hombres en la prueba siguen una distribución normal con media $\mu_H$ y varianza 1, y similarmente para las mujeres con media $\mu_M$ y varianza 1.
+%
+Como hipótesis nula se elige la posibilidad de que en promedio ambos grupos (hombre y mujeres) obtengan el mismo puntaje en la prueba, es decir
+\begin{equation}
+H_0 : \mu_H = \mu_M
+\end{equation}
+y como hipótesis alternativa está la posibilidad de que los puntajes sean diferentes
+\begin{equation}
+H_A : \mu_H \neq \mu_M
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
