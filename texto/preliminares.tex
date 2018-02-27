@@ -102,11 +102,20 @@ Una medida de probabilidad puede entenderse como un caso particular de medida fi
 El espacio de medida $(\Omega,\mathcal{U},P)$ se dice un \textbf{espacio de probabilidad} si satisface que $P(\Omega) = 1$ 
 \end{definicion}
 
+\begin{definicion}
+Sean $(\Omega_1,\mathcal{U}_1)$ y $(\Omega_2,\mathcal{U}_2)$ dos espacios medibles. Se dice que una función $f: \omega_1 \rightarrow \Omega_2$ es \textbf{medible} si para todo $A\in \mathcal{U}_2$
+$f^{-1}(A)\in\mathcal{U}$
+\end{definicion}
+
+\begin{definicion}
+Sea $(\Omega,\mathcal{U})$ un espacio medible y $(I,\mathcal{B}_I,P)$ un espacio de probabilidad. Una \textbf{variable aleatoria} es una función medible $X: \Omega \rightarrow \mathcal{B}_I$ entre estos espacios
+\end{definicion}
+
+%Los espacios de probabilidad pueden definirse para una gran variedad de conjuntos; por simplicidad, en el presente texto únicamente se manejan espacios de probabilidad de la forma $(I,\mathcal{B}_I,P)$, con $I\subseteq \R$ un intervalo.
+
 Comunmente se asocia el resultado de un experimento \textit{aleatorio} con un espacio de probabilidad; el espacio muestral correspondería a los resultados posibles, y la medida representaría la \textit{probabilidad} de que el resultado ocurra en determinado conjunto.
 %
 Es común interpretar que si la probabilidad de un conjunto medible es $p$, entonces se espera que el resultado ocurra en dicho conjunto el $100*p \%$ de las ocasiones que se repita el experimento.
-
-Por simplicidad, en el presente texto únicamente se manejan espacios de probabilidad de la forma $(I,\mathcal{B}_I,P)$, con $I\subseteq \R$ un intervalo.
 
 \begin{definicion}%[Función de Probabilidad Acumulada]
 Sea $(\R,\mathcal{B},P)$ un espacio de probabilidad. La \textbf{función de probabilidad acumulada}, $F : \R \rightarrow [0,1]$, se define como
@@ -142,22 +151,46 @@ Para cualesquiera $a, b \in \R$, puede escribirse
 
 \subsection{Variables aleatorias continuas y discretas}
 
+\begin{definicion}
+Una función $F: \R \rightarrow \R$ se dice \textbf{absolutamente continua} si para cualquier $\varepsilon>0$ arbitrario existe un $\delta>0$ y una familia de intervalos, $\{ [a_n, b_n]\}_{n\in \N}$, tal que
+\begin{equation}
+\sum_{n\in \N} \abso{b_n - a_n} < \delta 
+\end{equation}
+\begin{equation}
+\sum_{n\in \N} \abso{F(b_n) - F(a_n)} < \varepsilon 
+\end{equation}
+\end{definicion}
+
+Se dice que una medida de probabilidad $P$ es \textbf{continua} si su función de probabilidad acumulada es absolutamente continua.
+
+\begin{proposicion}
+Si una medida de probabilidad $F$ es absolutamente continua, entonces existe una función $f$ tal que 
+\begin{equation}
+F(x) = \int_{-\infty}^{x}f(y) dy
+\end{equation}
+Se dice que $f$ es la \textbf{función de densidad de probabilidad}.
+\end{proposicion}
+
 Sea $P$ una medida de probabilidad, se define su \textbf{soporte} como
 \begin{equation}
 \mathcal{D}_P = \left\{ x\in \R \lvert P\left( \left\{ x\right\} \right)>0 \right\}
 \end{equation}
+%
+Se dice que una medida de probabilidad, $P$, es \textbf{discreta} si su soporte es numerable.
 
-Se dice que una medida de probabilidad, $P$, es \textbf{discreta} si $P\left(\mathcal{D}_P\right)=1$.
-
-\begin{definicion}
-Una función $F: \R \rightarrow \R$ se dice \textbf{absolutamente continua} si para cualquier $\varepsilon>0$ arbitrario existe un $\delta>0$ y una familia de intervalos, $\{ [a_n, b_n]\}_{n\in \N}$, tal que
-\begin{align}
-\sum_{n\in \N} \abso{b_n - a_n} &< \delta \\
-\sum_{n\in \N} \abso{F(b_n) - F(a_n)} &< \varepsilon 
-\end{align}
-\end{definicion}
-
-Se dice que una medida de probabilidad $P$ es \textbf{continua} si su función de probabilidad acumulada es absolutamente continua.
+\begin{proposicion}
+Si una medida de probabilidad $F$ es discreta, entonces existe una finito o infinito numerable $Q_F=\{q_n\}_{n\in \N}$ tal que 
+\begin{equation}
+F(x) = \sum_{n\leq x} q_n F({q_n})
+\end{equation}
+Es posible construir una función de densidad de probabilidad para $F$ como
+\begin{equation}
+f(x) = \begin{cases}
+F({x}) &, x\in Q_F \\
+0 &, \text{otro caso}
+\end{cases}
+\end{equation}
+\end{proposicion}
 
 Naturalmente es posible construir medidas de probabilidad que no sean ni continuas ni discretas. Por ejemplo, considérese la función de Cantor $K$ que puede ser definida iterativamente como
 \begin{equation}
@@ -186,7 +219,7 @@ K(x) &, 0\leq x \leq 1 \\
 \end{cases}
 \end{equation}
 la cual no es ni continua ni discreta. Por simplicidad, en el presente trabajo únicamente se considerarán variables aleatorias que son continuas o discretas.
-%
+
 La distinción entre variables aleatorias continuas y discretas puede verse más notoria en virtud del teorema \ref{Lebesgue_decomp}.
 
 \begin{teorema}[Descomposición de Radon-Nikodym]
