@@ -32,10 +32,11 @@ No hay un consenso absoluto sobre qué deficiencias cognitivas --o más bien en 
 distinguen a un individuo con DCL, de modo que hay una multitud de definiciones que no son
 equivalentes \cite{Petersen01}.
 %
-En el presente trabajo se desarrollaron métodos para caracterizar --y diagnosticar-- el DCL en base 
-a mediciones objetivas, pero manteniendo presente que el fenómeno del deterioro cognitivo no puede 
-reducirse exclusivamente a tales mediciones. Las conclusiones sobre las señales electrofisiológicas 
-deben ser contrastadas, por ejemplo, con los resultados de evaluaciones neuropsicológicas y revisiones neurológicas.
+En el presente trabajo se desarrollaron métodos para caracterizar con DCL adultos mayores comparados 
+con sanos en base a mediciones objetivas, pero manteniendo presente que el fenómeno del deterioro 
+cognitivo no puede reducirse exclusivamente a tales mediciones. Las conclusiones sobre las señales
+electrofisiológicas deben ser contrastadas, por ejemplo, con los resultados de evaluaciones 
+neuropsicológicas y revisiones neurológicas.
 
 En concreto se utilizarán registros de varias señales electrofisiológicas --incluyendo 
 electroencefalograma (EEG), electrooculograma (EOG) y electromiograma (EMG)-- obtenidos durante 
@@ -51,9 +52,9 @@ potencias explica \textit{cómo} es dicha actividad.
 El presente trabajo toma parte en el problema metodológico de que las señales 
 electrofisiológicas típicamente representan procesos no--lineales y \textbf{no--estacionarios}, y sin 
 embargo suelen ser analizadas usando herramientas que suponen linealidad y estacionariedad. Se sabe que
-las señales biológicas son mayormente no estacionarias, pero en ventanas pequeñas de tiempo estas son
-mayormente estacionarias. Además estudios previos han demostrado que señales mayores de 20 segundos pueden ayudar 
-a inferir problemas neurológicos \cite{Cohen77}.
+las señales biológicas son globalmente no estacionarias, pero en ventanas pequeñas de tiempo estas son
+mayormente estacionarias. Además estudios previos han demostrado que análisis de señales en tiempos
+intermedios pueden ayudar a inferir problemas neurológicos \cite{Cohen77}.
 %
 En el caso particular del espectro de potencias, es común que sea calculado usando la 
 transformada de Fourier sobre segmentos cortos para evitar los \textit{efectos} de la 
@@ -68,27 +69,43 @@ posibilidad de que puedan usarse como marcadores de deterioro cognitivo.
 %
 Adicionalmente, la posibilidad de que sujetos con PDC exhiben estacionariedad débil en sus 
 registros de EEG en mayor proporción (respecto a individuos sanos) fue sugerida anteriormente
-\cite{Cohen77}. En este trabajo PDC, se asume que solo las pruebas neurológicas son las que determinan
-el posible de deterioro cognitivo.
+\cite{Cohen77}. En esta tesis probable DCL o PDC, se asume que solo las pruebas neurológicas
+son lo determinan.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Antecedentes}
 
-La actividad del sueño de Movimientos Oculares Rápidos (MOR) ha demostrado ser un indicador del DC en los adultos mayores. En otros estudios, se ha encontrado una mayor potencia absoluta y relativa en frecuencias lentas, en regiones laterales \cite{Brayet} y menos atonía muscular \cite{Chen}.
+La epoca del sueño de Movimientos Oculares Rápidos (MOR) ha demostrado ser un indicador del DC en los adultos mayores. En otros estudios, se ha encontrado una mayor potencia absoluta y relativa en frecuencias lentas, en regiones laterales \cite{Brayet} y menos atonía muscular \cite{Chen}.
 
-Los estudios anteriores han incluido análisis lineales del Electroencefalograma (EEG) o del Electromiograma (EMG), pero el Electrooculograma (EOG) no se ha considerado como un posible marcador de deterioro cognitivo. Los tres indicadores de sueño REM aparecen generalmente en orden consecutivo. Al ingresar a esta etapa, los husos y las ondas lentas de alta amplitud están ausentes, el EEG tiene abundantes frecuencias beta y gamma \cite{SteriadeIntracortical1996,Llinas}, hay una abrupta pérdida de voltaje que ocurre en un intervalo menos de 2 segundos \cite{Rosales-Lagarde2009}, y, luego, aparcen los movimientos oculares (MOR) característicos \cite{Aserinsky,AASM2007,Rechtshaffen1968}.
+Los estudios anteriores han incluido análisis lineales del Electroencefalograma (EEG) o del Electromiograma (EMG), pero el Electrooculograma (EOG) no se ha considerado como un posible marcador de deterioro cognitivo. Los tres indicadores de sueño MOR aparecen generalmente en orden consecutivo. Al ingresar a esta etapa, los husos y las ondas lentas de alta amplitud están ausentes, el EEG tiene abundantes frecuencias beta y gamma \cite{SteriadeIntracortical1996,Llinas}, hay una abrupta pérdida de voltaje que ocurre en un intervalo menos de 2 segundos \cite{Rosales-Lagarde2009}, y, luego, aparcen los movimientos oculares (MOR) característicos \cite{Aserinsky,AASM2007,Rechtshaffen1968}.
 
+El sueño MOR se ha asociado durante mucho tiempo con las funciones cognitivas \cite{Moruzzi1963}; 
+citado en \cite{Corsi1983}. El sueño MOR desempeña un papel en la consolidación de la memoria 
+\cite{Lucero, Leconte1971, Leconte1972, Fishbein1971, Fishbein1977, Pearlman1971, Pearlman1973, Pearlman1974, Smith}.
+Después de tareas complejas, hay reactivaciones de circuitos neuronales durante MOR sleep \cite{Louie}. 
+La Potenciación a Largo Plazo (LTP) solo ocurre durante la vigilia y el sueño MOR, y, dependiendo de su fase theta del hipocampo, la LTP puede mejorarse o inhibirse \cite{Pavlides1988}.
+
+
+El sueño MOR mejora la memoria y los procesos de atención mediante las entradas colinérgicas \cite{Braun} a través de pontine \cite{Datta2004} y las estructuras del basales del cerebro anterior \cite{Blake}. Durante el envejecimiento normal y especialmente durante el envejecimiento patológico, los procesos de atención y memoria se vuelven más vulnerables, y las neuronas colinérgicas son las más afectadas \cite{Schliebs2011}. El envejecimiento afecta a varias estructuras anatómicas que resultan en la pérdida de un eje dendrítico en las neuronas corticales que muestran una degradación en su complejidad fractal estructural \cite{Lipsitz}.
+
+En otros países, el deterioro cognitivo leve (DCL) ha sido medido por el Instituto Nacional de Enfermedades
+Neurológicas y Comunicativas y la Asociación de Stroke / Alzheimer's Disease and Related Disorders o NINCDS ADRDA criteria \cite{McKhann}. Sin embargo, las pruebas neuropsicológicas empleadas en estos estudios todavía no se han validado en México debido en parte a la alta tasa de analfabetismo entre los adultos mayores, que en México asciende
+al 25.6 \% \cite{CONAPO2010}. En cambio, en estudios epidemiológicos, el Examen Cognitivo Transcultural (CCCE) y otras pruebas se han utilizado \cite{Rosales-Lagarde2016}. El CCCE muestra una prevalencia del 28.7 \% de deterioro cognitivo sin demencia (DCSD) que aumenta con la edad y disminuye con un nivel educativo más alto \cite{Mejia-Arango2011}. La prueba de Neuropsi, desarrollada en la UNAM, también ha distinguido claramente entre sujetos normales, con deterioro cognitivo y demenciales \cite{Ostrosky1999, Abrisqueta, Montes2012}. En el presente estudio, una puntuación de 3 desviaciones estándar por debajo de la media en la prueba de Neuropsi se consideró una indicación de Probable DC (PDC).
+
+En un estudio reciente, EEG de una noche polisomnografía de personas mayores con y sin deterioro cognitivo según las evaluaciones con el Neuropsi analizó el porcentaje de estacionariedad.  En sueño MOR el porcentaje fue menor que el del sueño NMOR y la vigilia, se obtuvo estacionariedad  como un índice para comparar NMOR versus sueño MOR en ambos grupos \cite{ROSALESLAGARDE2017}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Pregunta de investigación}
 
 ¿Los registros de polisomnograma en adultos mayores pueden considerarse como series de tiempo 
-débilmente estacionarias?
+débilmente estacionarias? 
+
+
 %
-¿Es posible que tal caracterización se vea influida por el estado cognitivo del sujeto?
+¿Es posible que la estacionariedad se vea influida por el estado cognitivo del sujeto?
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -124,7 +141,7 @@ es válida dicha caracterización.
 \item Decidir si los registros de PSG, durante sueño profundo, son débilmente estacionarios.
 
 \item Investigar si la presencia de segmentos estacionarios en los registros es diferente si el
-PSG corresponde a un individuo con DCL.
+PSG corresponde a un individuo con PDCL o PDC.
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
